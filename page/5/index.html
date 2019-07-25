@@ -314,6 +314,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/01/25/Firefox下载中文名文件为乱码的一种解决方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/Firefox下载中文名文件为乱码的一种解决方法/" itemprop="url">Firefox下载中文名文件为乱码的一种解决方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T00:00:00+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#环境</p>
+<ul>
+<li>os: OpenSUSE Tumbleweed</li>
+<li>pc: Apple macbook 13’ pro 2015</li>
+</ul>
+<p>#故障描述<br>从百度网盘直接下载的中文pdf文件显示为乱码,具体是显示url编码后的中文名</p>
+<p>#修复<br>查看当前目录下的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tianfei@openSuSeLinux:~/Downloads/pdf&gt; ll</span><br><span class="line">total 61420</span><br><span class="line">-rw-r--r-- 1 tianfei users 12848877 Jan 25 10:10 %5B%E7%91%9E%E5%85%B8%E5%8F%B2%28%E4%B8%8A%E4%B8%8B%E5%86%8C%29%5D.%28%E7%91%9E%E5%85%B8%29%E5%AE%89%E5%BE%B7%E7%94%9F.%E6%89%AB%E6%8F%8F%E7%89%88.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users  6683784 Jan 12 14:52 Docker in Practice.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users   283995 Jan 16 11:50 dotguide.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users        0 Jan 23 11:35 %E6%9C%9D%E9%B2%9C%E7%AE%80%E5%8F%B2.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 43070424 Jan 19 17:38 亚洲历史 许海山.pdf</span><br></pre></td></tr></table></figure>
+
+<p>其中第一,四个pdf文件显示乱码,写了一个url解码脚本进行修复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(venv3.6) tianfei@openSuSeLinux:~/Downloads/pdf&gt; cat ~/devops/ScriptsForTianfei/decode_urlcode_filename.py</span><br><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def convert_filename(files):</span><br><span class="line">    for file in files:</span><br><span class="line">        unquote_file_name = urllib.parse.unquote(file)</span><br><span class="line">        os.rename(file, unquote_file_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    files = os.listdir()</span><br><span class="line">    convert_filename(files)</span><br></pre></td></tr></table></figure>
+
+<p>在当前目录下执行脚本之后,文件名显示正确的UTF-8格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(venv3.6) tianfei@openSuSeLinux:~/Downloads/pdf&gt; ll</span><br><span class="line">total 61420</span><br><span class="line">-rw-r--r-- 1 tianfei users  6683784 Jan 12 14:52 Docker in Practice.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users   283995 Jan 16 11:50 dotguide.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 12848877 Jan 25 10:10 [瑞典史(上下册)].(瑞典)安德生.扫描版.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 43070424 Jan 19 17:38 亚洲历史 许海山.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users        0 Jan 23 11:35 朝鲜简史.pdf</span><br></pre></td></tr></table></figure>
+
+<p>%5B%E7%91%9E%E5%85%B8%E5%8F%B2%28%E4%B8%8A%E4%B8%8B%E5%86%8C%29%5D.%28%E7%91%9E%E5%85%B8%29%E5%AE%89%E5%BE%B7%E7%94%9F.%E6%89%AB%E6%8F%8F%E7%89%88.pdf<br>显示为[瑞典史(上下册)].(瑞典)安德生.扫描版.pdf,%E6%9C%9D%E9%B2%9C%E7%AE%80%E5%8F%B2.pdf显示为朝鲜简史.pdf</p>
+<p>脚本下载在我的github：</p>
+<blockquote>
+<p><a href="https://github.com/talenhao/ScriptsForTianfei/tree/master/decode_urlcode_filename" target="_blank" rel="noopener">https://github.com/talenhao/ScriptsForTianfei/tree/master/decode_urlcode_filename</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/01/18/fix_opensuse_tumbleweed_cat_not_suspend/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,6 +538,134 @@
 
 <p>将脚本内容放置在/etc/init.d/boot.local中就可以了.</p>
 <p>参考:<br><a href="https://askubuntu.com/questions/552345/can-not-suspend-my-laptop-asus" target="_blank" rel="noopener">https://askubuntu.com/questions/552345/can-not-suspend-my-laptop-asus</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/28/wireshark-preamble-fcs/" itemprop="url">为什么wireshark抓取ethernet II前导8字符与FCS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
+                2017-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分<br>如图:<br>红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议)<br><img src="/img/post/Spectacle.XF5278.png" alt="manager page"></p>
+<p>查找资料好觉得这篇文章(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了</a></p>
+<blockquote>
+<p>在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目 的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处 理。这时我们的抓包软件才能抓到数据，因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，</p>
+</blockquote>
+<blockquote>
+<p>帧格式图,<br><img src="/img/post/frame.png" alt="manager page"></p>
+</blockquote>
+<p>参考:<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a></p>
 
           
         
@@ -597,134 +864,6 @@
 
 
 <p><img src="/img/post/Screenshot_20170928_150658.png" alt="manager page"><br><img src="/img/post/Screenshot_20170928_150725.png" alt="process page"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="郝天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郝天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/wireshark-preamble-fcs/" itemprop="url">为什么wireshark抓取ethernet II前导8字符与FCS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分<br>如图:<br>红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议)<br><img src="/img/post/Spectacle.XF5278.png" alt="manager page"></p>
-<p>查找资料好觉得这篇文章(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了</a></p>
-<blockquote>
-<p>在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目 的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处 理。这时我们的抓包软件才能抓到数据，因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，</p>
-</blockquote>
-<blockquote>
-<p>帧格式图,<br><img src="/img/post/frame.png" alt="manager page"></p>
-</blockquote>
-<p>参考:<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a></p>
 
           
         
@@ -1521,134 +1660,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/05/pip_require_tls_ssl问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="郝天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郝天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/pip_require_tls_ssl问题/" itemprop="url">pip_require_tls_ssl问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T00:00:00+08:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>salt推送报pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cmd_|-python_requirements_|-/usr/local/_python3.6.1/bin/pip3 install -r sce_requirements.txt_|-run:</span><br><span class="line">      ----------</span><br><span class="line">      __run_num__:</span><br><span class="line">          5</span><br><span class="line">      changes:</span><br><span class="line">          ----------</span><br><span class="line">          pid:</span><br><span class="line">              26431</span><br><span class="line">          retcode:</span><br><span class="line">              1</span><br><span class="line">          stderr:</span><br><span class="line">              pip is configured with locations that require TLS/SSL, however the ssl module in Python is not available.</span><br><span class="line">                Could not find a version that satisfies the requirement psutil==5.3.0 (from -r sce_requirements.txt (line 1)) (from versions: )</span><br><span class="line">              No matching distribution found for psutil==5.3.0 (from -r sce_requirements.txt (line 1))</span><br><span class="line">          stdout:</span><br><span class="line">              Collecting psutil==5.3.0 (from -r sce_requirements.txt (line 1))</span><br><span class="line">                Could not fetch URL https://pypi.python.org/simple/psutil/: There was a problem confirming the ssl certificate: Can&apos;t connect to HTTPS URL because the SSL module is not available. - skipping</span><br><span class="line">      comment:</span><br><span class="line">          Command &quot;/usr/local/_python3.6.1/bin/pip3 install -r sce_requirements.txt&quot; run</span><br><span class="line">      duration:</span><br><span class="line">          514.995</span><br><span class="line">      name:</span><br><span class="line">          /usr/local/_python3.6.1/bin/pip3 install -r sce_requirements.txt</span><br><span class="line">      result:</span><br><span class="line">          False</span><br><span class="line">      start_time:</span><br><span class="line">          20:13:40.393491</span><br></pre></td></tr></table></figure>
-
-<p>应该是openssl相关的包有问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@192_168_1_1 bin]# rpm -qa |grep openssl</span><br><span class="line">openssl-1.0.1e-57.el6.x86_64</span><br></pre></td></tr></table></figure>
-
-<p>没有devel包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y openssl-devel</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1699,7 +1710,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1710,7 +1721,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1721,7 +1732,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

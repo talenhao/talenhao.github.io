@@ -314,6 +314,418 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/12/ovirt技术参考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/ovirt技术参考/" itemprop="url">ovirt 技术参考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T00:00:00+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
+                    <span itemprop="name">Ovirt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="chapter1-技术架构说明"><a href="#chapter1-技术架构说明" class="headerlink" title="chapter1.技术架构说明"></a>chapter1.技术架构说明</h1><h2 id="1-1-Virtualization-Manager-Engine"><a href="#1-1-Virtualization-Manager-Engine" class="headerlink" title="1.1 Virtualization Manager(Engine)"></a>1.1 Virtualization Manager(Engine)</h2><p>集中化的虚拟环境管理平台<br><img src="/img/ovirt/Virtualization_Manager_Architecture.png" alt="技术架构"></p>
+<h2 id="1-2-Hosts"><a href="#1-2-Hosts" class="headerlink" title="1.2 Hosts"></a>1.2 Hosts</h2><p><img src="/img/ovirt/Host_Architecture.png" alt="Host_Architecture"></p>
+<ul>
+<li>KVM(kernel-based virtual machine)<ul>
+<li>使用 Intel VT or AMD-V hardware extensions的全虚拟化内核模块</li>
+<li>kvm运行在kernel space</li>
+</ul>
+</li>
+<li>QEMU()<ul>
+<li>全平台模拟器</li>
+<li>QEMU运行在user space</li>
+</ul>
+</li>
+<li>VDSM(Host Agent)<ul>
+<li>初始化虚拟环境</li>
+<li>host间通信</li>
+<li>监控主机资源(CPU,MEM,NET)</li>
+<li>虚拟机创建,统计,日志收集</li>
+<li>接收来自ovirt engine的指令,监听端口:54321</li>
+</ul>
+</li>
+<li>VDSM-REG<ul>
+<li>负责向engine注册host</li>
+<li>提供自身信息及host信息</li>
+</ul>
+</li>
+<li>libvirt<ul>
+<li>管理虚拟机</li>
+<li>engine(start,stop,reboot指令) -&gt; vdsm -&gt; libvirt</li>
+</ul>
+</li>
+<li>SPM(storage pool manager)<ul>
+<li>辅助维护存储metadata</li>
+<li>创建,删除,维护虚拟磁盘,创建映像,模板.</li>
+<li>数据中心的所有主机都必需能够访问存储,任何主机都有可能被指定为SPM,但一个数据中心只有一个SPM</li>
+<li>SPM host不可达时,engine重新指定spm</li>
+</ul>
+</li>
+<li>Guest Operating System<ul>
+<li>虚拟机操作系统不受ovirt环境影响及修改</li>
+<li>Guest Agent安装在Guest OS上可以更高效率的运行.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-ovirt支撑组件"><a href="#1-3-ovirt支撑组件" class="headerlink" title="1.3 ovirt支撑组件"></a>1.3 ovirt支撑组件</h2><ul>
+<li>Red Hat JBoss Enterprise Application Platform<ul>
+<li>java程序服务器</li>
+</ul>
+</li>
+<li>报表及历史数据<ul>
+<li>数据仓库收集监控数据(host,vms,storage)</li>
+<li>两个PG数据库<ul>
+<li>engine</li>
+<li>ovirt_engine_history<ul>
+<li>ovirt-engine-dwhd 历史收集服务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>访问目录服务<ul>
+<li>内部账号: admin</li>
+<li>Active Directory</li>
+<li>Identity Management (IdM)</li>
+<li>OpenLDAP</li>
+<li>Red Hat Directory Server 9</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-4-存储"><a href="#1-4-存储" class="headerlink" title="1.4 存储"></a>1.4 存储</h2><p>逻辑存储池(域)</p>
+<p>存储域是共享资源,数据中心的所有主机都必需能够访问存储</p>
+<ul>
+<li>data(必备惟一,不能夸数据中心)<ul>
+<li>vdisk image</li>
+<li>snapshots</li>
+<li>templates</li>
+</ul>
+</li>
+<li>export(可选)<ul>
+<li>主要用来在不同data center之间迁移数据,同一时间只能附在一个data center</li>
+</ul>
+</li>
+<li>ISO(可选)<ul>
+<li>ISO域存储操作系统ISO文件,可以在多个data center之间共享,可附加多个data center.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-5-网络"><a href="#1-5-网络" class="headerlink" title="1.5 网络"></a>1.5 网络</h2><p>网络架构不仅连接网络,还可以分隔网络.</p>
+<p>网络基础要实现硬件与ovirt逻辑组件之间的连接<br><img src="/img/ovirt/Network_Architecture.png" alt="Network_Architecture.png"></p>
+<p>Networking Infrastructure Layer</p>
+<ul>
+<li>host NIC 连接物理网络</li>
+<li>VNIC 使用基于 NIC 连接 vms</li>
+<li>bonds 多个NIC为1个接口</li>
+<li>bridge 在网络中进行包转发与包交换,是虚拟网络的基础</li>
+</ul>
+<p>Logical Networks</p>
+<ul>
+<li>隔离网络流量<ul>
+<li>虚拟机网络<ul>
+<li>bridge转发交换,需要host上创建bridge虚拟设备</li>
+</ul>
+</li>
+<li>非虚拟机网络<ul>
+<li>直接作用于NIC,不在host上创建bridge</li>
+</ul>
+</li>
+<li>可选的网络</li>
+<li>必选的网络</li>
+</ul>
+</li>
+<li>迁移网络是单独的,不影响(ovirtmgmt)</li>
+<li>逻辑网络在不同的层次有不同的意义<ul>
+<li>Data Center Layer<ul>
+<li>逻辑网络是在数据中心层定义的.</li>
+</ul>
+</li>
+<li>Cluster Layer<ul>
+<li>逻辑网络应用在集群上.</li>
+<li>在默认的情况下，每个集群都会连接到管理网络中</li>
+<li>“必需的”逻辑网络被添加到集群中时，它需要被添加到集群中的所有主机上</li>
+<li>“可选的”逻辑网络可以根据需要被添加到所需的主机上。</li>
+</ul>
+</li>
+<li>Host Layer<ul>
+<li>虚拟机逻辑网络 host bridge -&gt; NIC</li>
+<li>非虚拟机逻辑网络 -&gt; NIC</li>
+<li>管理网络 ovirtmgmt bridge -&gt; NIC</li>
+<li>添加到集群中的required逻辑网络必需关联到host上相当的网卡上才能使用.</li>
+</ul>
+</li>
+<li>Virtual Machine Layer<ul>
+<li>同host,VNIC必需关联到逻辑网络才能使用上面的资源.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-6-数据中心组件"><a href="#1-6-数据中心组件" class="headerlink" title="1.6 数据中心组件"></a>1.6 数据中心组件</h2><ul>
+<li><p>存储</p>
+<ul>
+<li>一个数据中心,一个独享data域</li>
+<li>export在数据中心共享数据,但同时只能附到一个数据中心</li>
+<li>ISO域是所有数据中心共享的.</li>
+</ul>
+</li>
+<li><p>网络(创建于data center,应用于cluster)</p>
+<ul>
+<li>ip address</li>
+<li>VLAN tags</li>
+<li>STP</li>
+</ul>
+</li>
+<li><p>集群</p>
+<ul>
+<li>host pool</li>
+<li>一致的硬件</li>
+<li>VM在cluster内的host迁移</li>
+</ul>
+</li>
+</ul>
+<h1 id="chapter2-存储"><a href="#chapter2-存储" class="headerlink" title="chapter2.存储"></a>chapter2.存储</h1><h1 id="chapter3-网络"><a href="#chapter3-网络" class="headerlink" title="chapter3.网络"></a>chapter3.网络</h1><h2 id="3-1-网络架构"><a href="#3-1-网络架构" class="headerlink" title="3.1 网络架构"></a>3.1 网络架构</h2><ul>
+<li>基础网络</li>
+<li>cluster 网络</li>
+<li>host 网络<h2 id="3-2-介绍基础网络"><a href="#3-2-介绍基础网络" class="headerlink" title="3.2 介绍基础网络"></a>3.2 介绍基础网络</h2></li>
+<li>连通vm,host,LAN<ul>
+<li>A Network Interface Controller (NIC)</li>
+<li>A Bridge<ul>
+<li>逻辑网络通过bridge实现</li>
+<li>IP分配在虚拟的bridge接口上，而不是实际的NIC</li>
+<li>虚拟机的VNIC可以与bridge的接口地址不同子网;相同子网的话虚拟机可以访问host上的网络资。</li>
+</ul>
+</li>
+<li>A Virtual NIC<ul>
+<li>基于template或snapshot批量创建虚拟机,系统会自动按顺序配置vnic的MAC地址.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增强安全,高可用,性能<ul>
+<li>A Bond (fault tolerance)<ul>
+<li>多NIC聚合<ul>
+<li>bond mode<ul>
+<li>bridge and bridgeless<ul>
+<li>1 Mode 1 (active-backup policy)</li>
+<li>2 Mode 2 (XOR policy)</li>
+<li>3 模式 3（broadcast policy）</li>
+<li>4 模式 4（IEEE 802.3ad policy）</li>
+</ul>
+</li>
+<li>bridgeless<ul>
+<li>0 Mode 0 (round-robin policy)</li>
+<li>5 模式 5（adaptive transmit load balancing policy）</li>
+<li>6 模式 6（adaptive load balancing policy）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A Virtual LAN (VLAN)(数字)<ul>
+<li>作用在packets上</li>
+<li>在switch层隔离网络流量<h2 id="3-3-网络标签"><a href="#3-3-网络标签" class="headerlink" title="3.3 网络标签"></a>3.3 网络标签</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>标签支持大小写字母、下划线和分号,没有长度限制</li>
+<li>简化逻辑网络管理<ul>
+<li>网络标签与主机关联<ul>
+<li>自动将逻辑网络关联到具有相同标签的hosts硬件网卡上</li>
+<li>自动装hosts NIC关联到具有相同标签的逻辑网络</li>
+<li>移除或修改标签会作相应的关联删除或修改</li>
+</ul>
+</li>
+<li>网络标签与集群关联<ul>
+<li>自动将逻辑网络关联到具有相同标签的cluster中的hosts硬件网卡上</li>
+<li>删除cluster中网络标签,自动从cluster中hosts硬件网卡上删除逻辑网络</li>
+</ul>
+</li>
+<li>网络标签和有用户角色的逻辑网络<ul>
+<li>当一个有网络标识的逻辑网络被设为“显示网络”或“迁移网络”时，它会在主机物理网络接口中被配置为通过 DHCP 获得一个 IP 地址。</li>
+<li>当为一个角色网络（如“一个迁移网络”或“一个显示网络”）设置网络标签时，会在所有主机上产生大量部署这个网络的操作。这些大量的网络添加操作是通过使用 DHCP 实现的，而不是通过输入静态地址实现的。这是因为，和 DHCP 相比，输入大量静态地址不具有“可扩展性”.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-5-集群网络"><a href="#3-5-集群网络" class="headerlink" title="3.5 集群网络"></a>3.5 集群网络</h2><p><img src="/img/ovirt/Networking_within_a_cluster.png" alt></p>
+<ul>
+<li>集群内的hosts访问相同的存储域,逻辑网络</li>
+<li>VM逻辑网络必须在所有hosts上配置</li>
+<li>其它逻辑网络只需在需要的hosts上配置</li>
+</ul>
+<h2 id="3-6-逻辑网络"><a href="#3-6-逻辑网络" class="headerlink" title="3.6 逻辑网络"></a>3.6 逻辑网络</h2><ul>
+<li>只能在主机处于维护模式时才可以部署逻辑网络</li>
+<li>逻辑网络的类型包括：<ul>
+<li>(vm)用来处理虚拟机网络流量的逻辑网络<ul>
+<li>在host创建相应的bridge, 并添加绑定的物理网卡</li>
+<li>VM网卡到bridge中,bridge中的网卡可互相通信</li>
+<li>为虚拟机逻辑网络所创建的网桥设备需要和主机上的一个网络接口相关联。如果和网桥相关联的主机网络接口已经被其它网络所使用，则新加入的网络接口将同样可以共享那些已经连接到主机网络接口中的网络。当虚拟机被创建并被添加到一个特定的逻辑网中时，它们的虚拟网卡会被添加到那个逻辑网所在的网桥中。这样，虚拟机就可以和连接到相同网桥中的其它设备进行网络交流。</li>
+</ul>
+</li>
+<li>(other)不处理虚拟机网络流量的逻辑网络，<ul>
+<li>直接作用在host物理网卡上</li>
+</ul>
+</li>
+<li>(optional)可选的逻辑网络，</li>
+<li>(required)必需的逻辑网络</li>
+</ul>
+</li>
+<li>定义在数据中心,作用在主机</li>
+</ul>
+<h2 id="3-7-必需的网络-可选的网络-虚拟机网络"><a href="#3-7-必需的网络-可选的网络-虚拟机网络" class="headerlink" title="3.7 必需的网络,可选的网络,虚拟机网络"></a>3.7 必需的网络,可选的网络,虚拟机网络</h2><ul>
+<li>必需的网络在所有hosts上配置,host的必需网络不可用时会迁移所有虚拟机到其它host</li>
+<li>非必需网络不可用不会迁移虚拟机</li>
+<li>虚拟机网络（VM network）是那些只处理虚拟机网络流量的逻辑网络</li>
+</ul>
+<h2 id="3-8-端口镜像"><a href="#3-8-端口镜像" class="headerlink" title="3.8 端口镜像"></a>3.8 端口镜像</h2><p>端口镜像（port mirroring）会把指定逻辑网络和主机上的第 3 层网络流量复制到一个虚拟机的虚拟网络接口上。这样，通过这个虚拟机就可以进行网络纠错、网络优化、网络入侵检测以及对在同一个主机和逻辑网络中运行的虚拟机进行监控。</p>
+<h2 id="3-9-主机网络配置"><a href="#3-9-主机网络配置" class="headerlink" title="3.9 主机网络配置"></a>3.9 主机网络配置</h2><p>主机上包括的常见网络配置类型：</p>
+<ul>
+<li>网桥和网卡配置。<br><img src="/img/ovirt/986.png" alt></li>
+<li>网桥、VLAN（虚拟局域网）和网卡配置。<br><img src="/img/ovirt/988.png" alt></li>
+<li>网桥、网络绑定和 VLAN 配置。<br><img src="/img/ovirt/987.png" alt></li>
+<li>多网桥、多 VLAN 和网卡配置。<br><img src="/img/ovirt/989.png" alt></li>
+</ul>
+<h1 id="chapter4-电源管理"><a href="#chapter4-电源管理" class="headerlink" title="chapter4.电源管理"></a>chapter4.电源管理</h1><h1 id="chapter5-负载均衡-调度-迁移"><a href="#chapter5-负载均衡-调度-迁移" class="headerlink" title="chapter5.负载均衡,调度,迁移"></a>chapter5.负载均衡,调度,迁移</h1><h1 id="chapter6-活动目录服务"><a href="#chapter6-活动目录服务" class="headerlink" title="chapter6.活动目录服务"></a>chapter6.活动目录服务</h1><h1 id="chapter7-模板与池"><a href="#chapter7-模板与池" class="headerlink" title="chapter7.模板与池"></a>chapter7.模板与池</h1><h1 id="chapter8-Virtual-Machine快照"><a href="#chapter8-Virtual-Machine快照" class="headerlink" title="chapter8.Virtual Machine快照"></a>chapter8.Virtual Machine快照</h1><h1 id="chapter9-硬件设备与驱动"><a href="#chapter9-硬件设备与驱动" class="headerlink" title="chapter9.硬件设备与驱动"></a>chapter9.硬件设备与驱动</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/11/ovirt规划与需求/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1778,145 +2190,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/01/25/Firefox下载中文名文件为乱码的一种解决方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="郝天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郝天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/25/Firefox下载中文名文件为乱码的一种解决方法/" itemprop="url">Firefox下载中文名文件为乱码的一种解决方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T00:00:00+08:00">
-                2018-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#环境</p>
-<ul>
-<li>os: OpenSUSE Tumbleweed</li>
-<li>pc: Apple macbook 13’ pro 2015</li>
-</ul>
-<p>#故障描述<br>从百度网盘直接下载的中文pdf文件显示为乱码,具体是显示url编码后的中文名</p>
-<p>#修复<br>查看当前目录下的文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tianfei@openSuSeLinux:~/Downloads/pdf&gt; ll</span><br><span class="line">total 61420</span><br><span class="line">-rw-r--r-- 1 tianfei users 12848877 Jan 25 10:10 %5B%E7%91%9E%E5%85%B8%E5%8F%B2%28%E4%B8%8A%E4%B8%8B%E5%86%8C%29%5D.%28%E7%91%9E%E5%85%B8%29%E5%AE%89%E5%BE%B7%E7%94%9F.%E6%89%AB%E6%8F%8F%E7%89%88.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users  6683784 Jan 12 14:52 Docker in Practice.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users   283995 Jan 16 11:50 dotguide.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users        0 Jan 23 11:35 %E6%9C%9D%E9%B2%9C%E7%AE%80%E5%8F%B2.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 43070424 Jan 19 17:38 亚洲历史 许海山.pdf</span><br></pre></td></tr></table></figure>
-
-<p>其中第一,四个pdf文件显示乱码,写了一个url解码脚本进行修复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">(venv3.6) tianfei@openSuSeLinux:~/Downloads/pdf&gt; cat ~/devops/ScriptsForTianfei/decode_urlcode_filename.py</span><br><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding:UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">import urllib.parse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def convert_filename(files):</span><br><span class="line">    for file in files:</span><br><span class="line">        unquote_file_name = urllib.parse.unquote(file)</span><br><span class="line">        os.rename(file, unquote_file_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    files = os.listdir()</span><br><span class="line">    convert_filename(files)</span><br></pre></td></tr></table></figure>
-
-<p>在当前目录下执行脚本之后,文件名显示正确的UTF-8格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(venv3.6) tianfei@openSuSeLinux:~/Downloads/pdf&gt; ll</span><br><span class="line">total 61420</span><br><span class="line">-rw-r--r-- 1 tianfei users  6683784 Jan 12 14:52 Docker in Practice.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users   283995 Jan 16 11:50 dotguide.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 12848877 Jan 25 10:10 [瑞典史(上下册)].(瑞典)安德生.扫描版.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users 43070424 Jan 19 17:38 亚洲历史 许海山.pdf</span><br><span class="line">-rw-r--r-- 1 tianfei users        0 Jan 23 11:35 朝鲜简史.pdf</span><br></pre></td></tr></table></figure>
-
-<p>%5B%E7%91%9E%E5%85%B8%E5%8F%B2%28%E4%B8%8A%E4%B8%8B%E5%86%8C%29%5D.%28%E7%91%9E%E5%85%B8%29%E5%AE%89%E5%BE%B7%E7%94%9F.%E6%89%AB%E6%8F%8F%E7%89%88.pdf<br>显示为[瑞典史(上下册)].(瑞典)安德生.扫描版.pdf,%E6%9C%9D%E9%B2%9C%E7%AE%80%E5%8F%B2.pdf显示为朝鲜简史.pdf</p>
-<p>脚本下载在我的github：</p>
-<blockquote>
-<p><a href="https://github.com/talenhao/ScriptsForTianfei/tree/master/decode_urlcode_filename" target="_blank" rel="noopener">https://github.com/talenhao/ScriptsForTianfei/tree/master/decode_urlcode_filename</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1967,7 +2240,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1978,7 +2251,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1989,7 +2262,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

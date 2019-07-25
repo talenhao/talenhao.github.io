@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action di">
+<meta name="description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action">
 <meta name="keywords" content="zabbix">
 <meta property="og:type" content="article">
 <meta property="og:title" content="15 zabbix 自动发现discover">
 <meta property="og:url" content="https://talenhao.github.io/2019/02/19/15-zabbix-自动发现discover/index.html">
 <meta property="og:site_name" content="郝天飞 技术随笔">
-<meta property="og:description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action di">
+<meta property="og:description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-25T02:10:43.775Z">
+<meta property="og:updated_time" content="2019-07-25T08:08:24.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15 zabbix 自动发现discover">
-<meta name="twitter:description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action di">
+<meta name="twitter:description" content="网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现  提高部署效率 简化管理 自动管理  自动发现基于以下信息:  IP段 可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc) 非加密的zabbix agent信息 snmp agent信息  目前还不具有的功能:  网络拓扑  网络发现主要有两个部分:discovery-&amp;gt; action">
 
 
 
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T16:08:24+08:00">
                 2019-07-25
               </time>
             
@@ -439,6 +439,8 @@
 <li>网络拓扑</li>
 </ul>
 <p>网络发现主要有两个部分:discovery-&gt; action</p>
+<a id="more"></a>
+
 <h3 id="discover"><a href="#discover" class="headerlink" title="discover"></a>discover</h3><p>周期性的扫描在network discovery rules 中定义的IP段.频率在每个规则下分别设置.<br>每个rule只会被一个process处理.一个网段不会被分配到多个process.<br>discovery checks 分别独立处理,一个check失败并不影响其它check的执行.<br>每个check生成一个discovery event.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zabbix   24712  0.0  0.1 300100  5908 ?        S    Feb05   1:02  \_ /usr/sbin/zabbix_server: discoverer #1 [processed 0 rules in 0.001094 sec, idle 60 sec]</span><br></pre></td></tr></table></figure>
 

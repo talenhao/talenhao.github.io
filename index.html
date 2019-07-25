@@ -418,22 +418,25 @@
 
       
         
-          
-          python 笔记迭代器iterator&amp;递归器
-迭代器
-字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.)
-每次只取一个对象,不会对内存造成巨大开销.
-
-
-递归器
-
-装饰器@
-动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数)
-
-
-表达式 &amp; 语句
-表达式
-          ...
+          <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><h2 id="迭代器iterator-amp-递归器"><a href="#迭代器iterator-amp-递归器" class="headerlink" title="迭代器iterator&amp;递归器"></a>迭代器<strong>iterator</strong>&amp;递归器</h2><ol>
+<li>迭代器<ol>
+<li>字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.)</li>
+<li>每次只取一个对象,不会对内存造成巨大开销.</li>
+</ol>
+</li>
+<li>递归器</li>
+</ol>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器@"></a>装饰器@</h2><ol>
+<li>动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数)</li>
+<li></li>
+</ol>
+<h2 id="表达式-amp-语句"><a href="#表达式-amp-语句" class="headerlink" title="表达式 &amp; 语句"></a>表达式 &amp; 语句</h2><ol>
+<li>表达式有返回值<ol>
+<li>yield是表达式,所以调用生成器需要next()来执行表达式</li>
+<li>send是传递值给yield表达式</li>
+</ol>
+</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/25/python学习笔记/#more" rel="contents">
@@ -591,10 +594,10 @@
 
       
         
-          
-          nvm管理node版本安装curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh|bash
-配置环境1234567[Wed Jul 24 talen@tp-arch-tianfei ~]$ vim  ~
-          ...
+          <h2 id="nvm管理node版本"><a href="#nvm管理node版本" class="headerlink" title="nvm管理node版本"></a>nvm管理node版本</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>curl -o- <a href="https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh|bash" target="_blank" rel="noopener">https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh|bash</a></p>
+<h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Wed Jul 24 talen@tp-arch-tianfei ~]$ vim  ~/.bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash"> nvm</span></span><br><span class="line">export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">source</span> /usr/share/nvm/init-nvm.sh</span></span><br><span class="line">export NVM_DIR="$HOME/.nvm"</span><br><span class="line">[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh"  # This loads nvm</span><br><span class="line">[ -s "$NVM_DIR/bash_completion" ] &amp;&amp; \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看lts版本"><a href="#查看lts版本" class="headerlink" title="查看lts版本"></a>查看lts版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Wed Jul 24 talen@tp-arch-tianfei ~]$ nvm ls-remote --lts</span><br><span class="line">	v4.2.0   (LTS: Argon)</span><br><span class="line">...</span><br><span class="line">	v10.15.2   (LTS: Dubnium)</span><br><span class="line"><span class="meta">-&gt;</span><span class="bash">  v10.15.3   (LTS: Dubnium)</span></span><br><span class="line">	v10.16.0   (Latest LTS: Dubnium)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/25/使用nvm管理node版本/#more" rel="contents">
@@ -695,7 +698,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T16:07:40+08:00">
                 2019-07-25
               </time>
             
@@ -752,9 +755,9 @@
 
       
         
-          
-          123WARNINGS:?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos; [name=&apos;nagios-alert-delete&apos;] has a route that 
-          ...
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNINGS:</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos; [name=&apos;nagios-alert-delete&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/update/&apos; [name=&apos;nagios-alert-edit&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br></pre></td></tr></table></figure>
+
+<p>搜索了一下,URL中有正则表达式的需要使用re_path代替path,修改后修复</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/04/30/Django2-2-url-path-error/#more" rel="contents">
@@ -913,15 +916,8 @@
       
         
           
-          12TCO（总体拥有成本）黑石物理服务器2.0:  基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCO（总体拥有成本）</span><br><span class="line">黑石物理服务器2.0:  基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器</span><br></pre></td></tr></table></figure>
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/12/运维常用术语/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1015,7 +1011,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T16:08:08+08:00">
                 2019-07-25
               </time>
             
@@ -1072,10 +1068,7 @@
 
       
         
-          
-          netconfig是用于设置网络环境的命令
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748haotianfei@tianfei-opensuse:/etc/sysconfi
-          ...
+          <p>netconfig是用于设置网络环境的命令</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/04/01/use-sbin-netconfig-命令更新-etc-resolv-conf文件/#more" rel="contents">
@@ -1234,18 +1227,11 @@
       
         
           
-          1for img in $(ls);do convert -resize 40%x40% -quality 80 $img convert_$img;done
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for img in $(ls);do convert -resize 40%x40% -quality 80 $img convert_$img;done</span><br></pre></td></tr></table></figure>
 
-图片质量还是可以的,对于3M左右的图片,压缩到40%,质量80差不多300多K的样子,只需要1/10的存储空间
+<p>图片质量还是可以的,对于3M左右的图片,压缩到40%,质量80差不多300多K的样子,只需要1/10的存储空间</p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/30/use imagemagick convert 命令批量resize图片/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1397,17 +1383,10 @@
       
         
           
-          zabbix告警触发时一直显示in progress状态,查询了许多资料都没有解决.后来发现media脚本是pyc,更换成py后解决.这个有点太无语了.
-
+            <p>zabbix告警触发时一直显示in progress状态,查询了许多资料都没有解决.后来发现media脚本是pyc,更换成py后解决.这个有点太无语了.</p>
+<p><img src="/img/20190228/progress.png" alt></p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/28/zabbix-always-in-progress-problem/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1501,7 +1480,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T16:08:24+08:00">
                 2019-07-25
               </time>
             
@@ -1558,22 +1537,24 @@
 
       
         
-          
-          网络发现zabbix提供自动网络发现功能是非常高效灵活的.使用网络发现
-
-提高部署效率
-简化管理
-自动管理
-
-自动发现基于以下信息:
-
-IP段
-可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc)
-非加密的zabbix agent信息
-snmp agent信息
-
-目前还不
-          ...
+          <h2 id="网络发现"><a href="#网络发现" class="headerlink" title="网络发现"></a>网络发现</h2><p>zabbix提供自动网络发现功能是非常高效灵活的.<br>使用网络发现</p>
+<ul>
+<li>提高部署效率</li>
+<li>简化管理</li>
+<li>自动管理</li>
+</ul>
+<p>自动发现基于以下信息:</p>
+<ul>
+<li>IP段</li>
+<li>可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc)</li>
+<li>非加密的zabbix agent信息</li>
+<li>snmp agent信息</li>
+</ul>
+<p>目前还不具有的功能:</p>
+<ul>
+<li>网络拓扑</li>
+</ul>
+<p>网络发现主要有两个部分:discovery-&gt; action</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/19/15-zabbix-自动发现discover/#more" rel="contents">
@@ -1732,16 +1713,9 @@ snmp agent信息
       
         
           
-          
+            <p><img src="/img/20190218/prometheus_arch.svg" alt></p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/18/Prometheus-架构分析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1893,19 +1867,42 @@ snmp agent信息
       
         
           
-          配置salt这一部分将展示如何配置用户访问,查看和存储job结果,安全性,排错和其它管理任务.
-Configuring the Salt Master
+            <h1 id="配置salt"><a href="#配置salt" class="headerlink" title="配置salt"></a>配置salt</h1><p>这一部分将展示如何配置用户访问,查看和存储job结果,安全性,排错和其它管理任务.</p>
+<pre><code>Configuring the Salt Master
 Configuring the Salt Minion
 Configuring the Salt Proxy Minion
-Configuratio
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/configuring-salt/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+Configuration file examples
+Minion Blackout Configuration
+Access Control System
+Job Management
+Managing the Job Cache
+Storing Job Results in an External System
+Logging
+External Logging Handlers
+salt.log.handlers.fluent_mod
+salt.log.handlers.log4mongo_mod
+salt.log.handlers.logstash_mod
+salt.log.handlers.sentry_mod
+Salt File Server
+Git Fileserver Backend Walkthrough
+MinionFS Backend Walkthrough
+Salt Package Manager
+Storing Data in Other Databases
+Running the Salt Master/Minion as an Unprivileged User
+Using cron with Salt
+Use cron to initiate a highstate
+Hardening Salt
+Security disclosure policy
+Salt Transport
+Master Tops System
+Returners
+Renderers</code></pre><h2 id="配置salt-master"><a href="#配置salt-master" class="headerlink" title="配置salt master"></a>配置salt master</h2><p>salt系统配置另人惊讶的简单和轻松,两个组件各自有单独的配置文件.salt-master,salt-minion两个文件分别对应两个组件.<br>默认的salt-master组件的配置文件在/etc/salt/master,FREEBSD显著的不同,位置/usr/local/etc/salt.</p>
+<h3 id="主master配置"><a href="#主master配置" class="headerlink" title="主master配置"></a>主master配置</h3><p>/etc/salt/master配置文件用来管理salt-master的行为.<br><strong>约定:被注释的值后面有一个空白行的,表示不需要配置使用默认值.如果没有空白行的表示这个是一个示例,并没有默认值.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">默认的,master会自动包含在master.d/*.conf下的所有配置文件,master.d是一个目录,在master相同的目录级别下.</span><br><span class="line">#default_include: master.d/*.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="minions配置"><a href="#minions配置" class="headerlink" title="minions配置"></a>minions配置</h3><p>配置salt-minion非常简单.一般的,惟一需要设置的值是master,这样minion就知道如何定位master.<br>默认配置文件在/etc/salt/minion,FREEBSE显著不同的,位于/usr/local/etc/salt/minion.</p>
+
+          
         
       
     </div>

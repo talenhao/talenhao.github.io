@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="郝天飞 技术随笔">
 <meta property="og:description" content="123WARNINGS:?: (2_0.W001) Your URL pattern &amp;apos;nagios/alert/(?P&amp;lt;pk&amp;gt;\d+)/delete/&amp;apos; [name=&amp;apos;nagios-alert-delete&amp;apos;] has a route that contains &amp;apos;(?P&amp;lt;&amp;apos;, begins with a &amp;apos;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-25T02:10:43.775Z">
+<meta property="og:updated_time" content="2019-07-25T08:07:40.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django2.2 url path error">
 <meta name="twitter:description" content="123WARNINGS:?: (2_0.W001) Your URL pattern &amp;apos;nagios/alert/(?P&amp;lt;pk&amp;gt;\d+)/delete/&amp;apos; [name=&amp;apos;nagios-alert-delete&amp;apos;] has a route that contains &amp;apos;(?P&amp;lt;&amp;apos;, begins with a &amp;apos;">
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T16:07:40+08:00">
                 2019-07-25
               </time>
             
@@ -424,6 +424,8 @@
         <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNINGS:</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos; [name=&apos;nagios-alert-delete&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/update/&apos; [name=&apos;nagios-alert-edit&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br></pre></td></tr></table></figure>
 
 <p>搜索了一下,URL中有正则表达式的需要使用re_path代替path,修改后修复</p>
+<a id="more"></a>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re_path(&apos;nagios/alert/(?P&lt;pk&gt;\d+)/update/&apos;, views.AlertEditView.as_view(), name=&apos;nagios-alert-edit&apos;),</span><br><span class="line">re_path(&apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos;, views.AlertDeleteView.as_view(), name=&apos;nagios-alert-delete&apos;),</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(study-xiaofanzhuo) [tianfei@tianfei-pc xiaofanzhuo]$ python manage.py runserver</span><br><span class="line">Watching for file changes with StatReloader</span><br><span class="line">Performing system checks...</span><br><span class="line"></span><br><span class="line">System check identified no issues (0 silenced).</span><br><span class="line">April 30, 2019 - 16:40:40</span><br><span class="line">Django version 2.2, using settings &apos;xiaofanzhuo.settings&apos;</span><br><span class="line">Starting development server at http://127.0.0.1:8000/</span><br><span class="line">Quit the server with CONTROL-C.</span><br></pre></td></tr></table></figure>

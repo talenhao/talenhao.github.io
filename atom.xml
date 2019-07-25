@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>郝天飞 技术随笔</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://talenhao.github.io/"/>
+  <updated>2019-07-25T02:10:43.775Z</updated>
+  <id>https://talenhao.github.io/</id>
+  
+  <author>
+    <name>郝天飞</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从jekyll迁移到hexo啦,还在熟悉中...</title>
+    <link href="https://talenhao.github.io/2019/07/24/hello-world/"/>
+    <id>https://talenhao.github.io/2019/07/24/hello-world/</id>
+    <published>2019-07-24T12:46:36.782Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Django2.2 url path error</title>
+    <link href="https://talenhao.github.io/2019/04/30/Django2-2-url-path-error/"/>
+    <id>https://talenhao.github.io/2019/04/30/Django2-2-url-path-error/</id>
+    <published>2019-04-30T08:45:10.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNINGS:</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos; [name=&apos;nagios-alert-delete&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br><span class="line">?: (2_0.W001) Your URL pattern &apos;nagios/alert/(?P&lt;pk&gt;\d+)/update/&apos; [name=&apos;nagios-alert-edit&apos;] has a route that contains &apos;(?P&lt;&apos;, begins with a &apos;^&apos;, or ends with a &apos;$&apos;. This was likely an oversight when migrating to django.urls.path().</span><br></pre></td></tr></table></figure><p>搜索了一下,URL中有正则表达式的需要使用re_path代替path,修改后修复</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re_path(&apos;nagios/alert/(?P&lt;pk&gt;\d+)/update/&apos;, views.AlertEditView.as_view(), name=&apos;nagios-alert-edit&apos;),</span><br><span class="line">re_path(&apos;nagios/alert/(?P&lt;pk&gt;\d+)/delete/&apos;, views.AlertDeleteView.as_view(), name=&apos;nagios-alert-delete&apos;),</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(study-xiaofanzhuo) [tianfei@tianfei-pc xiaofanzhuo]$ python manage.py runserver</span><br><span class="line">Watching for file changes with StatReloader</span><br><span class="line">Performing system checks...</span><br><span class="line"></span><br><span class="line">System check identified no issues (0 silenced).</span><br><span class="line">April 30, 2019 - 16:40:40</span><br><span class="line">Django version 2.2, using settings &apos;xiaofanzhuo.settings&apos;</span><br><span class="line">Starting development server at http://127.0.0.1:8000/</span><br><span class="line">Quit the server with CONTROL-C.</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="django" scheme="https://talenhao.github.io/categories/django/"/>
+    
+    
+      <category term="django" scheme="https://talenhao.github.io/tags/django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>运维常用术语</title>
+    <link href="https://talenhao.github.io/2019/04/12/%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD/"/>
+    <id>https://talenhao.github.io/2019/04/12/运维常用术语/</id>
+    <published>2019-04-12T02:18:41.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCO（总体拥有成本）</span><br><span class="line">黑石物理服务器2.0:  基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;
+      
+    
+    </summary>
+    
+      <category term="uncategorized" scheme="https://talenhao.github.io/categories/uncategorized/"/>
+    
+    
+      <category term="untags" scheme="https://talenhao.github.io/tags/untags/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>use /sbin/netconfig 命令更新/etc/resolv.conf文件</title>
+    <link href="https://talenhao.github.io/2019/04/01/use-sbin-netconfig-%E5%91%BD%E4%BB%A4%E6%9B%B4%E6%96%B0-etc-resolv-conf%E6%96%87%E4%BB%B6/"/>
+    <id>https://talenhao.github.io/2019/04/01/use-sbin-netconfig-命令更新-etc-resolv-conf文件/</id>
+    <published>2019-04-01T01:57:05.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>netconfig是用于设置网络环境的命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:/etc/sysconfig&gt; sudo netconfig --help</span><br><span class="line">Usage:</span><br><span class="line"> netconfig &lt;global options&gt;</span><br><span class="line"> netconfig &lt;action&gt; &lt;action options&gt;</span><br><span class="line"></span><br><span class="line"> actions:</span><br><span class="line">  modify    Requires an interface and service specific settings via STDIN</span><br><span class="line">            or as file using the --input-file or --lease-file option.</span><br><span class="line">            Already existing settings for this interface and service will</span><br><span class="line">            be replaced with the new one, otherwise netconfig creates a</span><br><span class="line">            new state file. Finaly, netconfig updates the managed files.</span><br><span class="line">  remove    Removes the interface and service specific settings and</span><br><span class="line">            updates the managed files.</span><br><span class="line">  update    Updates the managed files with the current set of settings.</span><br><span class="line">  batch     Executes a batch file with modify,remove,update action lines.</span><br><span class="line">            Unlike in regular actions, modify and remove do not call update.</span><br><span class="line"></span><br><span class="line"> modify options:</span><br><span class="line">  &lt; -s|--service &lt;service name&gt; &gt;       service providing settings</span><br><span class="line">  [ -i|--interface &lt;interface name&gt; ]   interface providing settings</span><br><span class="line">  [ -F|--input-format &lt;input format&gt; ]  currently &apos;dhcpcd&apos; supported only</span><br><span class="line">  [ -I|--input-file &lt;file name&gt; ]       file name to read, stdin by default</span><br><span class="line">  [ -l|--lease-file &lt;file name&gt; ]       alias for --input-file</span><br><span class="line">  [ -m|--module-only &lt;name | prefix&gt; ]  module or module group updates only</span><br><span class="line">  [ -f|--force-replace ]                generate files, even user modified</span><br><span class="line">  [ -v|--verbose ]                      enable debug and be verbose</span><br><span class="line"></span><br><span class="line"> remove options:</span><br><span class="line">  &lt; -s|--service &lt;service name&gt; &gt;       service providing settings</span><br><span class="line">  [ -i|--interface &lt;interface name&gt; ]   interface providing settings</span><br><span class="line">  [ -m|--module-only &lt;name | prefix&gt; ]  module or module group updates only</span><br><span class="line">  [ -f|--force-replace ]                generate files, even user modified</span><br><span class="line">  [ -v|--verbose ]                      enable debug and be verbose</span><br><span class="line"></span><br><span class="line"> update options:</span><br><span class="line">  [ -m|--module-only &lt;name | prefix&gt; ]  module or module group updates only</span><br><span class="line">  [ -f|--force-replace ]                generate files, even user modified</span><br><span class="line">  [ -v|--verbose ]                      enable debug and be verbose</span><br><span class="line"></span><br><span class="line"> batch options:</span><br><span class="line">  [ -B|--batch-file &lt;file name&gt; ]       file name to read, stdin by default</span><br><span class="line">  [ -v|--verbose ]                      enable debug and be verbose</span><br><span class="line"></span><br><span class="line"> global options:</span><br><span class="line">  &lt;-h|--help&gt;                           show this help text</span><br><span class="line"></span><br><span class="line">Active modules: dns-resolver dns-bind dns-dnsmasq nis ntp-runtime</span><br><span class="line">Module groups : dns nis ntp</span><br></pre></td></tr></table></figure><p>注意help中的update,如果网络配置不正常,可以使用netconfig update -f强制修复</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:/etc/sysconfig&gt; sudo netconfig update</span><br><span class="line">&lt;13&gt;Apr  1 09:53:46 dns-resolver: ATTENTION: You have modified /etc/resolv.conf. Leaving it untouched...</span><br><span class="line">&lt;13&gt;Apr  1 09:53:46 dns-resolver: You can find my version in /etc/resolv.conf.netconfig</span><br><span class="line">ATTENTION: You have modified /etc/resolv.conf.  Leaving it untouched...</span><br><span class="line">You can find my version in /etc/resolv.conf.netconfig ...</span><br><span class="line">haotianfei@tianfei-opensuse:/etc/sysconfig&gt; sudo netconfig update -f</span><br><span class="line">&lt;13&gt;Apr  1 09:54:03 dns-resolver: force replace set: backup created as /etc/resolv.conf.20190401-095403</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;netconfig是用于设置网络环境的命令&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;
+      
+    
+    </summary>
+    
+      <category term="opensuse" scheme="https://talenhao.github.io/categories/opensuse/"/>
+    
+    
+      <category term="opensuse" scheme="https://talenhao.github.io/tags/opensuse/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>use imagemagick convert命令批量resize图片</title>
+    <link href="https://talenhao.github.io/2019/03/30/use%20imagemagick%20convert%20%E5%91%BD%E4%BB%A4%E6%89%B9%E9%87%8Fresize%E5%9B%BE%E7%89%87/"/>
+    <id>https://talenhao.github.io/2019/03/30/use imagemagick convert 命令批量resize图片/</id>
+    <published>2019-03-30T09:30:59.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for img in $(ls);do convert -resize 40%x40% -quality 80 $img convert_$img;done</span><br></pre></td></tr></table></figure><p>图片质量还是可以的,对于3M左右的图片,压缩到40%,质量80差不多300多K的样子,只需要1/10的存储空间</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+      <category term="uncategorized" scheme="https://talenhao.github.io/categories/uncategorized/"/>
+    
+    
+      <category term="untags" scheme="https://talenhao.github.io/tags/untags/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zabbix always in progress problem</title>
+    <link href="https://talenhao.github.io/2019/02/28/zabbix-always-in-progress-problem/"/>
+    <id>https://talenhao.github.io/2019/02/28/zabbix-always-in-progress-problem/</id>
+    <published>2019-02-28T03:32:18.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>zabbix告警触发时一直显示in progress状态,查询了许多资料都没有解决.后来发现media脚本是pyc,更换成py后解决.这个有点太无语了.</p><p><img src="/img/20190228/progress.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;zabbix告警触发时一直显示in progress状态,查询了许多资料都没有解决.后来发现media脚本是pyc,更换成py后解决.这个有点太无语了.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20190228/progress.png&quot; alt&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="zabbix" scheme="https://talenhao.github.io/categories/zabbix/"/>
+    
+    
+      <category term="zabbix" scheme="https://talenhao.github.io/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>15 zabbix 自动发现discover</title>
+    <link href="https://talenhao.github.io/2019/02/19/15-zabbix-%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0discover/"/>
+    <id>https://talenhao.github.io/2019/02/19/15-zabbix-自动发现discover/</id>
+    <published>2019-02-19T06:39:40.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="网络发现"><a href="#网络发现" class="headerlink" title="网络发现"></a>网络发现</h2><p>zabbix提供自动网络发现功能是非常高效灵活的.<br>使用网络发现</p><ul><li>提高部署效率</li><li>简化管理</li><li>自动管理</li></ul><p>自动发现基于以下信息:</p><ul><li>IP段</li><li>可用的外部服务访问(FTP,SSH,WEB,POP3,IMAP,TCP,etc)</li><li>非加密的zabbix agent信息</li><li>snmp agent信息</li></ul><p>目前还不具有的功能:</p><ul><li>网络拓扑</li></ul><p>网络发现主要有两个部分:discovery-&gt; action</p><h3 id="discover"><a href="#discover" class="headerlink" title="discover"></a>discover</h3><p>周期性的扫描在network discovery rules 中定义的IP段.频率在每个规则下分别设置.<br>每个rule只会被一个process处理.一个网段不会被分配到多个process.<br>discovery checks 分别独立处理,一个check失败并不影响其它check的执行.<br>每个check生成一个discovery event.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zabbix   24712  0.0  0.1 300100  5908 ?        S    Feb05   1:02  \_ /usr/sbin/zabbix_server: discoverer #1 [processed 0 rules in 0.001094 sec, idle 60 sec]</span><br></pre></td></tr></table></figure><h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>discovery event是actions的基础.<br>action可以执行以下操作:</p><ul><li>发送信息</li><li>Adding/removing hosts</li><li>Enabling/disabling hosts</li><li>Adding/removing hosts to/from a group</li><li>Linking hosts to/unlinking from a template</li><li>Executing remote scripts</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;网络发现&quot;&gt;&lt;a href=&quot;#网络发现&quot; class=&quot;headerlink&quot; title=&quot;网络发现&quot;&gt;&lt;/a&gt;网络发现&lt;/h2&gt;&lt;p&gt;zabbix提供自动网络发现功能是非常高效灵活的.&lt;br&gt;使用网络发现&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;提高部署效率&lt;/li&gt;
+&lt;
+      
+    
+    </summary>
+    
+      <category term="zabbix" scheme="https://talenhao.github.io/categories/zabbix/"/>
+    
+    
+      <category term="zabbix" scheme="https://talenhao.github.io/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Prometheus 架构分析</title>
+    <link href="https://talenhao.github.io/2019/02/18/Prometheus-%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/"/>
+    <id>https://talenhao.github.io/2019/02/18/Prometheus-架构分析/</id>
+    <published>2019-02-18T03:01:58.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/img/20190218/prometheus_arch.svg" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;/img/20190218/prometheus_arch.svg&quot; alt&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="kubernetes" scheme="https://talenhao.github.io/categories/kubernetes/"/>
+    
+    
+      <category term="prometheus" scheme="https://talenhao.github.io/tags/prometheus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>salt配置</title>
+    <link href="https://talenhao.github.io/2019/02/12/configuring-salt/"/>
+    <id>https://talenhao.github.io/2019/02/12/configuring-salt/</id>
+    <published>2019-02-12T01:39:30.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="配置salt"><a href="#配置salt" class="headerlink" title="配置salt"></a>配置salt</h1><p>这一部分将展示如何配置用户访问,查看和存储job结果,安全性,排错和其它管理任务.</p><pre><code>Configuring the Salt MasterConfiguring the Salt MinionConfiguring the Salt Proxy MinionConfiguration file examplesMinion Blackout ConfigurationAccess Control SystemJob ManagementManaging the Job CacheStoring Job Results in an External SystemLoggingExternal Logging Handlerssalt.log.handlers.fluent_modsalt.log.handlers.log4mongo_modsalt.log.handlers.logstash_modsalt.log.handlers.sentry_modSalt File ServerGit Fileserver Backend WalkthroughMinionFS Backend WalkthroughSalt Package ManagerStoring Data in Other DatabasesRunning the Salt Master/Minion as an Unprivileged UserUsing cron with SaltUse cron to initiate a highstateHardening SaltSecurity disclosure policySalt TransportMaster Tops SystemReturnersRenderers</code></pre><h2 id="配置salt-master"><a href="#配置salt-master" class="headerlink" title="配置salt master"></a>配置salt master</h2><p>salt系统配置另人惊讶的简单和轻松,两个组件各自有单独的配置文件.salt-master,salt-minion两个文件分别对应两个组件.<br>默认的salt-master组件的配置文件在/etc/salt/master,FREEBSD显著的不同,位置/usr/local/etc/salt.</p><h3 id="主master配置"><a href="#主master配置" class="headerlink" title="主master配置"></a>主master配置</h3><p>/etc/salt/master配置文件用来管理salt-master的行为.<br><strong>约定:被注释的值后面有一个空白行的,表示不需要配置使用默认值.如果没有空白行的表示这个是一个示例,并没有默认值.</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">默认的,master会自动包含在master.d/*.conf下的所有配置文件,master.d是一个目录,在master相同的目录级别下.</span><br><span class="line">#default_include: master.d/*.conf</span><br></pre></td></tr></table></figure><h3 id="minions配置"><a href="#minions配置" class="headerlink" title="minions配置"></a>minions配置</h3><p>配置salt-minion非常简单.一般的,惟一需要设置的值是master,这样minion就知道如何定位master.<br>默认配置文件在/etc/salt/minion,FREEBSE显著不同的,位于/usr/local/etc/salt/minion.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;配置salt&quot;&gt;&lt;a href=&quot;#配置salt&quot; class=&quot;headerlink&quot; title=&quot;配置salt&quot;&gt;&lt;/a&gt;配置salt&lt;/h1&gt;&lt;p&gt;这一部分将展示如何配置用户访问,查看和存储job结果,安全性,排错和其它管理任务.&lt;/p&gt;
+&lt;pre&gt;&lt;co
+      
+    
+    </summary>
+    
+      <category term="salt" scheme="https://talenhao.github.io/categories/salt/"/>
+    
+    
+      <category term="salt" scheme="https://talenhao.github.io/tags/salt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>salt ssh,agentless模式</title>
+    <link href="https://talenhao.github.io/2019/02/11/use-salt-though-ssh-agentless/"/>
+    <id>https://talenhao.github.io/2019/02/11/use-salt-though-ssh-agentless/</id>
+    <published>2019-02-11T01:56:20.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="salt-ssh"><a href="#salt-ssh" class="headerlink" title="salt ssh"></a>salt ssh</h1><p>执行salt commands及states通过ssh,不需要安装salt-minion.</p><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>salt ssh方式使用非常简单,通过配置/etc/salt/roster文件定义系统需要连接的主机,salt-ssh命令使用方式跟salt相同.</p><ul><li>salt ssh在2014.7.0版本产品化</li><li>远端需要有至少python2.6(也可以使用-r选项发送原子的ssh命令)</li><li>大多数系统中都是使用salt-ssh命令执行</li><li>salt ssh并不是用来替代标准的salt通信系统,它提供了不需要zeromq和远程agent的一个选择.由于所有通信都是通过ssh会在速度上慢于salt+zeromq</li><li>目前fileserver选项必须会封装,确保关联的文件会使用salt-ssh交付.state模块是例外,在master端编译,进程会找到所有salt://路径指向然后复制打tar包,fileserver封装还在开发中.</li></ul><h2 id="salt-ssh-roster"><a href="#salt-ssh-roster" class="headerlink" title="salt ssh roster"></a>salt ssh roster</h2><p>salt roster系统轻松定义远程minions.<a href="https://docs.saltstack.com/en/latest/topics/ssh/roster.html#ssh-roster" target="_blank" rel="noopener">https://docs.saltstack.com/en/latest/topics/ssh/roster.html#ssh-roster</a></p><p>默认roster文件是在/etc/salt/roster:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">web1:</span><br><span class="line">  host: 192.168.42.1 # The IP addr or DNS hostname</span><br><span class="line">  user: fred         # Remote executions will be executed as user fred</span><br><span class="line">  passwd: foobarbaz  # The password to use for login, if omitted, keys are used</span><br><span class="line">  sudo: True         # Whether to sudo to root, not enabled by default</span><br><span class="line">web2:</span><br><span class="line">  host: 192.168.42.2</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note</span><br><span class="line"></span><br><span class="line">sudo works only if NOPASSWD is set for user in /etc/sudoers: fred ALL=(ALL) NOPASSWD: ALL</span><br></pre></td></tr></table></figure><h2 id="salt-ssh部署ssh-key"><a href="#salt-ssh部署ssh-key" class="headerlink" title="salt-ssh部署ssh key"></a>salt-ssh部署ssh key</h2><p>默认salt-ssh将为ssh生成密钥对,默认路径是/etc/salt/pki/master/ssh/salt-ssh.rsa.密钥对将在第一次运行salt-ssh命令时生成.</p><p>之后使用ssh-copy-id命令部署公钥到minions.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub user@server.demo.com</span><br></pre></td></tr></table></figure><p>可以创建一个简单的脚本:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">if [ -z $1 ]; then</span><br><span class="line">   echo $0 user@host.com</span><br><span class="line">   exit 0</span><br><span class="line">fi</span><br><span class="line">ssh-copy-id -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub $1</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./salt-ssh-copy-id.sh user@server1.host.com</span><br><span class="line">./salt-ssh-copy-id.sh user@server2.host.com</span><br></pre></td></tr></table></figure><p>当公钥部署完成后,salt-ssh就可以控制这些minions了.</p><h2 id="调用salt-ssh"><a href="#调用salt-ssh" class="headerlink" title="调用salt-ssh"></a>调用salt-ssh</h2><p>RHEL/centos 5 python2.6</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh centos-5-minion -r &apos;yum -y install epel-release ; yum -y install python26&apos;</span><br></pre></td></tr></table></figure><p>python3.x<br>在2017.7.0版本之前,salt是不支持python3.x,最好使用-r参数.<br>salt-ssh的使用方法跟salt基本相同,有着相似的语法<br>默认salt-ssh使用在远程minions上使用salt执行模块,使用-r会使用raw shell命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh &apos;*&apos; test.ping</span><br></pre></td></tr></table></figure><h2 id="salt-ssh-使用state"><a href="#salt-ssh-使用state" class="headerlink" title="salt ssh 使用state"></a>salt ssh 使用state</h2><p>salt ssh 使用state系统与salt一样抽象了相同的接口.</p><h2 id="salt-ssh-使用target"><a href="#salt-ssh-使用target" class="headerlink" title="salt ssh 使用target"></a>salt ssh 使用target</h2><p>只支持glog与regex targets</p><h2 id="配置salt-ssh"><a href="#配置salt-ssh" class="headerlink" title="配置salt ssh"></a>配置salt ssh</h2><p>还是在/etc/salt/master中.<br>Minion 配置选项可以在master配置中的ssh_minion_opts中配置,也可以在roster中的minion_opts中配置.</p><h2 id="salt-ssh使用非root用户"><a href="#salt-ssh使用非root用户" class="headerlink" title="salt-ssh使用非root用户"></a>salt-ssh使用非root用户</h2><p>默认salt读取/etc/salt配置.如果你使用普通用户必须修改pki_dir和cachedir路径,否则会报权限错误.<br>推荐为普通用户创建单独的配置文件并使用-c加载.</p><h2 id="使用saltfile定义命令行参数"><a href="#使用saltfile定义命令行参数" class="headerlink" title="使用saltfile定义命令行参数"></a>使用saltfile定义命令行参数</h2><p>使用saltfile定义命令行参数,可以在一台服务器上管理多个不同的salt项目.<br>可以cd到saltfile的目录执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh:</span><br><span class="line">  config_dir: path/to/config/dir</span><br><span class="line">  ssh_max_procs: 30</span><br><span class="line">  ssh_wipe: True</span><br></pre></td></tr></table></figure><p>salt-ssh –config-dir=path/to/config/dir –max-procs=30 –wipe * test.ping<br>使用saltfile可简化成<br>salt-ssh * test.ping.</p><h2 id="saltssh-debug"><a href="#saltssh-debug" class="headerlink" title="saltssh debug"></a>saltssh debug</h2><p>salt-ssh 加 -ltrace 参数或定义SALT_ARGV变量.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;salt-ssh&quot;&gt;&lt;a href=&quot;#salt-ssh&quot; class=&quot;headerlink&quot; title=&quot;salt ssh&quot;&gt;&lt;/a&gt;salt ssh&lt;/h1&gt;&lt;p&gt;执行salt commands及states通过ssh,不需要安装salt-minion.&lt;
+      
+    
+    </summary>
+    
+      <category term="salt" scheme="https://talenhao.github.io/categories/salt/"/>
+    
+    
+      <category term="salt" scheme="https://talenhao.github.io/tags/salt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>man 手册中的下划线</title>
+    <link href="https://talenhao.github.io/2019/02/07/man-%E6%89%8B%E5%86%8C%E4%B8%AD%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF/"/>
+    <id>https://talenhao.github.io/2019/02/07/man-手册中的下划线/</id>
+    <published>2019-02-07T02:51:41.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>一直印象里觉得man手册中的下划线是个链接,可以跳转到另一个文档.<br>查看了man的help都没有提到这一块知识,后面才发现原来记忆的都是info命令功能;info命令是可以使用tab跳转到另一个文档的.<br>man手册中的下划线单纯就是个下划线标识而已.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; man man</span><br></pre></td></tr></table></figure><p><img src="/img/20190207/man.png" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; info zypper</span><br></pre></td></tr></table></figure><p><img src="/img/20190207/info.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一直印象里觉得man手册中的下划线是个链接,可以跳转到另一个文档.&lt;br&gt;查看了man的help都没有提到这一块知识,后面才发现原来记忆的都是info命令功能;info命令是可以使用tab跳转到另一个文档的.&lt;br&gt;man手册中的下划线单纯就是个下划线标识而已.&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://talenhao.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://talenhao.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh透传</title>
+    <link href="https://talenhao.github.io/2019/02/05/ssh%E9%80%8F%E4%BC%A0/"/>
+    <id>https://talenhao.github.io/2019/02/05/ssh透传/</id>
+    <published>2019-02-05T13:25:21.000Z</published>
+    <updated>2019-07-25T02:10:43.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>nodeC节点上有一个HTTP服务器,监听在80端口<br>nodeA节点可以访问nodeB,nodeB可以访问节点nodeC,但nodeA无法直接访问nodeC.</p><p>[root@nodeB ~]# ssh -N -f -o GatewayPorts=yes -L *:8808:192.168.0.3:80 <a href="mailto:root@192.168.0.3" target="_blank" rel="noopener">root@192.168.0.3</a><br>[root@nodeB ~]# curl <a href="http://localhost:8808/zabbix" target="_blank" rel="noopener">http://localhost:8808/zabbix</a><br><!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"></p><html><head><meta name="generator" content="Hexo 3.9.0"><title>301 Moved Permanently</title></head><body><h1>Moved Permanently</h1><p>The document has moved <a href="http://localhost:8808/zabbix/" target="_blank" rel="noopener">here</a>.</p></body></html>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;nodeC节点上有一个HTTP服务器,监听在80端口&lt;br&gt;nodeA节点可以访问nodeB,nodeB可以访问节点nodeC,但nodeA无法直接访问nodeC.&lt;/p&gt;
+&lt;p&gt;[root@nodeB ~]# ssh -N -f -o GatewayPorts=yes -
+      
+    
+    </summary>
+    
+      <category term="uncategorized" scheme="https://talenhao.github.io/categories/uncategorized/"/>
+    
+    
+      <category term="untags" scheme="https://talenhao.github.io/tags/untags/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>postgresql 11 install</title>
+    <link href="https://talenhao.github.io/2019/02/05/postgresql-11-install/"/>
+    <id>https://talenhao.github.io/2019/02/05/postgresql-11-install/</id>
+    <published>2019-02-05T05:22:18.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://yum.postgresql.org/repopackages.php" target="_blank" rel="noopener">https://yum.postgresql.org/repopackages.php</a></p><p>[root@postgresql ~]# yum install <a href="https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm" target="_blank" rel="noopener">https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm</a></p><p>[root@postgresql ~]# yum install postgresql11-server postgresql11-contrib</p><p>[root@postgresql ~]# /usr/pgsql-11/bin/postgresql-11-setup initdb<br>Initializing database … OK<br>[root@postgresql ~]# ll /usr/lib/systemd/system/  |grep postgre</p><p>[root@postgresql ~]# systemctl enable postgresql-11 –now<br>Created symlink from /etc/systemd/system/multi-user.target.wants/postgresql-11.service to /usr/lib/systemd/system/postgresql-11.service.<br>[root@postgresql ~]# systemctl status postgresql-11<br>● postgresql-11.service - PostgreSQL 11 database server<br>   Loaded: loaded (/usr/lib/systemd/system/postgresql-11.service; enabled; vendor preset: disabled)<br>   Active: active (running) since Tue 2019-02-05 21:37:11 CST; 43s ago<br>     Docs: <a href="https://www.postgresql.org/docs/11/static/" target="_blank" rel="noopener">https://www.postgresql.org/docs/11/static/</a><br>  Process: 14569 ExecStartPre=/usr/pgsql-11/bin/postgresql-11-check-db-dir ${PGDATA} (code=exited, status=0/SUCCESS)<br> Main PID: 14575 (postmaster)<br>   CGroup: /system.slice/postgresql-11.service<br>           ├─14575 /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/<br>           ├─14577 postgres: logger<br>           ├─14579 postgres: checkpointer<br>           ├─14580 postgres: background writer<br>           ├─14581 postgres: walwriter<br>           ├─14582 postgres: autovacuum launcher<br>           ├─14583 postgres: stats collector<br>           └─14584 postgres: logical replication launcher   </p><p>Feb 05 21:37:11 postgresql.wasu.iot systemd[1]: Starting PostgreSQL 11 database server…<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.150 CST [14575] LOG:  listening on IPv6 address “::1”, port 5432<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.150 CST [14575] LOG:  listening on IPv4 address “127.0.0.1”, port 5432<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.154 CST [14575] LOG:  listening on Unix socket “/var/run/postgresql/.s.PGSQL.5432”<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.161 CST [14575] LOG:  listening on Unix socket “/tmp/.s.PGSQL.5432”<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.174 CST [14575] LOG:  redirecting log output to logging collector process<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.174 CST [14575] HINT:  Future log output will appear in directory “log”.<br>Feb 05 21:37:11 postgresql.wasu.iot systemd[1]: Started PostgreSQL 11 database server.</p><p>修改/var/lib/pgsql/11/data/postgresql.conf</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = &apos;*&apos;</span><br></pre></td></tr></table></figure><p>修改/var/lib/pgsql/11/data/pg_hba.conf,添加</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host    zabbix          zabbix          10.0.0.0/25          md5</span><br></pre></td></tr></table></figure><p>[root@postgresql ~]# systemctl restart postgresql-11<br>[root@postgresql data]# firewall-cmd –add-service postgresql –permanent<br>[root@postgresql data]# firewall-cmd –add-service postgresql</p><p>[root@postgresql data]# ss -lnpt<br>State       Recv-Q Send-Q                                                          Local Address:Port                                                                         Peer Address:Port<br>LISTEN      0      128                                                                         <em>:22                                                                                      *:</em>                   users:((“sshd”,pid=3737,fd=3))<br>LISTEN      0      128                                                                         <em>:5432                                                                                    *:</em>                   users:((“postmaster”,pid=15874,fd=3))<br>LISTEN      0      100                                                                 127.0.0.1:25                                                                                      <em>:</em>                   users:((“master”,pid=4105,fd=13))<br>LISTEN      0      128                                                                        :::22                                                                                     :::*                   users:((“sshd”,pid=3737,fd=4))<br>LISTEN      0      128                                                                        :::5432                                                                                   :::*                   users:((“postmaster”,pid=15874,fd=4))<br>LISTEN      0      100                                                                       ::1:25                                                                                     :::*                   users:((“master”,pid=4105,fd=14))</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://yum.postgresql.org/repopackages.php&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://yum.postgresql.org/repopackages.php&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Databasees" scheme="https://talenhao.github.io/categories/Databasees/"/>
+    
+    
+      <category term="postgresql" scheme="https://talenhao.github.io/tags/postgresql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ovirt spice 代理服务</title>
+    <link href="https://talenhao.github.io/2019/02/03/ovirt-spice-proxy/"/>
+    <id>https://talenhao.github.io/2019/02/03/ovirt-spice-proxy/</id>
+    <published>2019-02-03T08:20:10.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于engine管理平台是做SNAT映射出去的,所以</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;由于engine管理平台是做SNAT映射出去的,所以&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Ovirt" scheme="https://talenhao.github.io/categories/Ovirt/"/>
+    
+    
+      <category term="ovirt" scheme="https://talenhao.github.io/tags/ovirt/"/>
+    
+      <category term="kvm" scheme="https://talenhao.github.io/tags/kvm/"/>
+    
+      <category term="RHV" scheme="https://talenhao.github.io/tags/RHV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ovirt虚拟机管理手册</title>
+    <link href="https://talenhao.github.io/2019/02/01/ovirt-virtual-machine-management-guide/"/>
+    <id>https://talenhao.github.io/2019/02/01/ovirt-virtual-machine-management-guide/</id>
+    <published>2019-02-01T06:30:49.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="chapter-7-模板templates"><a href="#chapter-7-模板templates" class="headerlink" title="chapter 7. 模板templates"></a>chapter 7. 模板templates</h2><p>模板是虚拟机的复本,在接下来操作中轻松重复创建相似的虚拟机.模板封装了软件,配置和硬件,还有模板基于的源虚拟机的所有安装软件.使用模板启动的虚拟机基于源虚拟机.</p><p>当基于一个虚拟机创建一个模板,虚拟机的一个只读复本硬盘被创建.这个只读硬盘成为新模板和由此模板创建的虚拟机的基本磁盘,因此,如果ovirt中存在基于这个模板创建的虚拟机,这个硬盘不能被删除.</p><p>基于模板创建的虚拟机使用跟源虚拟机相同的网卡类型和驱动,便被分配特别的不重复的MAC地址.</p><h3 id="7-1-封装虚拟机并部署为模板"><a href="#7-1-封装虚拟机并部署为模板" class="headerlink" title="7.1 封装虚拟机并部署为模板"></a>7.1 封装虚拟机并部署为模板</h3><p>封装是基于虚拟机创建模板之前从虚拟机中移除所有特殊的系统细节的处理过程.封装是保证基于相同模板创建的多个虚拟机防止使用显明相同的细节的需要.同时也是确保其它特性的功能如预期的网卡定制的需要.</p><h4 id="7-1-1-封装linux做为模板"><a href="#7-1-1-封装linux做为模板" class="headerlink" title="7.1.1 封装linux做为模板"></a>7.1.1 封装linux做为模板</h4><p>linux封装通过新创建模板窗口勾选Seal Template勾选框创建处理.<br><img src="/img/20190201/seal.png" alt></p><h4 id="7-1-2-封装windows做为模板"><a href="#7-1-2-封装windows做为模板" class="headerlink" title="7.1.2 封装windows做为模板"></a>7.1.2 封装windows做为模板</h4><p>部署windows虚拟机创建的模板必需是无特殊性的.这保证机器特殊配置不会复制到模板.<br>使用sysprep用来封装windows模板.sysprep创建一个完整的没有附加的安装回答文件. /usr/share/ovirt-engine/conf/sysprep/目录下有多个windows操作系统的默认设置值文件. 这些文件是sysprep的模板.文件中的字段可以根据需求复制,粘贴,修改.这些定义将覆盖”修改虚拟机”-&gt;”初始运行”中设置.被修改的sysprep文件会多方面影响附加了sysprep文件的模板所创建的windows虚拟机.包含域成员,主机名,安全策略等.</p><h5 id="7-1-2-1-封装windows虚拟机的先决条件"><a href="#7-1-2-1-封装windows虚拟机的先决条件" class="headerlink" title="7.1.2.1 封装windows虚拟机的先决条件"></a>7.1.2.1 封装windows虚拟机的先决条件</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p><h5 id="7-1-2-2-封装windows-7-2008-2012为模板"><a href="#7-1-2-2-封装windows-7-2008-2012为模板" class="headerlink" title="7.1.2.2 封装windows 7,2008,2012为模板"></a>7.1.2.2 封装windows 7,2008,2012为模板</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p><h3 id="7-2-创建模板"><a href="#7-2-创建模板" class="headerlink" title="7.2 创建模板"></a>7.2 创建模板</h3><p>从一个已经存在的虚拟机创建模板作为蓝本创建其它虚拟机.</p><p>当创建模板,需要指定硬盘模式,raw或QCOW2:</p><ul><li>QCOW2 是瘦提供,即动态分配.</li><li>RAW 硬盘在文件存储上是动态分配.</li><li>RAW 硬盘在块存储上是预分配的.</li></ul><p>创建模拟步骤:</p><ol><li>Compute → Virtual Machines,选择源虚拟机</li><li>确保虚拟机是关机的</li><li>More Actions → Make Template.</li><li>输入模板名称,说明,评语</li><li>选择分配给的集群,默认同源虚拟机相同</li><li>可选的,选择CPU配置集</li><li>可选的,创建为另一个模板的子模板</li><li>硬盘分配,别名,格式,存储域,硬盘配置集;默认与源虚拟机相同.</li><li>选择允许所有用户访问模板,是否公开模板.</li><li>选择是否复制源虚拟机的权限设置</li><li>如果是linux主机勾选封装模板</li><li>OK</li></ol><p>模板创建过程中显示虚拟机image lock.处理过程有可能花费几个小时,决定于硬件能力及源虚拟机硬盘大小.完成后模板添加到Tamplates选项中,至此你可以基于模板创建虚拟机了.</p><p>创建模板会复制虚拟机,模板与源虚拟会同时存在.<br><img src="/img/20190201/maketemplate.png" alt></p><h3 id="7-3-编辑模板"><a href="#7-3-编辑模板" class="headerlink" title="7.3 编辑模板"></a>7.3 编辑模板</h3><h3 id="7-4-删除模板"><a href="#7-4-删除模板" class="headerlink" title="7.4 删除模板"></a>7.4 删除模板</h3><h3 id="7-5-导出模板"><a href="#7-5-导出模板" class="headerlink" title="7.5 导出模板"></a>7.5 导出模板</h3><h3 id="7-6-导入模板"><a href="#7-6-导入模板" class="headerlink" title="7.6 导入模板"></a>7.6 导入模板</h3><h3 id="7-7-模板权限"><a href="#7-7-模板权限" class="headerlink" title="7.7 模板权限"></a>7.7 模板权限</h3><h3 id="7-8-使用cloud-init自动配置虚拟机"><a href="#7-8-使用cloud-init自动配置虚拟机" class="headerlink" title="7.8 使用cloud-init自动配置虚拟机"></a>7.8 使用cloud-init自动配置虚拟机</h3><h3 id="7-9-使用sysprep自动配置虚拟机"><a href="#7-9-使用sysprep自动配置虚拟机" class="headerlink" title="7.9 使用sysprep自动配置虚拟机"></a>7.9 使用sysprep自动配置虚拟机</h3><h3 id="7-10-基于模板创建虚拟机"><a href="#7-10-基于模板创建虚拟机" class="headerlink" title="7.10 基于模板创建虚拟机"></a>7.10 基于模板创建虚拟机</h3><p> 从模板创建一个预配置了操作系统,网络,应用和其它资源的虚拟机.<br> 如果基于模板创建了虚拟机,模板将不能被删除;如果要删除模板,可以选择clone方式.</p><p> 模板创建虚拟机步骤:</p><ol><li><p>Compute → Virtual Machines. </p></li><li><p>创建</p></li><li><p>选择集群</p></li><li><p>选择模板</p></li><li><p>输入名称,说明,评论</p></li><li><p>资源分配标签</p></li><li><p>选择存储是thin(QCOW2)或clone(QCOW2/RAW)方式</p></li><li><p>选择存储域</p></li><li><p>OK.</p><p><img src="/img/20190201/templatecreatevm.png" alt></p></li></ol><h3 id="7-11-基于模板创建cloned虚拟机"><a href="#7-11-基于模板创建cloned虚拟机" class="headerlink" title="7.11 基于模板创建cloned虚拟机"></a>7.11 基于模板创建cloned虚拟机</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;chapter-7-模板templates&quot;&gt;&lt;a href=&quot;#chapter-7-模板templates&quot; class=&quot;headerlink&quot; title=&quot;chapter 7. 模板templates&quot;&gt;&lt;/a&gt;chapter 7. 模板templates
+      
+    
+    </summary>
+    
+      <category term="Ovirt" scheme="https://talenhao.github.io/categories/Ovirt/"/>
+    
+    
+      <category term="ovirt" scheme="https://talenhao.github.io/tags/ovirt/"/>
+    
+      <category term="kvm" scheme="https://talenhao.github.io/tags/kvm/"/>
+    
+      <category term="RHV" scheme="https://talenhao.github.io/tags/RHV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ovirt 4.2 为Centos linux虚拟机安装 guest agent</title>
+    <link href="https://talenhao.github.io/2019/01/31/ovirt-4-2-install-guest-agent/"/>
+    <id>https://talenhao.github.io/2019/01/31/ovirt-4-2-install-guest-agent/</id>
+    <published>2019-01-30T16:22:29.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>2.4.1. Red Hat Virtualization Guest Agents and Drivers</p><p>Oivrt guest agents 为Linux和Windows虚拟机提供了附加信息和功能,其中最核心的包括监控虚拟机资源使用和使用管理界面优雅的关闭或重启虚拟机</p><p>没有安装前虚拟机的IP地址无法获取<br><img src="/img/20190131/noagent.png" alt></p><p>生产主要使用CentOS7.6的系统(其它CentOS系列基本相同),安装如下:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# yum install centos-release-ovirt42</span><br><span class="line">[root@dns01 ~]# yum install -y ovirt-guest-agent-common</span><br></pre></td></tr></table></figure><p>启动服务</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# systemctl start ovirt-guest-agent.service </span><br><span class="line">[root@dns01 ~]# systemctl enable ovirt-guest-agent.service </span><br><span class="line">[root@dns01 ~]# systemctl status ovirt-guest-agent.service</span><br><span class="line">● ovirt-guest-agent.service - oVirt Guest Agent</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/ovirt-guest-agent.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Sat 2019-02-02 22:38:38 CST; 2s ago</span><br><span class="line">  Process: 12089 ExecStartPre=/bin/chown ovirtagent:ovirtagent /run/ovirt-guest-agent.pid (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 12086 ExecStartPre=/bin/touch /run/ovirt-guest-agent.pid (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 12083 ExecStartPre=/sbin/modprobe virtio_console (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 12093 (python)</span><br><span class="line">   CGroup: /system.slice/ovirt-guest-agent.service</span><br><span class="line">           └─12093 /usr/bin/python /usr/share/ovirt-guest-agent/ovirt-guest-agent.py</span><br><span class="line"></span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Starting oVirt Guest Agent...</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Started oVirt Guest Agent.</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot userhelper[12101]: pam_succeed_if(ovirt-container-list:auth): requirement &quot;user = ovirtagent&quot; was met by user &quot;ovirtagent&quot;</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot userhelper[12101]: running &apos;/usr/share/ovirt-guest-agent/container-list&apos; with root privileges on behalf of &apos;ovirtagent&apos;</span><br><span class="line">Feb 02 22:38:39 dns01.talen.iot userhelper[12103]: pam_succeed_if(ovirt-container-list:auth): requirement &quot;user = ovirtagent&quot; was met by user &quot;ovirtagent&quot;</span><br><span class="line">Feb 02 22:38:39 dns01.talen.iot userhelper[12103]: running &apos;/usr/share/ovirt-guest-agent/container-list&apos; with root privileges on behalf of &apos;ovirtagent&apos;</span><br><span class="line"></span><br><span class="line">[root@dns01 ~]# systemctl start qemu-guest-agent.service</span><br><span class="line">[root@dns01 ~]# systemctl enable qemu-guest-agent.service</span><br><span class="line">[root@dns01 ~]# systemctl status qemu-guest-agent.service           </span><br><span class="line">● qemu-guest-agent.service - QEMU Guest Agent</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/qemu-guest-agent.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Sat 2019-02-02 22:38:38 CST; 20min ago</span><br><span class="line"> Main PID: 12082 (qemu-ga)</span><br><span class="line">   CGroup: /system.slice/qemu-guest-agent.service</span><br><span class="line">           └─12082 /usr/bin/qemu-ga --method=virtio-serial --path=/dev/virtio-ports/org.qemu.guest_agent.0 --blacklist=guest-file-open,guest-file-close,guest-file-read,guest-file-write,guest-file-seek,gue...</span><br><span class="line"></span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Started QEMU Guest Agent.</span><br></pre></td></tr></table></figure><p>服务启动后提示消失,并能获取到虚拟机IP等信息.</p><p><img src="/img/20190131/yesagent.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2.4.1. Red Hat Virtualization Guest Agents and Drivers&lt;/p&gt;
+&lt;p&gt;Oivrt guest agents 为Linux和Windows虚拟机提供了附加信息和功能,其中最核心的包括监控虚拟机资源使用和使用管理界面优雅的关
+      
+    
+    </summary>
+    
+      <category term="Ovirt" scheme="https://talenhao.github.io/categories/Ovirt/"/>
+    
+    
+      <category term="ovirt" scheme="https://talenhao.github.io/tags/ovirt/"/>
+    
+      <category term="kvm" scheme="https://talenhao.github.io/tags/kvm/"/>
+    
+      <category term="RHV" scheme="https://talenhao.github.io/tags/RHV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Install SecureCRT 8.3.4 on openSUSE 15.1</title>
+    <link href="https://talenhao.github.io/2019/01/27/Install-SecureCRT-8-3-4-on-openSUSE-15-1/"/>
+    <id>https://talenhao.github.io/2019/01/27/Install-SecureCRT-8-3-4-on-openSUSE-15-1/</id>
+    <published>2019-01-27T11:01:58.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>官方下载scrt-sfx-8.3.4.1699.rhel7-64.tar.gz并解压,我这里是/home/haotianfei/bin/scrt8.3.4/scrt-sfx-8.3.4/</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/haotianfei/bin/scrt8.3.4/</span><br><span class="line">tar zxvf scrt-sfx-8.3.4.1699.rhel7-64.tar.gz</span><br></pre></td></tr></table></figure><p>解压后进入bin目录运行提示找不到openssl的库文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/scrt-sfx-8.3.4&gt; ./SecureCRT</span><br><span class="line">./SecureCRT: error while loading shared libraries: libssl.so.10: cannot open shared object file: No such file or directory</span><br><span class="line">./SecureCRT: error while loading shared libraries: libcrypto.so.10: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure><p>这里使用<a href="http://www.openssl.org官方网站下载编译,然后链接到/usr/lib64/的方式" target="_blank" rel="noopener">www.openssl.org官方网站下载编译,然后链接到/usr/lib64/的方式</a></p><p><a href="https://www.openssl.org/source/old/1.0.2/" target="_blank" rel="noopener">https://www.openssl.org/source/old/1.0.2/</a></p><p>1.0.2版本的最后一个版本1.0.2p<br><a href="https://www.openssl.org/source/old/1.0.2/openssl-1.0.2p.tar.gz" target="_blank" rel="noopener">https://www.openssl.org/source/old/1.0.2/openssl-1.0.2p.tar.gz</a></p><p>解压并编译</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; ./config shared zlib-dynamic</span><br><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; make</span><br></pre></td></tr></table></figure><p>将编译好的so文件链接到系统库目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; sudo ln -sf `pwd`/libssl.so.1.0.0 /usr/lib64/libssl.so.10</span><br><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; sudo ln -sf `pwd`/libcrypto.so.1.0.0 /usr/lib64/libcrypto.so.10</span><br></pre></td></tr></table></figure><p>虽然还是会提示版本信息不可用,但已经可以正常运行使用了.</p><p><img src="/img/2019-01-27/scrt.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;官方下载scrt-sfx-8.3.4.1699.rhel7-64.tar.gz并解压,我这里是/home/haotianfei/bin/scrt8.3.4/scrt-sfx-8.3.4/&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;
+      
+    
+    </summary>
+    
+      <category term="openSUSE" scheme="https://talenhao.github.io/categories/openSUSE/"/>
+    
+    
+      <category term="opensuse" scheme="https://talenhao.github.io/tags/opensuse/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>配置DNS服务器</title>
+    <link href="https://talenhao.github.io/2019/01/27/dns-can-t-resolv-out-domain/"/>
+    <id>https://talenhao.github.io/2019/01/27/dns-can-t-resolv-out-domain/</id>
+    <published>2019-01-27T09:28:07.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ovirt虚拟化平台对DNS的可靠要求比较高,DNS服务如果无法正常提供解析,将造成整个虚拟化平台的宕机;</p><p>Ovirt官方不推荐只在虚拟化平台上运行DNS服务,防止虚拟机宕机造成整个平台宕机,所以这里采用的是一台实体物理机运行主DNS服务(10.0.0.40),其它两台从服务器运行在虚拟化平台上低成本解决单点问题.</p><p>服务器:</p><ol><li>主服务器: 10.0.0.40</li><li>从服务器1: 10.0.0.41</li><li>从服务器2: 10.0.0.42</li></ol><p>其中主服务器部署在一台实体物理机上,其它服务器在Ovirt平台上启动的虚拟机.</p><p>在所有服务器上执行安装:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# yum install -y bind bind-utils</span><br><span class="line">[root@dns01 ~]# yum install -y bind bind-utils</span><br><span class="line">[root@dns02 ~]# yum install -y bind bind-utils</span><br></pre></td></tr></table></figure><p>配置如下:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /etc/named.conf </span><br><span class="line">//</span><br><span class="line">// named.conf</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS</span><br><span class="line">// server as a caching only nameserver (as a localhost DNS resolver only).</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line">// See the BIND Administrator&apos;s Reference Manual (ARM) for details about the</span><br><span class="line">// configuration located in /usr/share/doc/bind-&#123;version&#125;/Bv9ARM.html</span><br><span class="line">acl iot-slaves &#123;</span><br><span class="line">        10.0.0.41;</span><br><span class="line">        10.0.0.42;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">acl localnet253 &#123;</span><br><span class="line">        10.0.0.0/25;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; any;&#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; any; &#125;;</span><br><span class="line">        directory       &quot;/var/named&quot;;</span><br><span class="line">        dump-file       &quot;/var/named/data/cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;/var/named/data/named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;</span><br><span class="line">        recursing-file  &quot;/var/named/data/named.recursing&quot;;</span><br><span class="line">        secroots-file   &quot;/var/named/data/named.secroots&quot;;</span><br><span class="line"></span><br><span class="line">        allow-query     &#123; localnets;10.0.0.20; &#125;;</span><br><span class="line"></span><br><span class="line">        recursion yes;</span><br><span class="line">        allow-recursion &#123; localnets; &#125;;</span><br><span class="line"></span><br><span class="line">        /* </span><br><span class="line">         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.</span><br><span class="line">         - If you are building a RECURSIVE (caching) DNS server, you need to enable </span><br><span class="line">           recursion. </span><br><span class="line">         - If your recursive DNS server has a public IP address, you MUST enable access</span><br><span class="line">           control to limit queries to your legitimate users. Failing to do so will</span><br><span class="line">           cause your server to become part of large scale DNS amplification</span><br><span class="line">           attacks. Implementing BCP38 within your network would greatly</span><br><span class="line">           reduce such attack surface</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        forward only;</span><br><span class="line">        forwarders &#123;</span><br><span class="line">            119.29.29.29;</span><br><span class="line">            223.5.5.5;</span><br><span class="line">            223.6.6.6;</span><br><span class="line">            8.8.8.8;</span><br><span class="line">        &#125;;</span><br><span class="line">        allow-transfer &#123;</span><br><span class="line">                iot-slaves;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line"></span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">        bindkeys-file &quot;/etc/named.iscdlv.key&quot;;</span><br><span class="line"></span><br><span class="line">        managed-keys-directory &quot;/var/named/dynamic&quot;;</span><br><span class="line"></span><br><span class="line">        pid-file &quot;/run/named/named.pid&quot;;</span><br><span class="line">        session-keyfile &quot;/run/named/session.key&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file &quot;data/named.run&quot; versions 30 size 10240k;</span><br><span class="line">                severity debug;</span><br><span class="line">                print-time yes;</span><br><span class="line">                print-severity yes;</span><br><span class="line">                print-category yes;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;.&quot; IN &#123;</span><br><span class="line">        type hint;</span><br><span class="line">        file &quot;named.ca&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include &quot;/etc/named.rfc1912.zones&quot;;</span><br><span class="line">include &quot;/etc/named.root.key&quot;;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /etc/named.rfc1912.zones </span><br><span class="line">// named.rfc1912.zones:</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat caching-nameserver package </span><br><span class="line">//</span><br><span class="line">// ISC BIND named zone configuration for zones recommended by</span><br><span class="line">// RFC 1912 section 4.1 : localhost TLDs and address zones</span><br><span class="line">// and http://www.ietf.org/internet-drafts/draft-ietf-dnsop-default-local-zones-02.txt</span><br><span class="line">// (c)2007 R W Franks</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">zone &quot;localhost.localdomain&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;localhost&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.127.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;0.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.empty&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;talen.iot&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.talen.iot&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">        allow-transfer &#123; iot-slaves; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;253.34.10.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.10.0.0&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">        allow-transfer &#123; iot-slaves; &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>注意zone文件中一定要将所有NS服务器列举出来,否则从服务器无法收到主服务的notify</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /var/named/named.talen.iot</span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA  @ haotianfei.talen.com. (</span><br><span class="line">                                        2019020300      ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">        NS      ns.talen.iot.</span><br><span class="line">        NS      ns1.talen.iot.</span><br><span class="line">        NS      ns2.talen.iot.</span><br><span class="line">storage NS      ns.talen.iot.</span><br><span class="line">server  IN      A       10.0.0.40</span><br><span class="line">ns      IN      A       10.0.0.40</span><br><span class="line">ns1     IN      A       10.0.0.41</span><br><span class="line">ns2     IN      A       10.0.0.42</span><br><span class="line">engine  IN      A       10.0.0.20</span><br><span class="line">vnode00 IN      A       10.0.0.30</span><br><span class="line">vnode01 IN      A       10.0.0.31</span><br><span class="line">vnode02 IN      A       10.0.0.32</span><br><span class="line">storage IN      A       10.0.0.20</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /var/named/named.10.0.0</span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA  ns.talen.iot haotianfei.talen.com. (</span><br><span class="line">                                        2019012700      ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">        NS      ns.talen.iot.</span><br><span class="line">        NS      ns1.talen.iot.</span><br><span class="line">        NS      ns2.talen.iot.</span><br><span class="line">40      IN      PTR     ns.talen.iot.</span><br><span class="line">40      IN      PTR     server.talen.iot.</span><br><span class="line">20      IN      PTR     engine.talen.iot.</span><br><span class="line">30      IN      PTR     vnode00.talen.iot.</span><br><span class="line">31      IN      PTR     vnode01.talen.iot.</span><br><span class="line">32      IN      PTR     vnode02.talen.iot.</span><br><span class="line">20      IN      PTR     engine.talen.iot.</span><br></pre></td></tr></table></figure><p>配置两个从节点,配置基本一致,zone数据是从主节点同步过来的,所以无需管理.:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# cat /etc/named.conf</span><br><span class="line">//</span><br><span class="line">// named.conf</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS</span><br><span class="line">// server as a caching only nameserver (as a localhost DNS resolver only).</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line">// See the BIND Administrator&apos;s Reference Manual (ARM) for details about the</span><br><span class="line">// configuration located in /usr/share/doc/bind-&#123;version&#125;/Bv9ARM.html</span><br><span class="line">acl &quot;trusted&quot; &#123;</span><br><span class="line">        10.0.0.20;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; any; &#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; any; &#125;;</span><br><span class="line">        directory       &quot;/var/named&quot;;</span><br><span class="line">        dump-file       &quot;/var/named/data/cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;/var/named/data/named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;</span><br><span class="line">        recursing-file  &quot;/var/named/data/named.recursing&quot;;</span><br><span class="line">        secroots-file   &quot;/var/named/data/named.secroots&quot;;</span><br><span class="line"></span><br><span class="line">        allow-query     &#123; localnets;10.0.0.20; &#125;;</span><br><span class="line">        recursion yes;</span><br><span class="line">        allow-recursion &#123; localnets; &#125;;</span><br><span class="line"></span><br><span class="line">        forward only;</span><br><span class="line">        forwarders &#123;</span><br><span class="line">            119.29.29.29;</span><br><span class="line">            223.5.5.5;</span><br><span class="line">            223.6.6.6;</span><br><span class="line">            8.8.8.8;</span><br><span class="line">        &#125;;</span><br><span class="line">        allow-transfer &#123;</span><br><span class="line">                none;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        /*</span><br><span class="line">         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.</span><br><span class="line">         - If you are building a RECURSIVE (caching) DNS server, you need to enable</span><br><span class="line">           recursion.</span><br><span class="line">         - If your recursive DNS server has a public IP address, you MUST enable access</span><br><span class="line">           control to limit queries to your legitimate users. Failing to do so will</span><br><span class="line">           cause your server to become part of large scale DNS amplification</span><br><span class="line">           attacks. Implementing BCP38 within your network would greatly</span><br><span class="line">           reduce such attack surface</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line"></span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">        bindkeys-file &quot;/etc/named.iscdlv.key&quot;;</span><br><span class="line"></span><br><span class="line">        managed-keys-directory &quot;/var/named/dynamic&quot;;</span><br><span class="line"></span><br><span class="line">        pid-file &quot;/run/named/named.pid&quot;;</span><br><span class="line">        session-keyfile &quot;/run/named/session.key&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file &quot;data/named.run&quot; versions 30 size 10240k;</span><br><span class="line">                severity debug;</span><br><span class="line">                print-time yes;</span><br><span class="line">                print-severity yes;</span><br><span class="line">                print-category yes;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;.&quot; IN &#123;</span><br><span class="line">        type hint;</span><br><span class="line">        file &quot;named.ca&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include &quot;/etc/named.rfc1912.zones&quot;;</span><br><span class="line">include &quot;/etc/named.root.key&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@dns01 ~]# cat /etc/named.rfc1912.zones </span><br><span class="line">// named.rfc1912.zones:</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat caching-nameserver package </span><br><span class="line">//</span><br><span class="line">// ISC BIND named zone configuration for zones recommended by</span><br><span class="line">// RFC 1912 section 4.1 : localhost TLDs and address zones</span><br><span class="line">// and http://www.ietf.org/internet-drafts/draft-ietf-dnsop-default-local-zones-02.txt</span><br><span class="line">// (c)2007 R W Franks</span><br><span class="line">// </span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">zone &quot;localhost.localdomain&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;localhost&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.127.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;0.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.empty&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;talen.iot&quot; IN &#123;</span><br><span class="line">        type slave;</span><br><span class="line">        file &quot;named.talen.iot&quot;;</span><br><span class="line">        masters &#123;10.0.0.40;&#125;;</span><br><span class="line">        allow-query &#123; localnets; &#125;;</span><br><span class="line">        zone-statistics yes;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;253.34.10.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type slave;</span><br><span class="line">        file &quot;named.10.0.0&quot;;</span><br><span class="line">        masters &#123;10.0.0.40;&#125;;</span><br><span class="line">        allow-query &#123; localnets; &#125;;</span><br><span class="line">        zone-statistics yes;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>验证:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# dig www.sina.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-72.el7 &lt;&lt;&gt;&gt; www.sina.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 20729</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.sina.com.                  IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.sina.com.           24      IN      CNAME   us.sina.com.cn.</span><br><span class="line">us.sina.com.cn.         15      IN      CNAME   spool.grid.sinaedge.com.</span><br><span class="line">spool.grid.sinaedge.com. 28     IN      A       202.102.94.124</span><br><span class="line"></span><br><span class="line">;; Query time: 8 msec</span><br><span class="line">;; SERVER: 10.0.0.40#53(10.0.0.40)</span><br><span class="line">;; WHEN: Sun Jan 27 17:38:06 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 119</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@dns00 ~]# dig engine.talen.iot</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-72.el7 &lt;&lt;&gt;&gt; engine.talen.iot</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 63533</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;engine.talen.iot.               IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">engine.talen.iot.        10800   IN      A       10.0.0.20</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">talen.iot.               10800   IN      NS      ns.talen.iot.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">ns.talen.iot.            10800   IN      A       10.0.0.40</span><br><span class="line"></span><br><span class="line">;; Query time: 1 msec</span><br><span class="line">;; SERVER: 10.0.0.40#53(10.0.0.40)</span><br><span class="line">;; WHEN: Sun Jan 27 17:39:03 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 93</span><br></pre></td></tr></table></figure><h2 id="故障现象一"><a href="#故障现象一" class="headerlink" title="故障现象一"></a>故障现象一</h2><ul><li>bind可以解析自管理的域名,但无法解析外部域名.</li><li>日志中报错:</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jan 27 17:22:31 server.talen.iot named[7460]: no valid RRSIG resolving &apos;net/DS/IN&apos;: 223.6.6.6#53</span><br><span class="line">Jan 27 17:22:31 server.talen.iot named[7460]: no valid RRSIG resolving &apos;net/DS/IN&apos;: 223.5.5.5#53</span><br><span class="line">Jan 27 17:22:41 server.talen.iot named[7460]: no valid DS resolving &apos;l.root-servers.net/AAAA/IN&apos;: 223.6.6.6#53</span><br><span class="line">Jan 27 17:22:41 server.talen.iot named[7460]: no valid DS resolving &apos;l.root-servers.net/A/IN&apos;: 223.6.6.6#53</span><br></pre></td></tr></table></figure><p>解决方法:</p><ul><li>关闭DNSSEC</li></ul><h2 id="故障现象二"><a href="#故障现象二" class="headerlink" title="故障现象二"></a>故障现象二</h2><ul><li>主服务器域名zone文件是text,从服务器zone文件是data</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: ASCII text</span><br><span class="line">[root@dns01 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: data</span><br></pre></td></tr></table></figure><p>解决方法:<br>从服务器/etc/named.conf的option中添加masterfile-format text;</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: ASCII text</span><br></pre></td></tr></table></figure><h2 id="故障现象三"><a href="#故障现象三" class="headerlink" title="故障现象三"></a>故障现象三</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@saltstack bind]# nslookup salt      </span><br><span class="line">Server:         10.34.253.40</span><br><span class="line">Address:        10.34.253.40#53</span><br><span class="line"></span><br><span class="line">** server can&apos;t find salt: NXDOMAIN</span><br><span class="line"></span><br><span class="line">[root@saltstack bind]# vi /etc/resolv.conf</span><br><span class="line">[root@saltstack bind]# hostname</span><br><span class="line">saltstack.talne.iot</span><br></pre></td></tr></table></figure><p>解决方法:<br>hostname中的域名配置错误,只使用主机名解析找不到域.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@saltstack bind]# hostnamectl set-hostname saltstack.talen.iot</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Ovirt虚拟化平台对DNS的可靠要求比较高,DNS服务如果无法正常提供解析,将造成整个虚拟化平台的宕机;&lt;/p&gt;
+&lt;p&gt;Ovirt官方不推荐只在虚拟化平台上运行DNS服务,防止虚拟机宕机造成整个平台宕机,所以这里采用的是一台实体物理机运行主DNS服务(10.0.0.40)
+      
+    
+    </summary>
+    
+      <category term="Redhat Server" scheme="https://talenhao.github.io/categories/Redhat-Server/"/>
+    
+    
+      <category term="dns" scheme="https://talenhao.github.io/tags/dns/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>firefox allways display close button</title>
+    <link href="https://talenhao.github.io/2019/01/27/firefox-allways-display-close/"/>
+    <id>https://talenhao.github.io/2019/01/27/firefox-allways-display-close/</id>
+    <published>2019-01-27T06:49:47.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<p>firefox相比chrome不同的一点是标签只有活动的才显示关闭按钮;当你想关闭一个后台标签时,不得不切换到标签然后再关闭,效率比较低.通过在userChrome.css中添加自定义配置,允许标签全部显示关闭按钮.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; vi .mozilla/firefox/nnghxxxx.default/chrome/userChrome.css</span><br><span class="line">@namespace url(&quot;http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul&quot;);</span><br><span class="line">.tab-close-button:not([pinned=&quot;true&quot;]) &#123; display: -moz-box !important; &#125;</span><br></pre></td></tr></table></figure><p>效果如下<br><img src="/img/2019-01-27/close.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;firefox相比chrome不同的一点是标签只有活动的才显示关闭按钮;当你想关闭一个后台标签时,不得不切换到标签然后再关闭,效率比较低.通过在userChrome.css中添加自定义配置,允许标签全部显示关闭按钮.&lt;/p&gt;
+&lt;figure class=&quot;highlight
+      
+    
+    </summary>
+    
+    
+      <category term="firefox" scheme="https://talenhao.github.io/tags/firefox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>yum常用操作汇总</title>
+    <link href="https://talenhao.github.io/2019/01/26/yum%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB/"/>
+    <id>https://talenhao.github.io/2019/01/26/yum常用操作汇总/</id>
+    <published>2019-01-26T11:10:48.000Z</published>
+    <updated>2019-07-25T02:10:43.765Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用DVD或本地源"><a href="#使用DVD或本地源" class="headerlink" title="使用DVD或本地源"></a>使用DVD或本地源</h2><p>修改/etc/yum.repo.d/CentOS-Media.repo</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseurl=file///root/cdrom # 镜像目录</span><br></pre></td></tr></table></figure><p>然后执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum --disablerepo=\* --enablerepo=c7-media install bind</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;使用DVD或本地源&quot;&gt;&lt;a href=&quot;#使用DVD或本地源&quot; class=&quot;headerlink&quot; title=&quot;使用DVD或本地源&quot;&gt;&lt;/a&gt;使用DVD或本地源&lt;/h2&gt;&lt;p&gt;修改/etc/yum.repo.d/CentOS-Media.repo&lt;/p&gt;
+&lt;f
+      
+    
+    </summary>
+    
+      <category term="Redhat" scheme="https://talenhao.github.io/categories/Redhat/"/>
+    
+    
+      <category term="yum" scheme="https://talenhao.github.io/tags/yum/"/>
+    
+      <category term="redhat" scheme="https://talenhao.github.io/tags/redhat/"/>
+    
+      <category term="centos" scheme="https://talenhao.github.io/tags/centos/"/>
+    
+  </entry>
+  
+</feed>

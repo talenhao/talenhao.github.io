@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器模式(俄罗斯套娃封装)123@装饰器二	@装饰器一		核心对象   动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数) 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据">
+<meta name="description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python学习笔记">
 <meta property="og:url" content="https://talenhao.github.io/2019/07/25/python学习笔记/index.html">
 <meta property="og:site_name" content="郝天飞 技术随笔">
-<meta property="og:description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器模式(俄罗斯套娃封装)123@装饰器二	@装饰器一		核心对象   动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数) 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据">
+<meta property="og:description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://talenhao.github.io/images/1564143774413.png">
 <meta property="og:image" content="https://talenhao.github.io/images/1564058294189.png">
 <meta property="og:updated_time" content="2019-07-25T07:28:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python学习笔记">
-<meta name="twitter:description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器模式(俄罗斯套娃封装)123@装饰器二	@装饰器一		核心对象   动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数) 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据">
-<meta name="twitter:image" content="https://talenhao.github.io/images/1564058294189.png">
+<meta name="twitter:description" content="python 笔记迭代器iterator&amp;amp;递归器 迭代器 字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.) 每次只取一个对象,不会对内存造成巨大开销.   递归器  设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数">
+<meta name="twitter:image" content="https://talenhao.github.io/images/1564143774413.png">
 
 
 
@@ -133,6 +134,15 @@
 
 
 
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-144652742-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 
   <script type="text/javascript">
@@ -394,6 +404,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/25/python学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/25/python学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -431,10 +451,11 @@
 </li>
 <li>递归器</li>
 </ol>
-<h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器模式-俄罗斯套娃封装"><a href="#1-装饰器模式-俄罗斯套娃封装" class="headerlink" title="1. 装饰器模式(俄罗斯套娃封装)"></a>1. 装饰器模式(俄罗斯套娃封装)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@装饰器二</span></span><br><span class="line"><span class="meta">	@装饰器一</span></span><br><span class="line">		核心对象</span><br></pre></td></tr></table></figure>
+<h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@装饰器二</span></span><br><span class="line"><span class="meta">	@装饰器一</span></span><br><span class="line">		核心对象</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>动态修改函数(将被装饰函数作为参数传入装饰函数,返回新函数)</li>
+<li>创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数</li>
 <li>行为类似多重继承.</li>
 <li>当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器.<ol>
 <li>日志装饰器,传递一些参数动态记录日志</li>
@@ -443,9 +464,14 @@
 <li>作用:<ol>
 <li>增强核心对象的能力</li>
 <li>让核心对象支持多种可选行为</li>
+<li>编写判断执行不同的装饰器</li>
 </ol>
 </li>
 </ol>
+<h3 id="2-观察者模式"><a href="#2-观察者模式" class="headerlink" title="2.  观察者模式"></a>2.  观察者模式</h3><p>状态监测,事件处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">核心对象-&gt;update()-&gt;观察者们-&gt;各自处理自已的任务</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/1564143774413.png" alt="1564143774413"></p>
 <h2 id="表达式-amp-语句"><a href="#表达式-amp-语句" class="headerlink" title="表达式 &amp; 语句"></a>表达式 &amp; 语句</h2><ol>
 <li>表达式有返回值<ol>
 <li>yield是表达式,所以调用生成器需要next()来执行表达式</li>
@@ -778,6 +804,16 @@
           
 
   
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
 
 
 
@@ -917,7 +953,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-笔记"><span class="nav-number">1.</span> <span class="nav-text">python 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器iterator-amp-递归器"><span class="nav-number">1.1.</span> <span class="nav-text">迭代器iterator&amp;递归器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模型"><span class="nav-number">1.2.</span> <span class="nav-text">设计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-装饰器模式-俄罗斯套娃封装"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 装饰器模式(俄罗斯套娃封装)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式-amp-语句"><span class="nav-number">1.3.</span> <span class="nav-text">表达式 &amp; 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-运算符"><span class="nav-number">1.4.</span> <span class="nav-text">python 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python逻辑运算符"><span class="nav-number">1.4.1.</span> <span class="nav-text">Python逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学运算"><span class="nav-number">1.4.2.</span> <span class="nav-text">数学运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#print"><span class="nav-number">1.5.</span> <span class="nav-text">print</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#byte-amp-string"><span class="nav-number">1.6.</span> <span class="nav-text">byte &amp; string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.7.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameters"><span class="nav-number">1.8.</span> <span class="nav-text">Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写"><span class="nav-number">1.9.</span> <span class="nav-text">文件读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.10.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程-多线程"><span class="nav-number">1.11.</span> <span class="nav-text">多进程,多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行"><span class="nav-number">1.12.</span> <span class="nav-text">生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">1.13.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#True-amp-False"><span class="nav-number">1.13.0.1.</span> <span class="nav-text">True &amp; False</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.14.</span> <span class="nav-text">面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">1.15.</span> <span class="nav-text">其它</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-笔记"><span class="nav-number">1.</span> <span class="nav-text">python 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器iterator-amp-递归器"><span class="nav-number">1.1.</span> <span class="nav-text">迭代器iterator&amp;递归器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模型"><span class="nav-number">1.2.</span> <span class="nav-text">设计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-装饰器-decorator-模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 装饰器(decorator)模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-观察者模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.  观察者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式-amp-语句"><span class="nav-number">1.3.</span> <span class="nav-text">表达式 &amp; 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-运算符"><span class="nav-number">1.4.</span> <span class="nav-text">python 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python逻辑运算符"><span class="nav-number">1.4.1.</span> <span class="nav-text">Python逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学运算"><span class="nav-number">1.4.2.</span> <span class="nav-text">数学运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#print"><span class="nav-number">1.5.</span> <span class="nav-text">print</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#byte-amp-string"><span class="nav-number">1.6.</span> <span class="nav-text">byte &amp; string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.7.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameters"><span class="nav-number">1.8.</span> <span class="nav-text">Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写"><span class="nav-number">1.9.</span> <span class="nav-text">文件读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.10.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程-多线程"><span class="nav-number">1.11.</span> <span class="nav-text">多进程,多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行"><span class="nav-number">1.12.</span> <span class="nav-text">生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">1.13.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#True-amp-False"><span class="nav-number">1.13.0.1.</span> <span class="nav-text">True &amp; False</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.14.</span> <span class="nav-text">面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">1.15.</span> <span class="nav-text">其它</span></a></li></ol></div>
             
 
           </div>
@@ -1109,6 +1145,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://talenhao.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://talenhao.github.io/2019/07/25/python学习笔记/';
+          this.page.identifier = '2019/07/25/python学习笔记/';
+          this.page.title = 'python学习笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://talenhao.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -1121,10 +1177,6 @@
   
 
 
-
-
-
-  
 
 
 

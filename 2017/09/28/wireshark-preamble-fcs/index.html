@@ -72,7 +72,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="郝天飞 技术随笔" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="天飞 技术随笔" type="application/atom+xml">
 
 
 
@@ -84,7 +84,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么wireshark抓取ethernet II前导8字符与FCS">
 <meta property="og:url" content="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/index.html">
-<meta property="og:site_name" content="郝天飞 技术随笔">
+<meta property="og:site_name" content="天飞 技术随笔">
 <meta property="og:description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了  在物理层上网卡要先去掉前导同步码和帧开始">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://talenhao.github.io/img/post/Spectacle.XF5278.png">
@@ -129,7 +129,7 @@
 
 
 
-  <title>为什么wireshark抓取ethernet II前导8字符与FCS | 郝天飞 技术随笔</title>
+  <title>为什么wireshark抓取ethernet II前导8字符与FCS | 天飞 技术随笔</title>
   
 
 
@@ -178,7 +178,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">郝天飞 技术随笔</span>
+        <span class="site-title">天飞 技术随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -330,13 +330,13 @@
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="郝天飞">
+      <meta itemprop="name" content="天飞">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郝天飞 技术随笔">
+      <meta itemprop="name" content="天飞 技术随笔">
     </span>
 
     
@@ -450,14 +450,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="郝天飞 微信支付">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="天飞 微信支付">
         <p>微信支付</p>
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="郝天飞 支付宝">
+        <img id="alipay_qr" src="/images/alipay.png" alt="天飞 支付宝">
         <p>支付宝</p>
       </div>
     
@@ -591,7 +591,8 @@
   
     <div class="comments" id="comments">
       
-        <div id="gitment-container"></div>
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
       
     </div>
 
@@ -623,7 +624,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">郝天飞</p>
+              <p class="site-author-name" itemprop="name">天飞</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -734,7 +735,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">郝天飞</span>
+  <span class="author" itemprop="copyrightHolder">天飞</span>
 
   
 </div>
@@ -934,6 +935,11 @@
 <!-- END LOCAL -->
 
     
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
 
     
       <script type="text/javascript">
@@ -956,7 +962,11 @@
       }
 
       
-      renderGitment();
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
       
       </script>
     

@@ -72,7 +72,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="郝天飞 技术随笔" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="天飞 技术随笔" type="application/atom+xml">
 
 
 
@@ -84,7 +84,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="ovirt 规划与需求">
 <meta property="og:url" content="https://talenhao.github.io/2018/12/11/ovirt规划与需求/index.html">
-<meta property="og:site_name" content="郝天飞 技术随笔">
+<meta property="og:site_name" content="天飞 技术随笔">
 <meta property="og:description" content="使用哪种架构Architecture1.虚拟化架构 standalone管理端部署 管理端部署在一台物理机上(也可部署在特殊的虚拟机) 管理机实现高可用要使用第三方实现   Self-Hosted Engine部署 管理端使用cokpit部署或cli的方式部署在虚拟机中 不需要扩展HA,实现自管理虚拟机engine高可用    2.需求2.1.Manager需求硬件需求资源|最小|推荐cpu|2|">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://talenhao.github.io/img/ovirt/RHV_STANDARD_ARCHITECTURE1.png">
@@ -129,7 +129,7 @@
 
 
 
-  <title>ovirt 规划与需求 | 郝天飞 技术随笔</title>
+  <title>ovirt 规划与需求 | 天飞 技术随笔</title>
   
 
 
@@ -178,7 +178,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">郝天飞 技术随笔</span>
+        <span class="site-title">天飞 技术随笔</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -330,13 +330,13 @@
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/11/ovirt规划与需求/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="郝天飞">
+      <meta itemprop="name" content="天飞">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郝天飞 技术随笔">
+      <meta itemprop="name" content="天飞 技术随笔">
     </span>
 
     
@@ -599,14 +599,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="郝天飞 微信支付">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="天飞 微信支付">
         <p>微信支付</p>
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="郝天飞 支付宝">
+        <img id="alipay_qr" src="/images/alipay.png" alt="天飞 支付宝">
         <p>支付宝</p>
       </div>
     
@@ -742,7 +742,8 @@
   
     <div class="comments" id="comments">
       
-        <div id="gitment-container"></div>
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
       
     </div>
 
@@ -783,7 +784,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">郝天飞</p>
+              <p class="site-author-name" itemprop="name">天飞</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -910,7 +911,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">郝天飞</span>
+  <span class="author" itemprop="copyrightHolder">天飞</span>
 
   
 </div>
@@ -1110,6 +1111,11 @@
 <!-- END LOCAL -->
 
     
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
 
     
       <script type="text/javascript">
@@ -1132,7 +1138,11 @@
       }
 
       
-      renderGitment();
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
       
       </script>
     

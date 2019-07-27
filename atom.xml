@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>郝天飞 技术随笔</title>
+  <title>天飞 技术随笔</title>
   
   
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://talenhao.github.io/</id>
   
   <author>
-    <name>郝天飞</name>
+    <name>天飞</name>
     
   </author>
   

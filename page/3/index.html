@@ -2131,7 +2131,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/14/ovirt运维管理/">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/14/FreeRADIUS Beginner's Guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="天飞">
@@ -2150,7 +2150,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/ovirt运维管理/" itemprop="url">ovirt 运维管理</a></h2>
+                <a class="post-title-link" href="/2018/12/14/FreeRADIUS Beginner's Guide/" itemprop="url">FreeRADIUS Beginner's Guide</a></h2>
         
 
         <div class="post-meta">
@@ -2185,28 +2185,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
-                    <span itemprop="name">Ovirt</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -2236,12 +2214,37 @@
       
         
           
-            <h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><h2 id="internal域用户管理"><a href="#internal域用户管理" class="headerlink" title="internal域用户管理"></a>internal域用户管理</h2><h3 id="设置及重置用户密码"><a href="#设置及重置用户密码" class="headerlink" title="设置及重置用户密码"></a>设置及重置用户密码</h3><ul>
-<li>–password-valid-to选项必须指定密码无期时间,否则过期时间设置为当前时间,时间格式为 yyyy-MM-dd HH:mm:ssX</li>
-<li>默认密码长度不小于6位</li>
-<li>用户之前3次使用的密码不能再次设置</li>
+            <h1 id="4-Authentication"><a href="#4-Authentication" class="headerlink" title="4. Authentication"></a>4. Authentication</h1><p>认证过程:</p>
+<ul>
+<li>data link layer -&gt; success -&gt; network layer</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt-engine ~]# /usr/bin/ovirt-aaa-jdbc-tool user password-reset vmuser --password-valid-to=&quot;2019-01-01 12:00:00+0800&quot;</span><br><span class="line">Password:</span><br><span class="line">Reenter password:</span><br><span class="line">updating user vmuser...</span><br><span class="line">user updated successfully</span><br></pre></td></tr></table></figure>
+<p>认证协议:</p>
+<ul>
+<li>userpassword:<ul>
+<li>PAP<ul>
+<li>(password Authentication protocal)密码认证协议(p2p)</li>
+<li>client -&gt; (密码明文) -&gt; NAS -&gt; (加密密码) -&gt; RADIUS SERVER</li>
+</ul>
+</li>
+<li>CHAP<ul>
+<li>(challenge-handshake authentication protocal)询问交互认证协议</li>
+<li>NAS -&gt; 重复发送随机间隔的 challenge -&gt; user -&gt; hash identifiter &amp; 明文密码 -&gt; NAS -&gt; 加密密码 -&gt; radius server</li>
+</ul>
+</li>
+<li>MS-CHAP<ul>
+<li>微软chap协议,增强了功能,如用户修改密码,错误消息等.</li>
+<li>chapv1 &amp; chapv2</li>
+<li>user -&gt; 包含微软特殊字段NT-Response + 加密密码 -&gt; NAS</li>
+<li>EAP协议使用MS-CHAP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost raddb]# vi /etc/raddb/users</span><br><span class="line">添加以下2行</span><br><span class="line">&quot;tianfei&quot; Cleartext-Password := &quot;passgo&quot;</span><br><span class="line">        Reply-Message = &quot;Hello, %&#123;User-Name&#125;&quot;</span><br><span class="line"></span><br><span class="line">[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123</span><br><span class="line">Sent Access-Request Id 170 from 0.0.0.0:44098 to 127.0.0.1:1812 length 77</span><br><span class="line">        User-Name = &quot;tianfei&quot;</span><br><span class="line">        User-Password = &quot;passgo&quot;</span><br><span class="line">        NAS-IP-Address = 127.0.0.1</span><br><span class="line">        NAS-Port = 100</span><br><span class="line">        Message-Authenticator = 0x00</span><br><span class="line">        Cleartext-Password = &quot;passgo&quot;</span><br><span class="line">Received Access-Reject Id 170 from 127.0.0.1:1812 to 0.0.0.0:0 length 20</span><br><span class="line">(0) -: Expected Access-Accept got Access-Reject</span><br><span class="line">[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123</span><br><span class="line">Sent Access-Request Id 155 from 0.0.0.0:44387 to 127.0.0.1:1812 length 77</span><br><span class="line">        User-Name = &quot;tianfei&quot;</span><br><span class="line">        User-Password = &quot;passgo&quot;</span><br><span class="line">        NAS-IP-Address = 127.0.0.1</span><br><span class="line">        NAS-Port = 100</span><br><span class="line">        Message-Authenticator = 0x00</span><br><span class="line">        Cleartext-Password = &quot;passgo&quot;</span><br><span class="line">Received Access-Accept Id 155 from 127.0.0.1:1812 to 0.0.0.0:0 length 36</span><br><span class="line">        Reply-Message = &quot;Hello, tianfei&quot;</span><br></pre></td></tr></table></figure>
+
+<p>服务器日志输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">Ready to process requests</span><br><span class="line"></span><br><span class="line">(0) Received Access-Request Id 155 from 127.0.0.1:44387 to 127.0.0.1:1812 length 77</span><br><span class="line">(0)   User-Name = &quot;tianfei&quot;</span><br><span class="line">(0)   User-Password = &quot;passgo&quot;</span><br><span class="line">(0)   NAS-IP-Address = 127.0.0.1</span><br><span class="line">(0)   NAS-Port = 100</span><br><span class="line">(0)   Message-Authenticator = 0x5328ee7e1eaa61d3555baa241acb7582</span><br><span class="line">(0) # Executing section authorize from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   authorize &#123;</span><br><span class="line">(0)     policy filter_username &#123;</span><br><span class="line">(0)       if (&amp;User-Name) &#123;</span><br><span class="line">(0)       if (&amp;User-Name)  -&gt; TRUE</span><br><span class="line">(0)       if (&amp;User-Name)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ / /) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ / /)  -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /@[^@]*@/ ) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /@[^@]*@/ )  -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.\./ ) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.\./ )  -&gt; FALSE</span><br><span class="line">(0)         if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/))  &#123;</span><br><span class="line">(0)         if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/))   -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.$/)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.$/)   -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /@\./)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /@\./)   -&gt; FALSE</span><br><span class="line">(0)       &#125; # if (&amp;User-Name)  = notfound</span><br><span class="line">(0)     &#125; # policy filter_username = notfound</span><br><span class="line">(0)     [preprocess] = ok</span><br><span class="line">(0)     [chap] = noop</span><br><span class="line">(0)     [mschap] = noop</span><br><span class="line">(0)     [digest] = noop</span><br><span class="line">(0) suffix: Checking for suffix after &quot;@&quot;</span><br><span class="line">(0) suffix: No &apos;@&apos; in User-Name = &quot;tianfei&quot;, looking up realm NULL</span><br><span class="line">(0) suffix: No such realm &quot;NULL&quot;</span><br><span class="line">(0)     [suffix] = noop</span><br><span class="line">(0) eap: No EAP-Message, not doing EAP</span><br><span class="line">(0)     [eap] = noop</span><br><span class="line">(0) files: users: Matched entry tianfei at line 1</span><br><span class="line">(0) files: EXPAND Hello, %&#123;User-Name&#125;</span><br><span class="line">(0) files:    --&gt; Hello, tianfei</span><br><span class="line">(0)     [files] = ok</span><br><span class="line">(0)     [expiration] = noop</span><br><span class="line">(0)     [logintime] = noop</span><br><span class="line">(0)     [pap] = updated</span><br><span class="line">(0)   &#125; # authorize = updated</span><br><span class="line">(0) Found Auth-Type = PAP</span><br><span class="line">(0) # Executing group from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   Auth-Type PAP &#123;</span><br><span class="line">(0) pap: Login attempt with password</span><br><span class="line">(0) pap: Comparing with &quot;known good&quot; Cleartext-Password</span><br><span class="line">(0) pap: User authenticated successfully</span><br><span class="line">(0)     [pap] = ok</span><br><span class="line">(0)   &#125; # Auth-Type PAP = ok</span><br><span class="line">(0) # Executing section post-auth from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   post-auth &#123;</span><br><span class="line">(0)     update &#123;</span><br><span class="line">(0)       No attributes updated</span><br><span class="line">(0)     &#125; # update = noop</span><br><span class="line">(0)     [exec] = noop</span><br><span class="line">(0)     policy remove_reply_message_if_eap &#123;</span><br><span class="line">(0)       if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) &#123;</span><br><span class="line">(0)       if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message)  -&gt; FALSE</span><br><span class="line">(0)       else &#123;</span><br><span class="line">(0)         [noop] = noop</span><br><span class="line">(0)       &#125; # else = noop</span><br><span class="line">(0)     &#125; # policy remove_reply_message_if_eap = noop</span><br><span class="line">(0)   &#125; # post-auth = noop</span><br><span class="line">(0) Sent Access-Accept Id 155 from 127.0.0.1:1812 to 127.0.0.1:44387 length 0</span><br><span class="line">(0)   Reply-Message = &quot;Hello, tianfei&quot;</span><br><span class="line">(0) Finished request</span><br><span class="line">Waking up in 4.9 seconds.</span><br><span class="line">(0) Cleaning up request packet ID 155 with timestamp +6</span><br><span class="line">Ready to process requests</span><br></pre></td></tr></table></figure>
 
 
           

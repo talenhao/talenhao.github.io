@@ -587,15 +587,10 @@
 
       
         
-          <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><h2 id="迭代器iterator-amp-递归器"><a href="#迭代器iterator-amp-递归器" class="headerlink" title="迭代器iterator&amp;递归器"></a>迭代器<strong>iterator</strong>&amp;递归器</h2><ol>
-<li>迭代器<ol>
-<li>字符串(有时需要将字符串视为原子的.否则有时有可能导致无穷递归.)</li>
-<li>每次只取一个对象,不会对内存造成巨大开销.</li>
+          <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><ol start="2">
+<li><h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2></li>
 </ol>
-</li>
-<li>递归器</li>
-</ol>
-<h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
+<h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@装饰器二</span></span><br><span class="line"><span class="meta">	@装饰器一</span></span><br><span class="line">		核心对象</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -621,18 +616,6 @@
 
 <h3 id="4-状态模式"><a href="#4-状态模式" class="headerlink" title="4.状态模式"></a>4.状态模式</h3><p>状态类的目的是实现状态转换,需要一个上下文类提供转换接口和指针指向状态类,状态类对前面的调用者是隐藏的.</p>
 <figure class="highlight graph"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Context -&gt; state -&gt; [state1, state2, state3] -&gt; Parser</span><br><span class="line">				OpenTag</span><br><span class="line">				||</span><br><span class="line">FirstTag	-&gt;	ChildNode	&lt;=&gt;	Text</span><br><span class="line">				||</span><br><span class="line">				CloseTag</span><br></pre></td></tr></table></figure>
-
-<p><strong>策略模式用于运行时选择一种算法</strong>,如一张图片根据不同的情况处理成不同的状态</p>
-<p><strong>状态模式用于允许在不同状态之间进行动态切换,</strong>如解析XML文件,context上下文切换</p>
-<h3 id="单件模式"><a href="#单件模式" class="headerlink" title="单件模式"></a>单件模式</h3><p>只有一个实例的对象类.</p>
-<p><strong>模块级实例变量能够模仿单件实例</strong></p>
-<h3 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h3><h2 id="表达式-amp-语句"><a href="#表达式-amp-语句" class="headerlink" title="表达式 &amp; 语句"></a>表达式 &amp; 语句</h2><ol>
-<li>表达式有返回值<ol>
-<li>yield是表达式,所以调用生成器需要next()来执行表达式</li>
-<li>send是传递值给yield表达式</li>
-</ol>
-</li>
-</ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/25/python学习笔记/#more" rel="contents">

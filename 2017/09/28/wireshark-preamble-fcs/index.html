@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了  在物理层上网卡要先去掉前导同步码和帧开始">
+<meta name="description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章说得很清楚明了(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)  在物理层上网卡要先去掉前导同步码和帧开始">
 <meta name="keywords" content="wireshark,ethernet II frame">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么wireshark抓取ethernet II前导8字符与FCS">
 <meta property="og:url" content="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了  在物理层上网卡要先去掉前导同步码和帧开始">
+<meta property="og:description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章说得很清楚明了(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)  在物理层上网卡要先去掉前导同步码和帧开始">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://talenhao.github.io/img/post/Spectacle.XF5278.png">
 <meta property="og:image" content="https://talenhao.github.io/img/post/frame.png">
-<meta property="og:updated_time" content="2019-07-25T02:10:43.765Z">
+<meta property="og:updated_time" content="2019-07-30T06:00:36.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么wireshark抓取ethernet II前导8字符与FCS">
-<meta name="twitter:description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了  在物理层上网卡要先去掉前导同步码和帧开始">
+<meta name="twitter:description" content="今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分如图:红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议) 查找资料好觉得这篇文章说得很清楚明了(http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)  在物理层上网卡要先去掉前导同步码和帧开始">
 <meta name="twitter:image" content="https://talenhao.github.io/img/post/Spectacle.XF5278.png">
 
 
@@ -372,8 +372,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:00:36+08:00">
+                2019-07-30
               </time>
             
           </span>
@@ -412,7 +412,7 @@
 
       
         <p>今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分<br>如图:<br>红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议)<br><img src="/img/post/Spectacle.XF5278.png" alt="manager page"></p>
-<p>查找资料好觉得这篇文章(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html)说得很清楚明了</a></p>
+<p>查找资料好觉得这篇文章说得很清楚明了<br>(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a>)</p>
 <blockquote>
 <p>在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目 的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处 理。这时我们的抓包软件才能抓到数据，因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，</p>
 </blockquote>

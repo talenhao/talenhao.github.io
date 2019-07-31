@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="python 笔记 设计模型  1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强">
+<meta name="description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python学习笔记">
 <meta property="og:url" content="https://talenhao.github.io/2019/07/25/python学习笔记/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="python 笔记 设计模型  1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强">
+<meta property="og:description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://talenhao.github.io/images/1564143774413.png">
 <meta property="og:image" content="https://talenhao.github.io/images/1564058294189.png">
 <meta property="og:updated_time" content="2019-07-25T07:28:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python学习笔记">
-<meta name="twitter:description" content="python 笔记 设计模型  1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强">
+<meta name="twitter:description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
 <meta name="twitter:image" content="https://talenhao.github.io/images/1564143774413.png">
 
 
@@ -433,10 +433,7 @@
       
 
       
-        <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><ol start="2">
-<li><h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2></li>
-</ol>
-<h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
+        <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@装饰器二</span></span><br><span class="line"><span class="meta">	@装饰器一</span></span><br><span class="line">		核心对象</span><br></pre></td></tr></table></figure>
 
 <ol>

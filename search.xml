@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[react study]]></title>
+    <url>%2F2019%2F08%2F01%2Freact-study%2F</url>
+    <content type="text"><![CDATA[React学习笔记12345678910graph TBJavaScript--&gt;JavaScript_runtimeJavaScript_runtime--&gt;Node.jsv8(Google Chrome V8 引擎)--&gt;Node.jsNode.js--&gt;npm(npm包生态)npm--&gt;create-react-app(create-react-app官方脚手架)create-react-app--&gt;React(React framework)JSX--&gt;React(React三大基本要素)state--&gt;Reactprops--&gt;React]]></content>
+      <categories>
+        <category>react,front-end</category>
+      </categories>
+      <tags>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[git change user name in history commits]]></title>
     <url>%2F2019%2F07%2F26%2Fgit-change-user-name-in-history-commits%2F</url>
     <content type="text"><![CDATA[Git 修改历史提交记录中的用户名背景之间git提交时的用户名不对,但已经提交了4个commit了,所以需要修改历史记录中的用户名. 方案使用git rebase git rebase会把基于 rebase的版本后的commit取消掉,并临时保存为path到.git/reabase目录中,然后把当前分支更新到rebase的分支,最后把你修改的成为path的版本以补丁的形式应用到rebase的版本上. 操作这里把要rebase到4个commit之前的一个版本 12345678910111213141516171819202122232425262728293031[Fri Jul 26 talen@tp-arch-tianfei capacity]$ git rebase -i HEAD~5pick 7e1b101 X0pick 983d257 X1pick 17c4a0e X2pick 41e90ef X3pick 822104d X4# Rebase 5131eea..822104d onto 41e90ef (5 commands)## Commands:# p, pick &lt;commit&gt; = use commit# r, reword &lt;commit&gt; = use commit, but edit the commit message# e, edit &lt;commit&gt; = use commit, but stop for amending# s, squash &lt;commit&gt; = use commit, but meld into previous commit# f, fixup &lt;commit&gt; = like "squash", but discard this commit's log message# x, exec &lt;command&gt; = run command (the rest of the line) using shell# b, break = stop here (continue rebase later with 'git rebase --continue')# d, drop &lt;commit&gt; = remove commit# l, label &lt;label&gt; = label current HEAD with a name# t, reset &lt;label&gt; = reset HEAD to a label# m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]# . create a merge commit using the original merge commit's# . message (or the oneline, if no original merge commit was# . specified). Use -c &lt;commit&gt; to reword the commit message.## These lines can be re-ordered; they are executed from top to bottom.## If you remove a line here THAT COMMIT WILL BE LOST.## However, if you remove everything, the rebase will be aborted.## Note that empty commits are commented out 12345Stopped at 4ac3916... X0You can amend the commit now, withgit commit --amend Once you are satisfied with your changes, rungit rebase --continue vi修改X1-X4的pick为edit,X0是rebase的版本,wq:退出 1[Fri Jul 26 talen@tp-arch-tianfei capacity]$ git commit --amend --author="tianfei.hao &lt;tianfei.hao@example.com&gt;" --no-edit 修改正确的用户名及邮箱 12[Fri Jul 26 talen@tp-arch-tianfei capacity]$ git rebase --continue[Fri Jul 26 talen@tp-arch-tianfei capacity]$ git push origin new_journey --force 强制提交操作]]></content>

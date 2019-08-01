@@ -323,6 +323,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/12/pip_install_pygraphviz_cgraph.h_problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/12/pip_install_pygraphviz_cgraph.h_problem/" itemprop="url">pip_install_pygraphviz_cgraph.h_problem</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>pip 安装pygraphviz报出cgraph.h找不到的问题,ubuntu有pygraphviz-dev包,opensuse要使用pygraphviz-devel包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">(v_python3.6) htf@linux-rzt3:/tmp&gt; pip install pygraphviz</span><br><span class="line">Collecting pygraphviz</span><br><span class="line">  Using cached pygraphviz-1.3.1.zip</span><br><span class="line">Building wheels for collected packages: pygraphviz</span><br><span class="line">  Running setup.py bdist_wheel for pygraphviz ... error</span><br><span class="line">  Complete output from command /home/htf/.virtualenvs/v_python3.6/bin/python3.6 -u -c &quot;import setuptools, tokenize;__file__=&apos;/tmp/pip-build-29gpsytb/pygraphviz/setup.py&apos;;f=getattr(tokenize, &apos;open&apos;, open)(__file__);code=f.read().replace(&apos;\r\n&apos;, &apos;\n&apos;);f.close();exec(compile(code, __file__, &apos;exec&apos;))&quot; bdist_wheel -d /tmp/tmpqyu0lzlwpip-wheel- --python-tag cp36:</span><br><span class="line">  running bdist_wheel</span><br><span class="line">  running build</span><br><span class="line">  running build_py</span><br><span class="line">  creating build</span><br><span class="line">  creating build/lib.linux-x86_64-3.6</span><br><span class="line">  creating build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/release.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/__init__.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/graphviz.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/agraph.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/version.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  creating build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_edge_attributes.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_string.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_subgraph.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_readwrite.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_clear.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_attribute_defaults.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_attributes.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_node_attributes.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_layout.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_graph.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/__init__.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_unicode.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_html.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  copying pygraphviz/tests/test_drawing.py -&gt; build/lib.linux-x86_64-3.6/pygraphviz/tests</span><br><span class="line">  running egg_info</span><br><span class="line">  writing pygraphviz.egg-info/PKG-INFO</span><br><span class="line">  writing dependency_links to pygraphviz.egg-info/dependency_links.txt</span><br><span class="line">  writing top-level names to pygraphviz.egg-info/top_level.txt</span><br><span class="line">  reading manifest file &apos;pygraphviz.egg-info/SOURCES.txt&apos;</span><br><span class="line">  reading manifest template &apos;MANIFEST.in&apos;</span><br><span class="line">  warning: no previously-included files matching &apos;*~&apos; found anywhere in distribution</span><br><span class="line">  warning: no previously-included files matching &apos;*.pyc&apos; found anywhere in distribution</span><br><span class="line">  warning: no previously-included files matching &apos;.svn&apos; found anywhere in distribution</span><br><span class="line">  no previously-included directories found matching &apos;doc/build&apos;</span><br><span class="line">  writing manifest file &apos;pygraphviz.egg-info/SOURCES.txt&apos;</span><br><span class="line">  copying pygraphviz/graphviz.i -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  copying pygraphviz/graphviz_wrap.c -&gt; build/lib.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  running build_ext</span><br><span class="line">  building &apos;pygraphviz._graphviz&apos; extension</span><br><span class="line">  creating build/temp.linux-x86_64-3.6</span><br><span class="line">  creating build/temp.linux-x86_64-3.6/pygraphviz</span><br><span class="line">  gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -g -DOPENSSL_LOAD_CONF -fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -g -fmessage-length=0 -grecord-gcc-switches -O2 -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -g -fPIC -I/usr/include/python3.6m -c pygraphviz/graphviz_wrap.c -o build/temp.linux-x86_64-3.6/pygraphviz/graphviz_wrap.o</span><br><span class="line">  pygraphviz/graphviz_wrap.c:2954:10: fatal error: graphviz/cgraph.h: No such file or directory</span><br><span class="line">   #include &quot;graphviz/cgraph.h&quot;</span><br><span class="line">            ^~~~~~~~~~~~~~~~~~~</span><br><span class="line">  compilation terminated.</span><br><span class="line">  error: command &apos;gcc&apos; failed with exit status 1</span><br><span class="line">  </span><br><span class="line">  ----------------------------------------</span><br><span class="line">  Failed building wheel for pygraphviz</span><br><span class="line">  Running setup.py clean for pygraphviz</span><br><span class="line">Failed to build pygraphviz</span><br><span class="line">Installing collected packages: pygraphviz</span><br><span class="line">  Running setup.py install for pygraphviz ... error</span><br><span class="line">    Complete output from command /home/htf/.virtualenvs/v_python3.6/bin/python3.6 -u -c &quot;import setuptools, tokenize;__file__=&apos;/tmp/pip-build-29gpsytb/pygraphviz/setup.py&apos;;f=getattr(tokenize, &apos;open&apos;, open)(__file__);code=f.read().replace(&apos;\r\n&apos;, &apos;\n&apos;);f.close();exec(compile(code, __file__, &apos;exec&apos;))&quot; install --record /tmp/pip-aiuj4thp-record/install-record.txt --single-version-externally-managed --compile --install-headers /home/htf/.virtualenvs/v_python3.6/include/site/python3.6/pygraphviz:</span><br><span class="line">    running install</span><br><span class="line">    Trying pkg-config</span><br><span class="line">    Package libcgraph was not found in the pkg-config search path.</span><br><span class="line">    Perhaps you should add the directory containing `libcgraph.pc&apos;</span><br><span class="line">    to the PKG_CONFIG_PATH environment variable</span><br><span class="line">    No package &apos;libcgraph&apos; found</span><br><span class="line">    Traceback (most recent call last):</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">      File &quot;/tmp/pip-build-29gpsytb/pygraphviz/setup.py&quot;, line 87, in &lt;module&gt;</span><br><span class="line">        tests_require=[&apos;nose&gt;=0.10.1&apos;, &apos;doctest-ignore-unicode&gt;=0.1.0&apos;,],</span><br><span class="line">      File &quot;/usr/lib64/python3.6/distutils/core.py&quot;, line 148, in setup</span><br><span class="line">        dist.run_commands()</span><br><span class="line">      File &quot;/usr/lib64/python3.6/distutils/dist.py&quot;, line 955, in run_commands</span><br><span class="line">        self.run_command(cmd)</span><br><span class="line">      File &quot;/usr/lib64/python3.6/distutils/dist.py&quot;, line 974, in run_command</span><br><span class="line">        cmd_obj.run()</span><br><span class="line">      File &quot;/tmp/pip-build-29gpsytb/pygraphviz/setup_commands.py&quot;, line 44, in modified_run</span><br><span class="line">        self.include_path, self.library_path = get_graphviz_dirs()</span><br><span class="line">      File &quot;/tmp/pip-build-29gpsytb/pygraphviz/setup_extra.py&quot;, line 121, in get_graphviz_dirs</span><br><span class="line">        include_dirs, library_dirs = _pkg_config()</span><br><span class="line">      File &quot;/tmp/pip-build-29gpsytb/pygraphviz/setup_extra.py&quot;, line 44, in _pkg_config</span><br><span class="line">        output = S.check_output([&apos;pkg-config&apos;, &apos;--libs-only-L&apos;, &apos;libcgraph&apos;])</span><br><span class="line">      File &quot;/usr/lib64/python3.6/subprocess.py&quot;, line 336, in check_output</span><br><span class="line">        **kwargs).stdout</span><br><span class="line">      File &quot;/usr/lib64/python3.6/subprocess.py&quot;, line 418, in run</span><br><span class="line">        output=stdout, stderr=stderr)</span><br><span class="line">    subprocess.CalledProcessError: Command &apos;[&apos;pkg-config&apos;, &apos;--libs-only-L&apos;, &apos;libcgraph&apos;]&apos; returned non-zero exit status 1.</span><br><span class="line">    </span><br><span class="line">    ----------------------------------------</span><br><span class="line">Command &quot;/home/htf/.virtualenvs/v_python3.6/bin/python3.6 -u -c &quot;import setuptools, tokenize;__file__=&apos;/tmp/pip-build-29gpsytb/pygraphviz/setup.py&apos;;f=getattr(tokenize, &apos;open&apos;, open)(__file__);code=f.read().replace(&apos;\r\n&apos;, &apos;\n&apos;);f.close();exec(compile(code, __file__, &apos;exec&apos;))&quot; install --record /tmp/pip-aiuj4thp-record/install-record.txt --single-version-externally-managed --compile --install-headers /home/htf/.virtualenvs/v_python3.6/include/site/python3.6/pygraphviz&quot; failed with error code 1 in /tmp/pip-build-29gpsytb/pygraphviz/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(v_python3.6) htf@linux-rzt3:/tmp&gt; sudo zypper install graphviz-devel</span><br><span class="line">Retrieving repository &apos;tsinghua-packman&apos; metadata ....................................................................................................................[done]</span><br><span class="line">Building repository &apos;tsinghua-packman&apos; cache .........................................................................................................................[done]</span><br><span class="line">Loading repository data...</span><br><span class="line">Reading installed packages...</span><br><span class="line">Resolving package dependencies...</span><br><span class="line"></span><br><span class="line">The following 56 NEW packages are going to be installed:</span><br><span class="line">  autoconf automake cairo-devel damageproto-devel fixesproto-devel fontconfig-devel freetype2-devel glib2-devel graphite2-devel graphviz-devel harfbuzz-devel kbproto-devel</span><br><span class="line">  libbz2-devel libcairo-script-interpreter2 libdrm-devel libexpat-devel libglvnd-devel libicu-devel libjpeg62-devel libLASi1 libLASi-devel libpcrecpp0 libpcreposix0</span><br><span class="line">  libpixman-1-0-devel libpng16-compat-devel libpng16-devel libstdc++6-devel-gcc7 libstdc++-devel libtool libX11-devel libXau-devel libxcb-devel libxcb-res0</span><br><span class="line">  libxcb-screensaver0 libxcb-xf86dri0 libxcb-xtest0 libxcb-xv0 libxcb-xvmc0 libXdamage-devel libXext-devel libXfixes-devel libXft-devel libXrender-devel libXxf86vm-devel</span><br><span class="line">  Mesa-libEGL-devel Mesa-libGL-devel pango-devel pcre-devel pthread-stubs-devel renderproto-devel tcl-devel tk-devel xextproto-devel xf86vidmodeproto-devel xproto-devel</span><br><span class="line">  zlib-devel</span><br><span class="line"></span><br><span class="line">The following 2 recommended packages were automatically selected:</span><br><span class="line">  libpng16-compat-devel Mesa-libGL-devel</span><br><span class="line"></span><br><span class="line">56 new packages to install.</span><br><span class="line">Overall download size: 19.3 MiB. Already cached: 0 B. After the operation, additional 104.2 MiB will be used.</span><br><span class="line">Continue? [y/n/...? shows all options] (y): y</span><br></pre></td></tr></table></figure>
+
+<p>再次安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(sce) htf@linux-rzt3:~/pyproject/sce/ser_con_evo/pip_download&gt; pip install pygraphviz-1.3.1.zip</span><br><span class="line">Processing ./pygraphviz-1.3.1.zip</span><br><span class="line">  Requirement already satisfied (use --upgrade to upgrade): pygraphviz==1.3.1 from file:///home/htf/pyproject/sce/ser_con_evo/pip_download/pygraphviz-1.3.1.zip in /home/htf/pyproject/sce/lib/python3.6/site-packages</span><br><span class="line">Building wheels for collected packages: pygraphviz</span><br><span class="line">  Running setup.py bdist_wheel for pygraphviz ... done</span><br><span class="line">  Stored in directory: /home/htf/.cache/pip/wheels/24/e7/76/6e3ea1649ae65c36eb23a62a319c15fcf568647c0cbe14966b</span><br><span class="line">Successfully built pygraphviz</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/05/pip安装psutil报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1071,7 +1210,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1082,7 +1221,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1093,7 +1232,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

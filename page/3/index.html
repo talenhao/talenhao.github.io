@@ -323,6 +323,208 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/27/dns-can-t-resolv-out-domain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/27/dns-can-t-resolv-out-domain/" itemprop="url">配置DNS服务器</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-27T17:28:07+08:00">
+                2019-01-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redhat-Server/" itemprop="url" rel="index">
+                    <span itemprop="name">Redhat Server</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Ovirt虚拟化平台对DNS的可靠要求比较高,DNS服务如果无法正常提供解析,将造成整个虚拟化平台的宕机;</p>
+<p>Ovirt官方不推荐只在虚拟化平台上运行DNS服务,防止虚拟机宕机造成整个平台宕机,所以这里采用的是一台实体物理机运行主DNS服务(10.0.0.40),其它两台从服务器运行在虚拟化平台上低成本解决单点问题.</p>
+<p>服务器:</p>
+<ol>
+<li>主服务器: 10.0.0.40</li>
+<li>从服务器1: 10.0.0.41</li>
+<li>从服务器2: 10.0.0.42</li>
+</ol>
+<p>其中主服务器部署在一台实体物理机上,其它服务器在Ovirt平台上启动的虚拟机.</p>
+<p>在所有服务器上执行安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# yum install -y bind bind-utils</span><br><span class="line">[root@dns01 ~]# yum install -y bind bind-utils</span><br><span class="line">[root@dns02 ~]# yum install -y bind bind-utils</span><br></pre></td></tr></table></figure>
+
+<p>配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /etc/named.conf </span><br><span class="line">//</span><br><span class="line">// named.conf</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS</span><br><span class="line">// server as a caching only nameserver (as a localhost DNS resolver only).</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line">// See the BIND Administrator&apos;s Reference Manual (ARM) for details about the</span><br><span class="line">// configuration located in /usr/share/doc/bind-&#123;version&#125;/Bv9ARM.html</span><br><span class="line">acl iot-slaves &#123;</span><br><span class="line">        10.0.0.41;</span><br><span class="line">        10.0.0.42;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">acl localnet253 &#123;</span><br><span class="line">        10.0.0.0/25;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; any;&#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; any; &#125;;</span><br><span class="line">        directory       &quot;/var/named&quot;;</span><br><span class="line">        dump-file       &quot;/var/named/data/cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;/var/named/data/named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;</span><br><span class="line">        recursing-file  &quot;/var/named/data/named.recursing&quot;;</span><br><span class="line">        secroots-file   &quot;/var/named/data/named.secroots&quot;;</span><br><span class="line"></span><br><span class="line">        allow-query     &#123; localnets;10.0.0.20; &#125;;</span><br><span class="line"></span><br><span class="line">        recursion yes;</span><br><span class="line">        allow-recursion &#123; localnets; &#125;;</span><br><span class="line"></span><br><span class="line">        /* </span><br><span class="line">         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.</span><br><span class="line">         - If you are building a RECURSIVE (caching) DNS server, you need to enable </span><br><span class="line">           recursion. </span><br><span class="line">         - If your recursive DNS server has a public IP address, you MUST enable access</span><br><span class="line">           control to limit queries to your legitimate users. Failing to do so will</span><br><span class="line">           cause your server to become part of large scale DNS amplification</span><br><span class="line">           attacks. Implementing BCP38 within your network would greatly</span><br><span class="line">           reduce such attack surface</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        forward only;</span><br><span class="line">        forwarders &#123;</span><br><span class="line">            119.29.29.29;</span><br><span class="line">            223.5.5.5;</span><br><span class="line">            223.6.6.6;</span><br><span class="line">            8.8.8.8;</span><br><span class="line">        &#125;;</span><br><span class="line">        allow-transfer &#123;</span><br><span class="line">                iot-slaves;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line"></span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">        bindkeys-file &quot;/etc/named.iscdlv.key&quot;;</span><br><span class="line"></span><br><span class="line">        managed-keys-directory &quot;/var/named/dynamic&quot;;</span><br><span class="line"></span><br><span class="line">        pid-file &quot;/run/named/named.pid&quot;;</span><br><span class="line">        session-keyfile &quot;/run/named/session.key&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file &quot;data/named.run&quot; versions 30 size 10240k;</span><br><span class="line">                severity debug;</span><br><span class="line">                print-time yes;</span><br><span class="line">                print-severity yes;</span><br><span class="line">                print-category yes;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;.&quot; IN &#123;</span><br><span class="line">        type hint;</span><br><span class="line">        file &quot;named.ca&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include &quot;/etc/named.rfc1912.zones&quot;;</span><br><span class="line">include &quot;/etc/named.root.key&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /etc/named.rfc1912.zones </span><br><span class="line">// named.rfc1912.zones:</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat caching-nameserver package </span><br><span class="line">//</span><br><span class="line">// ISC BIND named zone configuration for zones recommended by</span><br><span class="line">// RFC 1912 section 4.1 : localhost TLDs and address zones</span><br><span class="line">// and http://www.ietf.org/internet-drafts/draft-ietf-dnsop-default-local-zones-02.txt</span><br><span class="line">// (c)2007 R W Franks</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">zone &quot;localhost.localdomain&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;localhost&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.127.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;0.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.empty&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;talen.iot&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.talen.iot&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">        allow-transfer &#123; iot-slaves; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;253.34.10.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.10.0.0&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">        allow-transfer &#123; iot-slaves; &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意zone文件中一定要将所有NS服务器列举出来,否则从服务器无法收到主服务的notify</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /var/named/named.talen.iot</span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA  @ haotianfei.talen.com. (</span><br><span class="line">                                        2019020300      ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">        NS      ns.talen.iot.</span><br><span class="line">        NS      ns1.talen.iot.</span><br><span class="line">        NS      ns2.talen.iot.</span><br><span class="line">storage NS      ns.talen.iot.</span><br><span class="line">server  IN      A       10.0.0.40</span><br><span class="line">ns      IN      A       10.0.0.40</span><br><span class="line">ns1     IN      A       10.0.0.41</span><br><span class="line">ns2     IN      A       10.0.0.42</span><br><span class="line">engine  IN      A       10.0.0.20</span><br><span class="line">vnode00 IN      A       10.0.0.30</span><br><span class="line">vnode01 IN      A       10.0.0.31</span><br><span class="line">vnode02 IN      A       10.0.0.32</span><br><span class="line">storage IN      A       10.0.0.20</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# cat /var/named/named.10.0.0</span><br><span class="line">$TTL 3H</span><br><span class="line">@       IN SOA  ns.talen.iot haotianfei.talen.com. (</span><br><span class="line">                                        2019012700      ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">        NS      ns.talen.iot.</span><br><span class="line">        NS      ns1.talen.iot.</span><br><span class="line">        NS      ns2.talen.iot.</span><br><span class="line">40      IN      PTR     ns.talen.iot.</span><br><span class="line">40      IN      PTR     server.talen.iot.</span><br><span class="line">20      IN      PTR     engine.talen.iot.</span><br><span class="line">30      IN      PTR     vnode00.talen.iot.</span><br><span class="line">31      IN      PTR     vnode01.talen.iot.</span><br><span class="line">32      IN      PTR     vnode02.talen.iot.</span><br><span class="line">20      IN      PTR     engine.talen.iot.</span><br></pre></td></tr></table></figure>
+
+<p>配置两个从节点,配置基本一致,zone数据是从主节点同步过来的,所以无需管理.:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# cat /etc/named.conf</span><br><span class="line">//</span><br><span class="line">// named.conf</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS</span><br><span class="line">// server as a caching only nameserver (as a localhost DNS resolver only).</span><br><span class="line">//</span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line">// See the BIND Administrator&apos;s Reference Manual (ARM) for details about the</span><br><span class="line">// configuration located in /usr/share/doc/bind-&#123;version&#125;/Bv9ARM.html</span><br><span class="line">acl &quot;trusted&quot; &#123;</span><br><span class="line">        10.0.0.20;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; any; &#125;;</span><br><span class="line">        listen-on-v6 port 53 &#123; any; &#125;;</span><br><span class="line">        directory       &quot;/var/named&quot;;</span><br><span class="line">        dump-file       &quot;/var/named/data/cache_dump.db&quot;;</span><br><span class="line">        statistics-file &quot;/var/named/data/named_stats.txt&quot;;</span><br><span class="line">        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;</span><br><span class="line">        recursing-file  &quot;/var/named/data/named.recursing&quot;;</span><br><span class="line">        secroots-file   &quot;/var/named/data/named.secroots&quot;;</span><br><span class="line"></span><br><span class="line">        allow-query     &#123; localnets;10.0.0.20; &#125;;</span><br><span class="line">        recursion yes;</span><br><span class="line">        allow-recursion &#123; localnets; &#125;;</span><br><span class="line"></span><br><span class="line">        forward only;</span><br><span class="line">        forwarders &#123;</span><br><span class="line">            119.29.29.29;</span><br><span class="line">            223.5.5.5;</span><br><span class="line">            223.6.6.6;</span><br><span class="line">            8.8.8.8;</span><br><span class="line">        &#125;;</span><br><span class="line">        allow-transfer &#123;</span><br><span class="line">                none;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        /*</span><br><span class="line">         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.</span><br><span class="line">         - If you are building a RECURSIVE (caching) DNS server, you need to enable</span><br><span class="line">           recursion.</span><br><span class="line">         - If your recursive DNS server has a public IP address, you MUST enable access</span><br><span class="line">           control to limit queries to your legitimate users. Failing to do so will</span><br><span class="line">           cause your server to become part of large scale DNS amplification</span><br><span class="line">           attacks. Implementing BCP38 within your network would greatly</span><br><span class="line">           reduce such attack surface</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line"></span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">        bindkeys-file &quot;/etc/named.iscdlv.key&quot;;</span><br><span class="line"></span><br><span class="line">        managed-keys-directory &quot;/var/named/dynamic&quot;;</span><br><span class="line"></span><br><span class="line">        pid-file &quot;/run/named/named.pid&quot;;</span><br><span class="line">        session-keyfile &quot;/run/named/session.key&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file &quot;data/named.run&quot; versions 30 size 10240k;</span><br><span class="line">                severity debug;</span><br><span class="line">                print-time yes;</span><br><span class="line">                print-severity yes;</span><br><span class="line">                print-category yes;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;.&quot; IN &#123;</span><br><span class="line">        type hint;</span><br><span class="line">        file &quot;named.ca&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include &quot;/etc/named.rfc1912.zones&quot;;</span><br><span class="line">include &quot;/etc/named.root.key&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@dns01 ~]# cat /etc/named.rfc1912.zones </span><br><span class="line">// named.rfc1912.zones:</span><br><span class="line">//</span><br><span class="line">// Provided by Red Hat caching-nameserver package </span><br><span class="line">//</span><br><span class="line">// ISC BIND named zone configuration for zones recommended by</span><br><span class="line">// RFC 1912 section 4.1 : localhost TLDs and address zones</span><br><span class="line">// and http://www.ietf.org/internet-drafts/draft-ietf-dnsop-default-local-zones-02.txt</span><br><span class="line">// (c)2007 R W Franks</span><br><span class="line">// </span><br><span class="line">// See /usr/share/doc/bind*/sample/ for example named configuration files.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">zone &quot;localhost.localdomain&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;localhost&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.localhost&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.0.0.127.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.loopback&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;0.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;named.empty&quot;;</span><br><span class="line">        allow-update &#123; none; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;talen.iot&quot; IN &#123;</span><br><span class="line">        type slave;</span><br><span class="line">        file &quot;named.talen.iot&quot;;</span><br><span class="line">        masters &#123;10.0.0.40;&#125;;</span><br><span class="line">        allow-query &#123; localnets; &#125;;</span><br><span class="line">        zone-statistics yes;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;253.34.10.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type slave;</span><br><span class="line">        file &quot;named.10.0.0&quot;;</span><br><span class="line">        masters &#123;10.0.0.40;&#125;;</span><br><span class="line">        allow-query &#123; localnets; &#125;;</span><br><span class="line">        zone-statistics yes;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>验证:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# dig www.sina.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-72.el7 &lt;&lt;&gt;&gt; www.sina.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 20729</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.sina.com.                  IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.sina.com.           24      IN      CNAME   us.sina.com.cn.</span><br><span class="line">us.sina.com.cn.         15      IN      CNAME   spool.grid.sinaedge.com.</span><br><span class="line">spool.grid.sinaedge.com. 28     IN      A       202.102.94.124</span><br><span class="line"></span><br><span class="line">;; Query time: 8 msec</span><br><span class="line">;; SERVER: 10.0.0.40#53(10.0.0.40)</span><br><span class="line">;; WHEN: Sun Jan 27 17:38:06 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 119</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@dns00 ~]# dig engine.talen.iot</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-72.el7 &lt;&lt;&gt;&gt; engine.talen.iot</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 63533</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;engine.talen.iot.               IN      A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">engine.talen.iot.        10800   IN      A       10.0.0.20</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">talen.iot.               10800   IN      NS      ns.talen.iot.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">ns.talen.iot.            10800   IN      A       10.0.0.40</span><br><span class="line"></span><br><span class="line">;; Query time: 1 msec</span><br><span class="line">;; SERVER: 10.0.0.40#53(10.0.0.40)</span><br><span class="line">;; WHEN: Sun Jan 27 17:39:03 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 93</span><br></pre></td></tr></table></figure>
+
+<h2 id="故障现象一"><a href="#故障现象一" class="headerlink" title="故障现象一"></a>故障现象一</h2><ul>
+<li>bind可以解析自管理的域名,但无法解析外部域名.</li>
+<li>日志中报错:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jan 27 17:22:31 server.talen.iot named[7460]: no valid RRSIG resolving &apos;net/DS/IN&apos;: 223.6.6.6#53</span><br><span class="line">Jan 27 17:22:31 server.talen.iot named[7460]: no valid RRSIG resolving &apos;net/DS/IN&apos;: 223.5.5.5#53</span><br><span class="line">Jan 27 17:22:41 server.talen.iot named[7460]: no valid DS resolving &apos;l.root-servers.net/AAAA/IN&apos;: 223.6.6.6#53</span><br><span class="line">Jan 27 17:22:41 server.talen.iot named[7460]: no valid DS resolving &apos;l.root-servers.net/A/IN&apos;: 223.6.6.6#53</span><br></pre></td></tr></table></figure>
+
+<p>解决方法:</p>
+<ul>
+<li>关闭DNSSEC</li>
+</ul>
+<h2 id="故障现象二"><a href="#故障现象二" class="headerlink" title="故障现象二"></a>故障现象二</h2><ul>
+<li>主服务器域名zone文件是text,从服务器zone文件是data</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@dns00 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: ASCII text</span><br><span class="line">[root@dns01 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: data</span><br></pre></td></tr></table></figure>
+
+<p>解决方法:<br>从服务器/etc/named.conf的option中添加masterfile-format text;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# file /var/named/named.talen.iot </span><br><span class="line">/var/named/named.talen.iot: ASCII text</span><br></pre></td></tr></table></figure>
+
+<h2 id="故障现象三"><a href="#故障现象三" class="headerlink" title="故障现象三"></a>故障现象三</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@saltstack bind]# nslookup salt      </span><br><span class="line">Server:         10.34.253.40</span><br><span class="line">Address:        10.34.253.40#53</span><br><span class="line"></span><br><span class="line">** server can&apos;t find salt: NXDOMAIN</span><br><span class="line"></span><br><span class="line">[root@saltstack bind]# vi /etc/resolv.conf</span><br><span class="line">[root@saltstack bind]# hostname</span><br><span class="line">saltstack.talne.iot</span><br></pre></td></tr></table></figure>
+
+<p>解决方法:<br>hostname中的域名配置错误,只使用主机名解析找不到域.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@saltstack bind]# hostnamectl set-hostname saltstack.talen.iot</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/27/firefox-allways-display-close/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2118,169 +2320,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/14/FreeRADIUS Beginner's Guide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/FreeRADIUS Beginner's Guide/" itemprop="url">FreeRADIUS Beginner's Guide</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T00:00:00+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="4-Authentication"><a href="#4-Authentication" class="headerlink" title="4. Authentication"></a>4. Authentication</h1><p>认证过程:</p>
-<ul>
-<li>data link layer -&gt; success -&gt; network layer</li>
-</ul>
-<p>认证协议:</p>
-<ul>
-<li>userpassword:<ul>
-<li>PAP<ul>
-<li>(password Authentication protocal)密码认证协议(p2p)</li>
-<li>client -&gt; (密码明文) -&gt; NAS -&gt; (加密密码) -&gt; RADIUS SERVER</li>
-</ul>
-</li>
-<li>CHAP<ul>
-<li>(challenge-handshake authentication protocal)询问交互认证协议</li>
-<li>NAS -&gt; 重复发送随机间隔的 challenge -&gt; user -&gt; hash identifiter &amp; 明文密码 -&gt; NAS -&gt; 加密密码 -&gt; radius server</li>
-</ul>
-</li>
-<li>MS-CHAP<ul>
-<li>微软chap协议,增强了功能,如用户修改密码,错误消息等.</li>
-<li>chapv1 &amp; chapv2</li>
-<li>user -&gt; 包含微软特殊字段NT-Response + 加密密码 -&gt; NAS</li>
-<li>EAP协议使用MS-CHAP</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost raddb]# vi /etc/raddb/users</span><br><span class="line">添加以下2行</span><br><span class="line">&quot;tianfei&quot; Cleartext-Password := &quot;passgo&quot;</span><br><span class="line">        Reply-Message = &quot;Hello, %&#123;User-Name&#125;&quot;</span><br><span class="line"></span><br><span class="line">[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123</span><br><span class="line">Sent Access-Request Id 170 from 0.0.0.0:44098 to 127.0.0.1:1812 length 77</span><br><span class="line">        User-Name = &quot;tianfei&quot;</span><br><span class="line">        User-Password = &quot;passgo&quot;</span><br><span class="line">        NAS-IP-Address = 127.0.0.1</span><br><span class="line">        NAS-Port = 100</span><br><span class="line">        Message-Authenticator = 0x00</span><br><span class="line">        Cleartext-Password = &quot;passgo&quot;</span><br><span class="line">Received Access-Reject Id 170 from 127.0.0.1:1812 to 0.0.0.0:0 length 20</span><br><span class="line">(0) -: Expected Access-Accept got Access-Reject</span><br><span class="line">[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123</span><br><span class="line">Sent Access-Request Id 155 from 0.0.0.0:44387 to 127.0.0.1:1812 length 77</span><br><span class="line">        User-Name = &quot;tianfei&quot;</span><br><span class="line">        User-Password = &quot;passgo&quot;</span><br><span class="line">        NAS-IP-Address = 127.0.0.1</span><br><span class="line">        NAS-Port = 100</span><br><span class="line">        Message-Authenticator = 0x00</span><br><span class="line">        Cleartext-Password = &quot;passgo&quot;</span><br><span class="line">Received Access-Accept Id 155 from 127.0.0.1:1812 to 0.0.0.0:0 length 36</span><br><span class="line">        Reply-Message = &quot;Hello, tianfei&quot;</span><br></pre></td></tr></table></figure>
-
-<p>服务器日志输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">Ready to process requests</span><br><span class="line"></span><br><span class="line">(0) Received Access-Request Id 155 from 127.0.0.1:44387 to 127.0.0.1:1812 length 77</span><br><span class="line">(0)   User-Name = &quot;tianfei&quot;</span><br><span class="line">(0)   User-Password = &quot;passgo&quot;</span><br><span class="line">(0)   NAS-IP-Address = 127.0.0.1</span><br><span class="line">(0)   NAS-Port = 100</span><br><span class="line">(0)   Message-Authenticator = 0x5328ee7e1eaa61d3555baa241acb7582</span><br><span class="line">(0) # Executing section authorize from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   authorize &#123;</span><br><span class="line">(0)     policy filter_username &#123;</span><br><span class="line">(0)       if (&amp;User-Name) &#123;</span><br><span class="line">(0)       if (&amp;User-Name)  -&gt; TRUE</span><br><span class="line">(0)       if (&amp;User-Name)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ / /) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ / /)  -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /@[^@]*@/ ) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /@[^@]*@/ )  -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.\./ ) &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.\./ )  -&gt; FALSE</span><br><span class="line">(0)         if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/))  &#123;</span><br><span class="line">(0)         if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/))   -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.$/)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /\.$/)   -&gt; FALSE</span><br><span class="line">(0)         if (&amp;User-Name =~ /@\./)  &#123;</span><br><span class="line">(0)         if (&amp;User-Name =~ /@\./)   -&gt; FALSE</span><br><span class="line">(0)       &#125; # if (&amp;User-Name)  = notfound</span><br><span class="line">(0)     &#125; # policy filter_username = notfound</span><br><span class="line">(0)     [preprocess] = ok</span><br><span class="line">(0)     [chap] = noop</span><br><span class="line">(0)     [mschap] = noop</span><br><span class="line">(0)     [digest] = noop</span><br><span class="line">(0) suffix: Checking for suffix after &quot;@&quot;</span><br><span class="line">(0) suffix: No &apos;@&apos; in User-Name = &quot;tianfei&quot;, looking up realm NULL</span><br><span class="line">(0) suffix: No such realm &quot;NULL&quot;</span><br><span class="line">(0)     [suffix] = noop</span><br><span class="line">(0) eap: No EAP-Message, not doing EAP</span><br><span class="line">(0)     [eap] = noop</span><br><span class="line">(0) files: users: Matched entry tianfei at line 1</span><br><span class="line">(0) files: EXPAND Hello, %&#123;User-Name&#125;</span><br><span class="line">(0) files:    --&gt; Hello, tianfei</span><br><span class="line">(0)     [files] = ok</span><br><span class="line">(0)     [expiration] = noop</span><br><span class="line">(0)     [logintime] = noop</span><br><span class="line">(0)     [pap] = updated</span><br><span class="line">(0)   &#125; # authorize = updated</span><br><span class="line">(0) Found Auth-Type = PAP</span><br><span class="line">(0) # Executing group from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   Auth-Type PAP &#123;</span><br><span class="line">(0) pap: Login attempt with password</span><br><span class="line">(0) pap: Comparing with &quot;known good&quot; Cleartext-Password</span><br><span class="line">(0) pap: User authenticated successfully</span><br><span class="line">(0)     [pap] = ok</span><br><span class="line">(0)   &#125; # Auth-Type PAP = ok</span><br><span class="line">(0) # Executing section post-auth from file /etc/raddb/sites-enabled/default</span><br><span class="line">(0)   post-auth &#123;</span><br><span class="line">(0)     update &#123;</span><br><span class="line">(0)       No attributes updated</span><br><span class="line">(0)     &#125; # update = noop</span><br><span class="line">(0)     [exec] = noop</span><br><span class="line">(0)     policy remove_reply_message_if_eap &#123;</span><br><span class="line">(0)       if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) &#123;</span><br><span class="line">(0)       if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message)  -&gt; FALSE</span><br><span class="line">(0)       else &#123;</span><br><span class="line">(0)         [noop] = noop</span><br><span class="line">(0)       &#125; # else = noop</span><br><span class="line">(0)     &#125; # policy remove_reply_message_if_eap = noop</span><br><span class="line">(0)   &#125; # post-auth = noop</span><br><span class="line">(0) Sent Access-Accept Id 155 from 127.0.0.1:1812 to 127.0.0.1:44387 length 0</span><br><span class="line">(0)   Reply-Message = &quot;Hello, tianfei&quot;</span><br><span class="line">(0) Finished request</span><br><span class="line">Waking up in 4.9 seconds.</span><br><span class="line">(0) Cleaning up request packet ID 155 with timestamp +6</span><br><span class="line">Ready to process requests</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2331,7 +2370,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2342,7 +2381,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2353,7 +2392,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

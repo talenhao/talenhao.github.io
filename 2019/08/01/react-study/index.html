@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="React学习笔记12345678910graph TBJavaScript--&amp;gt;JavaScript_runtimeJavaScript_runtime--&amp;gt;Node.jsv8(Google Chrome V8 引擎)--&amp;gt;Node.jsNode.js--&amp;gt;npm(npm包生态)npm--&amp;gt;create-react-app(create-react-app官方脚手架">
+<meta name="description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
 <meta name="keywords" content="react">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react study">
 <meta property="og:url" content="https://talenhao.github.io/2019/08/01/react-study/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="React学习笔记12345678910graph TBJavaScript--&amp;gt;JavaScript_runtimeJavaScript_runtime--&amp;gt;Node.jsv8(Google Chrome V8 引擎)--&amp;gt;Node.jsNode.js--&amp;gt;npm(npm包生态)npm--&amp;gt;create-react-app(create-react-app官方脚手架">
+<meta property="og:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://talenhao.github.io/images/1564661016642.png">
 <meta property="og:updated_time" content="2019-08-01T09:00:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react study">
-<meta name="twitter:description" content="React学习笔记12345678910graph TBJavaScript--&amp;gt;JavaScript_runtimeJavaScript_runtime--&amp;gt;Node.jsv8(Google Chrome V8 引擎)--&amp;gt;Node.jsNode.js--&amp;gt;npm(npm包生态)npm--&amp;gt;create-react-app(create-react-app官方脚手架">
-<meta name="twitter:image" content="https://talenhao.github.io/images/1564661016642.png">
+<meta name="twitter:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
 
 
 
@@ -432,9 +430,33 @@
       
 
       
-        <h1 id="React学习笔记"><a href="#React学习笔记" class="headerlink" title="React学习笔记"></a>React学习笔记</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">JavaScript--&gt;JavaScript_runtime</span><br><span class="line">JavaScript_runtime--&gt;Node.js</span><br><span class="line">v8(Google Chrome V8 引擎)--&gt;Node.js</span><br><span class="line">Node.js--&gt;npm(npm包生态)</span><br><span class="line">npm--&gt;create-react-app(create-react-app官方脚手架)</span><br><span class="line">create-react-app--&gt;React(React framework)</span><br><span class="line">JSX--&gt;React(React三大基本要素)</span><br><span class="line">state--&gt;React</span><br><span class="line">props--&gt;React</span><br></pre></td></tr></table></figure>
+        <h1 id="React学习笔记"><a href="#React学习笔记" class="headerlink" title="React学习笔记"></a>React学习笔记</h1><pre class="mermaid">graph TB
+JavaScript-->JavaScript_runtime
+JavaScript_runtime-->Node.js
+v8(Google Chrome V8 引擎)-->Node.js
+Node.js-->npm(npm包生态)
+npm-->create-react-app(create-react-app官方脚手架)
+create-react-app-->React(React framework)
+JSX-->React(React三大基本要素)
+state-->React
+props-->React
 
-<p><img src="/images/1564661016642.png" alt="1564661016642"></p>
+out_data(外部数据)-->this.props
+this.props-->render(render方法)
+bindin(内部数据)-->this.state
+this.state-->render</pre>
+
+<p>面向数据编程</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ol>
+<li>… 展开运算符</li>
+</ol>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
+<li>父组件通过属性向子组件传递参数</li>
+<li>子组件通过this.props接收父组件传递过来的参数值</li>
+<li>子组件如想和父组件通信,需要调用父组件传递过来的方法</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloMessage</span> <span class="keyword">extends</span> <span class="title">Reacts</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">        	&lt;div&gt;</span><br><span class="line">            	hello, &#123;<span class="keyword">this</span>.props.name&#125;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -521,6 +543,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/05/linux终端中文显示问题修复/" rel="prev" title="linux终端中文显示问题修复">
+                linux终端中文显示问题修复 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -640,7 +666,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -651,7 +677,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -662,7 +688,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -732,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React学习笔记"><span class="nav-number">1.</span> <span class="nav-text">React学习笔记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React学习笔记"><span class="nav-number">1.</span> <span class="nav-text">React学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.2.</span> <span class="nav-text">组件</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -773,6 +799,16 @@
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
         

@@ -323,6 +323,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/05/31/yum安装提示nokey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/31/yum安装提示nokey/" itemprop="url">yum安装提示NOKEY</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T00:00:00+08:00">
+                2018-05-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#环境</p>
+<ul>
+<li>os: CentOS 7</li>
+<li>pc: VirtualBox</li>
+</ul>
+<p>#故障描述<br>安装过程中已经导入一个PUBKEY,但还是提示NOKEY</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">Total                                                                                                                                                1.5 MB/s |  83 MB  00:00:56     </span><br><span class="line">Retrieving key from https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">Importing GPG key 0xA7317B0F:</span><br><span class="line"> Userid     : &quot;Google Cloud Packages Automatic Signing Key &lt;gc-team@google.com&gt;&quot;</span><br><span class="line"> Fingerprint: d0bc 747f d8ca f711 7500 d6fa 3746 c208 a731 7b0f</span><br><span class="line"> From       : https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">Is this ok [y/N]: y</span><br><span class="line"></span><br><span class="line">Public key for 571c54a5e4049647541a24d77337898fb4243f6b39c7f3df5d92ab180055bd87-kubectl-1.10.3-0.x86_64.rpm is not installed</span><br><span class="line"></span><br><span class="line"> Failing package is: kubectl-1.10.3-0.x86_64</span><br><span class="line"> GPG Keys are configured as: https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">warning: /var/cache/yum/x86_64/7/kubernetes/packages/571c54a5e4049647541a24d77337898fb4243f6b39c7f3df5d92ab180055bd87-kubectl-1.10.3-0.x86_64.rpm: Header V4 RSA/SHA512 Signature, key ID 3e1ba8d5: NOKEY</span><br></pre></td></tr></table></figure>
+
+<p>#修复<br>查看下载下来的rpm文件的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-b pki]# rpm -K /var/cache/yum/x86_64/7/kubernetes/packages/571c54a5e4049647541a24d77337898fb4243f6b39c7f3df5d92ab180055bd87-kubectl-1.10.3-0.x86_64.rpm</span><br><span class="line">/var/cache/yum/x86_64/7/kubernetes/packages/571c54a5e4049647541a24d77337898fb4243f6b39c7f3df5d92ab180055bd87-kubectl-1.10.3-0.x86_64.rpm: RSA sha1 ((MD5) PGP) md5 NOT OK (MISSING KEYS: (MD5) PGP#3e1ba8d5)</span><br></pre></td></tr></table></figure>
+
+<p>查看当前系统是否已经导入相应的key文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-b pki]# rpm -q gpg-pubkey-*</span><br><span class="line">gpg-pubkey-f4a80eb5-53a7ff4b</span><br><span class="line">gpg-pubkey-ba07f4fb-5ac168db</span><br></pre></td></tr></table></figure>
+
+<p>回看之前安装过程中导入的key与rpm的并不相附,应该是还有key没有导入;<br>查看repo文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-b pki]# cat /etc/yum.repos.d/kubernetes.repo </span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br></pre></td></tr></table></figure>
+
+<p>应该是写入repo文件时换行了,导入没有导入正确的key文件<br>修复repo文件,也可手工导入相应的key文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-b pki]# rpm --import https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">[root@k8s-node-b pki]# rpm -q gpg-pubkey-*</span><br><span class="line">gpg-pubkey-f4a80eb5-53a7ff4b</span><br><span class="line">gpg-pubkey-ba07f4fb-5ac168db</span><br><span class="line">gpg-pubkey-3e1ba8d5-558ab6a8</span><br></pre></td></tr></table></figure>
+
+<p>删除key使用下面的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node-b pki]#  rpm -e --allmatches gpg-pubkey-3e1ba8d5-558ab6a8</span><br></pre></td></tr></table></figure>
+
+<p>重新执行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Downloading packages:</span><br><span class="line">warning: /var/cache/yum/x86_64/7/kubernetes/packages/571c54a5e4049647541a24d77337898fb4243f6b39c7f3df5d92ab180055bd87-kubectl-1.10.3-0.x86_64.rpm: Header V4 RSA/SHA512 Signature, key ID 3e1ba8d5: NOKEY</span><br><span class="line">Retrieving key from https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">Importing GPG key 0xA7317B0F:</span><br><span class="line"> Userid     : &quot;Google Cloud Packages Automatic Signing Key &lt;gc-team@google.com&gt;&quot;</span><br><span class="line"> Fingerprint: d0bc 747f d8ca f711 7500 d6fa 3746 c208 a731 7b0f</span><br><span class="line"> From       : https://packages.cloud.google.com/yum/doc/yum-key.gpg</span><br><span class="line">Is this ok [y/N]: y</span><br><span class="line">Retrieving key from https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">Importing GPG key 0x3E1BA8D5:</span><br><span class="line"> Userid     : &quot;Google Cloud Packages RPM Signing Key &lt;gc-team@google.com&gt;&quot;</span><br><span class="line"> Fingerprint: 3749 e1ba 95a8 6ce0 5454 6ed2 f09c 394c 3e1b a8d5</span><br><span class="line"> From       : https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">Is this ok [y/N]: y</span><br><span class="line">Running transaction check</span><br><span class="line">Running transaction test</span><br><span class="line">Transaction test succeeded</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/05/29/kubernetes删除Terminating的pod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1654,150 +1811,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/13/networkx使用pygraphviz绘图报TypeError/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/13/networkx使用pygraphviz绘图报TypeError/" itemprop="url">python3.6 networkx使用pygraphviz绘图报TypeError</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T00:00:00+08:00">
-                2017-09-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>报错如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/netgraph/__init__.py&quot;, line 139, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/agent/service_collect_agent.py&quot;, line 97, in warper</span><br><span class="line">    func(*args, **kwargs)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/agent/service_collect_agent.py&quot;, line 320, in warper</span><br><span class="line">    fun(*args, **kwargs)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/agent/service_collect_agent.py&quot;, line 69, in warper</span><br><span class="line">    return func(*args, **kwargs)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/agent/service_collect_agent.py&quot;, line 88, in warper</span><br><span class="line">    func(*args, **kwargs)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/ser_con_evo/serconevo/netgraph/__init__.py&quot;, line 124, in main</span><br><span class="line">    A.draw(&apos;pyv.png&apos;, format=&apos;png&apos;)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/lib/python3.6/site-packages/pygraphviz/agraph.py&quot;, line 1474, in draw</span><br><span class="line">    data = self._run_prog(prog, args)</span><br><span class="line">  File &quot;/home/htf/pyproject/sce/lib/python3.6/site-packages/pygraphviz/agraph.py&quot;, line 1338, in _run_prog</span><br><span class="line">    warnings.warn(b&quot;&quot;.join(errors), RuntimeWarning)</span><br><span class="line">TypeError: cannot use a string pattern on a bytes-like object</span><br></pre></td></tr></table></figure>
-
-<p>查了下使用的networkx版本,networkx (1.11),networkx在2.0版本才开始支持3.6,怀疑版本问题</p>
-<p>NetworkX 2.0</p>
-<p>Release date: TBD</p>
-<p>Support for Python 3.6 added, drop support for Python 3.3.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(sce) htf@linux-rzt3:~/pyproject/sce/ser_con_evo/serconevo/netgraph&gt; pip install networkx==2.0rc1</span><br><span class="line">Collecting networkx==2.0rc1</span><br><span class="line">  Using cached networkx-2.0rc1.zip</span><br><span class="line">Requirement already satisfied: decorator&gt;=4.1.0 in /home/htf/pyproject/sce/lib/python3.6/site-packages (from networkx==2.0rc1)</span><br><span class="line">Building wheels for collected packages: networkx</span><br><span class="line">  Running setup.py bdist_wheel for networkx ... done</span><br><span class="line">  Stored in directory: /home/htf/.cache/pip/wheels/c9/28/7a/00a40c74cd75194c6997fa7a58f99a6029f0dcb3f2d94ba0da</span><br><span class="line">Successfully built networkx</span><br><span class="line">Installing collected packages: networkx</span><br><span class="line">  Found existing installation: networkx 1.11</span><br><span class="line">    Uninstalling networkx-1.11:</span><br><span class="line">      Successfully uninstalled networkx-1.11</span><br><span class="line">Successfully installed networkx-2.0rc1</span><br></pre></td></tr></table></figure>
-
-<p>升级完后发现还是报错,查看报错信息,觉得还是跟pygraphviz有关系,升级到最新的1.4rc1,升级进要指定一些参数.<br>默认–library-path获取到的为None,我手工指定路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pygraphviz==1.4rc1 --install-option=&quot;--include-path=/usr/include/graphviz&quot; --install-option=&quot;--library-path=/usr/lib64/graphviz/</span><br></pre></td></tr></table></figure>
-
-<p>再次执行.成功出图.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1848,7 +1861,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1859,7 +1872,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1870,7 +1883,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1965,6 +1978,16 @@
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
         

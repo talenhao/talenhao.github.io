@@ -323,6 +323,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/08/03/ssh免密码登陆的一些注意点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/03/ssh免密码登陆的一些注意点/" itemprop="url">ssh免密码登陆的一些注意点</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T00:00:00+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#环境</p>
+<ul>
+<li>os: OpenSUSE Tumbleweed</li>
+<li>pc: Apple macbook 13’ pro 2015</li>
+</ul>
+<p>#描述<br>Linux 系统用户免密码使用key登陆有时还会提示要输入密码。</p>
+<p>#修复<br>生成key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jenkins]# su - jenkins</span><br><span class="line">-bash-4.2$ ssh-key</span><br><span class="line">ssh-keygen   ssh-keyscan  </span><br><span class="line">-bash-4.2$ ssh-keygen </span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa): </span><br><span class="line">Created directory &apos;/var/lib/jenkins/.ssh&apos;.</span><br><span class="line">Enter passphrase (empty for no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:KklV05QIfjCcFfvP7g8id+wfV+DthbY5ojXsLo5hiOM jenkins@localhost.localdomain</span><br><span class="line">The key&apos;s randomart image is:</span><br><span class="line">+---[RSA 2048]----+</span><br><span class="line">|     .++==..     |</span><br><span class="line">|     .o+.oo      |</span><br><span class="line">|      o o     .  |</span><br><span class="line">|     . . .   . + |</span><br><span class="line">|    .   S .   + +|</span><br><span class="line">|   . o o   = . +o|</span><br><span class="line">|    = o + o @ = o|</span><br><span class="line">|   . o . =.O + + |</span><br><span class="line">|    E   ..o+*oo  |</span><br><span class="line">+----[SHA256]-----+</span><br></pre></td></tr></table></figure>
+
+<p>将生成的pubkey文件内容添加到目标主机用户的authorized_keys文件中，可以选择复制或使用下面的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ ssh-copy-id -i ~/.ssh/id_rsa.pub git@10.10.105.118</span><br><span class="line">/bin/ssh-copy-id: INFO: Source of key(s) to be installed: &quot;/var/lib/jenkins/.ssh/id_rsa.pub&quot;</span><br><span class="line">The authenticity of host &apos;10.10.105.118 (10.10.105.118)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:hKMm0UBSHnJSMJoIW904lN2qhsasOMk8QheyIvYMqzE.</span><br><span class="line">ECDSA key fingerprint is MD5:5b:7c:a0:be:50:a8:b3:91:03:2b:e4:2d:de:f5:7b:10.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</span><br><span class="line">/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</span><br><span class="line">git@10.10.105.118&apos;s password: </span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   &quot;ssh &apos;git@10.10.105.118&apos;&quot;</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br></pre></td></tr></table></figure>
+
+<p>确认已经存在目标主机的authorized_keys文件中后执行登陆操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ ssh -v -l git 10.10.105.118 </span><br><span class="line">OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017</span><br><span class="line">debug1: Reading configuration data /etc/ssh/ssh_config</span><br><span class="line">debug1: /etc/ssh/ssh_config line 58: Applying options for *</span><br><span class="line">debug1: Connecting to 10.10.105.118 [10.10.105.118] port 22.</span><br><span class="line">debug1: Connection established.</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_rsa type 1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_rsa-cert type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_dsa type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_dsa-cert type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_ecdsa type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_ecdsa-cert type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_ed25519 type -1</span><br><span class="line">debug1: key_load_public: No such file or directory</span><br><span class="line">debug1: identity file /var/lib/jenkins/.ssh/id_ed25519-cert type -1</span><br><span class="line">debug1: Enabling compatibility mode for protocol 2.0</span><br><span class="line">debug1: Local version string SSH-2.0-OpenSSH_7.4</span><br><span class="line">debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4</span><br><span class="line">debug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000</span><br><span class="line">debug1: Authenticating to 10.10.105.118:22 as &apos;git&apos;</span><br><span class="line">debug1: SSH2_MSG_KEXINIT sent</span><br><span class="line">debug1: SSH2_MSG_KEXINIT received</span><br><span class="line">debug1: kex: algorithm: curve25519-sha256</span><br><span class="line">debug1: kex: host key algorithm: ecdsa-sha2-nistp256</span><br><span class="line">debug1: kex: server-&gt;client cipher: chacha20-poly1305@openssh.com MAC: &lt;implicit&gt; compression: none</span><br><span class="line">debug1: kex: client-&gt;server cipher: chacha20-poly1305@openssh.com MAC: &lt;implicit&gt; compression: none</span><br><span class="line">debug1: kex: curve25519-sha256 need=64 dh_need=64</span><br><span class="line">debug1: kex: curve25519-sha256 need=64 dh_need=64</span><br><span class="line">debug1: expecting SSH2_MSG_KEX_ECDH_REPLY</span><br><span class="line">debug1: Server host key: ecdsa-sha2-nistp256 SHA256:hKMm0UBSHnJSMJoIW904lN2qhsasOMk8QheyIvYMqzE</span><br><span class="line">debug1: Host &apos;10.10.105.118&apos; is known and matches the ECDSA host key.</span><br><span class="line">debug1: Found key in /var/lib/jenkins/.ssh/known_hosts:1</span><br><span class="line">debug1: rekey after 134217728 blocks</span><br><span class="line">debug1: SSH2_MSG_NEWKEYS sent</span><br><span class="line">debug1: expecting SSH2_MSG_NEWKEYS</span><br><span class="line">debug1: SSH2_MSG_NEWKEYS received</span><br><span class="line">debug1: rekey after 134217728 blocks</span><br><span class="line">debug1: SSH2_MSG_EXT_INFO received</span><br><span class="line">debug1: kex_input_ext_info: server-sig-algs=&lt;rsa-sha2-256,rsa-sha2-512&gt;</span><br><span class="line">debug1: SSH2_MSG_SERVICE_ACCEPT received</span><br><span class="line">debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password</span><br><span class="line">debug1: Next authentication method: gssapi-keyex</span><br><span class="line">debug1: No valid Key exchange context</span><br><span class="line">debug1: Next authentication method: gssapi-with-mic</span><br><span class="line">debug1: Unspecified GSS failure.  Minor code may provide more information</span><br><span class="line">No Kerberos credentials available (default cache: KEYRING:persistent:997)</span><br><span class="line"></span><br><span class="line">debug1: Unspecified GSS failure.  Minor code may provide more information</span><br><span class="line">No Kerberos credentials available (default cache: KEYRING:persistent:997)</span><br><span class="line"></span><br><span class="line">debug1: Next authentication method: publickey</span><br><span class="line">debug1: Offering RSA public key: /var/lib/jenkins/.ssh/id_rsa</span><br><span class="line">debug1: Server accepts key: pkalg rsa-sha2-512 blen 279</span><br><span class="line">debug1: Authentication succeeded (publickey).</span><br><span class="line">Authenticated to 10.10.105.118 ([10.10.105.118]:22).</span><br><span class="line">debug1: channel 0: new [client-session]</span><br><span class="line">debug1: Requesting no-more-sessions@openssh.com</span><br><span class="line">debug1: Entering interactive session.</span><br><span class="line">debug1: pledge: network</span><br><span class="line">debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0</span><br><span class="line">debug1: Sending environment.</span><br><span class="line">debug1: Sending env LANG = en_US.UTF-8</span><br><span class="line">Last login: Fri Aug  3 02:08:43 2018 from 10.10.105.118</span><br></pre></td></tr></table></figure>
+
+<p>如果多次登陆还是需要密码，确认以下文件的权限是否正确:</p>
+<ul>
+<li>.ssh目录的权限0600</li>
+<li>目标主机的authorized_keys文件权限为0600.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ ls -ld .ssh/</span><br><span class="line">drwx------. 2 jenkins jenkins 57 Aug  3 02:27 .ssh/</span><br><span class="line">-bash-4.2$ ls -l .ssh/</span><br><span class="line">total 12</span><br><span class="line">-rw-------. 1 jenkins jenkins 1679 Aug  3 02:21 id_rsa</span><br><span class="line">-rw-r--r--. 1 jenkins jenkins  411 Aug  3 02:21 id_rsa.pub</span><br><span class="line">-rw-r--r--. 1 jenkins jenkins  175 Aug  3 02:27 known_hosts</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/06/08/音节音标笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1679,140 +1832,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/25/sublime快捷键/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/25/sublime快捷键/" itemprop="url">sublime3光标移动快捷键自定义设置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T00:00:00+08:00">
-                2017-09-25
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在pycharm下setting-keymap下可以设置上下左右移动时的快捷键,<br>人个不太喜欢用上下左右键,手要离开中心区域.为了不冲突,使用shift+vim的移动快捷键设置<br>总是觉得pycharm太重型了,虽然我的笔记本是ssd硬盘,但每次启动时风扇总是运行一下.<br>在众多编辑器中选择了sublime3,安装一些python开发的插件.<br>sublime的设置跟pycharm有很大的不同,在proferences-&gt;key bindings,需要编辑配置文件,<br>不过还算简单,在从左侧的键盘移动键复制到右侧的user配置中,修改成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	&#123; &quot;keys&quot;: [&quot;ctrl+h&quot;], &quot;command&quot;: &quot;move&quot;, &quot;args&quot;: &#123;&quot;by&quot;: &quot;characters&quot;, &quot;forward&quot;: false&#125; &#125;,</span><br><span class="line">	&#123; &quot;keys&quot;: [&quot;ctrl+l&quot;], &quot;command&quot;: &quot;move&quot;, &quot;args&quot;: &#123;&quot;by&quot;: &quot;characters&quot;, &quot;forward&quot;: true&#125; &#125;,</span><br><span class="line">	&#123; &quot;keys&quot;: [&quot;ctrl+k&quot;], &quot;command&quot;: &quot;move&quot;, &quot;args&quot;: &#123;&quot;by&quot;: &quot;lines&quot;, &quot;forward&quot;: false&#125; &#125;,</span><br><span class="line">	&#123; &quot;keys&quot;: [&quot;ctrl+j&quot;], &quot;command&quot;: &quot;move&quot;, &quot;args&quot;: &#123;&quot;by&quot;: &quot;lines&quot;, &quot;forward&quot;: true&#125; &#125;,</span><br><span class="line">	</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1863,7 +1882,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1874,7 +1893,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1885,7 +1904,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
+<meta name="description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js JavaScript--&amp;gt;v8 v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;webpack(npm package 管理器) webpack(webpack 打包器)--&amp;gt;npm JSX--&amp;gt;bab">
 <meta name="keywords" content="react,front-end">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react study">
 <meta property="og:url" content="https://talenhao.github.io/2019/08/01/react-study/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
+<meta property="og:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js JavaScript--&amp;gt;v8 v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;webpack(npm package 管理器) webpack(webpack 打包器)--&amp;gt;npm JSX--&amp;gt;bab">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-08-01T09:00:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react study">
-<meta name="twitter:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;npm(npm包生态) npm--&amp;gt;create-react-app(create-react-app官方脚手架) create-react-app--&amp;gt;">
+<meta name="twitter:description" content="React学习笔记graph TB JavaScript--&amp;gt;JavaScript_runtime JavaScript_runtime--&amp;gt;Node.js JavaScript--&amp;gt;v8 v8(Google Chrome V8 引擎)--&amp;gt;Node.js Node.js--&amp;gt;webpack(npm package 管理器) webpack(webpack 打包器)--&amp;gt;npm JSX--&amp;gt;bab">
 
 
 
@@ -444,18 +444,25 @@
         <h1 id="React学习笔记"><a href="#React学习笔记" class="headerlink" title="React学习笔记"></a>React学习笔记</h1><pre class="mermaid">graph TB
 JavaScript-->JavaScript_runtime
 JavaScript_runtime-->Node.js
+JavaScript-->v8
 v8(Google Chrome V8 引擎)-->Node.js
-Node.js-->npm(npm包生态)
+Node.js-->webpack(npm package 管理器)
+webpack(webpack 打包器)-->npm
+JSX-->babel(babel编译器)
 npm-->create-react-app(create-react-app官方脚手架)
 create-react-app-->React(React framework)
-JSX-->React(React三大基本要素)
-state-->React
-props-->React
+React_component(React 组件化三大基本要素)
+babel-->React_component(React)
+render-->React_component
+React_component-->React
 
 out_data(外部数据)-->this.props
 this.props-->render(render方法)
 bindin(内部数据)-->this.state
-this.state-->render</pre>
+this.state-->render
+
+add-dom(步骤 1 添加一个 DOM 容器到 HTML)-->script-tag(步骤 2 添加 Script 标签)
+script-tag-->create_react(步骤 3创建一个 React 组件)</pre>
 
 <p>面向数据编程</p>
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><a id="more"></a>
@@ -681,7 +688,7 @@ this.state-->render</pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -692,7 +699,7 @@ this.state-->render</pre>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -703,7 +710,7 @@ this.state-->render</pre>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

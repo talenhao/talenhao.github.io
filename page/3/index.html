@@ -323,6 +323,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/01/ovirt-virtual-machine-management-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/01/ovirt-virtual-machine-management-guide/" itemprop="url">ovirt虚拟机管理手册</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T14:30:49+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
+                    <span itemprop="name">Ovirt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="chapter-7-模板templates"><a href="#chapter-7-模板templates" class="headerlink" title="chapter 7. 模板templates"></a>chapter 7. 模板templates</h2><p>模板是虚拟机的复本,在接下来操作中轻松重复创建相似的虚拟机.模板封装了软件,配置和硬件,还有模板基于的源虚拟机的所有安装软件.使用模板启动的虚拟机基于源虚拟机.</p>
+<p>当基于一个虚拟机创建一个模板,虚拟机的一个只读复本硬盘被创建.这个只读硬盘成为新模板和由此模板创建的虚拟机的基本磁盘,因此,如果ovirt中存在基于这个模板创建的虚拟机,这个硬盘不能被删除.</p>
+<p>基于模板创建的虚拟机使用跟源虚拟机相同的网卡类型和驱动,便被分配特别的不重复的MAC地址.</p>
+<h3 id="7-1-封装虚拟机并部署为模板"><a href="#7-1-封装虚拟机并部署为模板" class="headerlink" title="7.1 封装虚拟机并部署为模板"></a>7.1 封装虚拟机并部署为模板</h3><p>封装是基于虚拟机创建模板之前从虚拟机中移除所有特殊的系统细节的处理过程.封装是保证基于相同模板创建的多个虚拟机防止使用显明相同的细节的需要.同时也是确保其它特性的功能如预期的网卡定制的需要.</p>
+<h4 id="7-1-1-封装linux做为模板"><a href="#7-1-1-封装linux做为模板" class="headerlink" title="7.1.1 封装linux做为模板"></a>7.1.1 封装linux做为模板</h4><p>linux封装通过新创建模板窗口勾选Seal Template勾选框创建处理.<br><img src="/img/20190201/seal.png" alt></p>
+<h4 id="7-1-2-封装windows做为模板"><a href="#7-1-2-封装windows做为模板" class="headerlink" title="7.1.2 封装windows做为模板"></a>7.1.2 封装windows做为模板</h4><p>部署windows虚拟机创建的模板必需是无特殊性的.这保证机器特殊配置不会复制到模板.<br>使用sysprep用来封装windows模板.sysprep创建一个完整的没有附加的安装回答文件. /usr/share/ovirt-engine/conf/sysprep/目录下有多个windows操作系统的默认设置值文件. 这些文件是sysprep的模板.文件中的字段可以根据需求复制,粘贴,修改.这些定义将覆盖”修改虚拟机”-&gt;”初始运行”中设置.被修改的sysprep文件会多方面影响附加了sysprep文件的模板所创建的windows虚拟机.包含域成员,主机名,安全策略等.</p>
+<h5 id="7-1-2-1-封装windows虚拟机的先决条件"><a href="#7-1-2-1-封装windows虚拟机的先决条件" class="headerlink" title="7.1.2.1 封装windows虚拟机的先决条件"></a>7.1.2.1 封装windows虚拟机的先决条件</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p>
+<h5 id="7-1-2-2-封装windows-7-2008-2012为模板"><a href="#7-1-2-2-封装windows-7-2008-2012为模板" class="headerlink" title="7.1.2.2 封装windows 7,2008,2012为模板"></a>7.1.2.2 封装windows 7,2008,2012为模板</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p>
+<h3 id="7-2-创建模板"><a href="#7-2-创建模板" class="headerlink" title="7.2 创建模板"></a>7.2 创建模板</h3><p>从一个已经存在的虚拟机创建模板作为蓝本创建其它虚拟机.</p>
+<p>当创建模板,需要指定硬盘模式,raw或QCOW2:</p>
+<ul>
+<li>QCOW2 是瘦提供,即动态分配.</li>
+<li>RAW 硬盘在文件存储上是动态分配.</li>
+<li>RAW 硬盘在块存储上是预分配的.</li>
+</ul>
+<p>创建模拟步骤:</p>
+<ol>
+<li>Compute → Virtual Machines,选择源虚拟机</li>
+<li>确保虚拟机是关机的</li>
+<li>More Actions → Make Template.</li>
+<li>输入模板名称,说明,评语</li>
+<li>选择分配给的集群,默认同源虚拟机相同</li>
+<li>可选的,选择CPU配置集</li>
+<li>可选的,创建为另一个模板的子模板</li>
+<li>硬盘分配,别名,格式,存储域,硬盘配置集;默认与源虚拟机相同.</li>
+<li>选择允许所有用户访问模板,是否公开模板.</li>
+<li>选择是否复制源虚拟机的权限设置</li>
+<li>如果是linux主机勾选封装模板</li>
+<li>OK</li>
+</ol>
+<p>模板创建过程中显示虚拟机image lock.处理过程有可能花费几个小时,决定于硬件能力及源虚拟机硬盘大小.完成后模板添加到Tamplates选项中,至此你可以基于模板创建虚拟机了.</p>
+<p>创建模板会复制虚拟机,模板与源虚拟会同时存在.<br><img src="/img/20190201/maketemplate.png" alt></p>
+<h3 id="7-3-编辑模板"><a href="#7-3-编辑模板" class="headerlink" title="7.3 编辑模板"></a>7.3 编辑模板</h3><h3 id="7-4-删除模板"><a href="#7-4-删除模板" class="headerlink" title="7.4 删除模板"></a>7.4 删除模板</h3><h3 id="7-5-导出模板"><a href="#7-5-导出模板" class="headerlink" title="7.5 导出模板"></a>7.5 导出模板</h3><h3 id="7-6-导入模板"><a href="#7-6-导入模板" class="headerlink" title="7.6 导入模板"></a>7.6 导入模板</h3><h3 id="7-7-模板权限"><a href="#7-7-模板权限" class="headerlink" title="7.7 模板权限"></a>7.7 模板权限</h3><h3 id="7-8-使用cloud-init自动配置虚拟机"><a href="#7-8-使用cloud-init自动配置虚拟机" class="headerlink" title="7.8 使用cloud-init自动配置虚拟机"></a>7.8 使用cloud-init自动配置虚拟机</h3><h3 id="7-9-使用sysprep自动配置虚拟机"><a href="#7-9-使用sysprep自动配置虚拟机" class="headerlink" title="7.9 使用sysprep自动配置虚拟机"></a>7.9 使用sysprep自动配置虚拟机</h3><h3 id="7-10-基于模板创建虚拟机"><a href="#7-10-基于模板创建虚拟机" class="headerlink" title="7.10 基于模板创建虚拟机"></a>7.10 基于模板创建虚拟机</h3><p> 从模板创建一个预配置了操作系统,网络,应用和其它资源的虚拟机.<br> 如果基于模板创建了虚拟机,模板将不能被删除;如果要删除模板,可以选择clone方式.</p>
+<p> 模板创建虚拟机步骤:</p>
+<ol>
+<li><p>Compute → Virtual Machines. </p>
+</li>
+<li><p>创建</p>
+</li>
+<li><p>选择集群</p>
+</li>
+<li><p>选择模板</p>
+</li>
+<li><p>输入名称,说明,评论</p>
+</li>
+<li><p>资源分配标签</p>
+</li>
+<li><p>选择存储是thin(QCOW2)或clone(QCOW2/RAW)方式</p>
+</li>
+<li><p>选择存储域</p>
+</li>
+<li><p>OK.</p>
+<p><img src="/img/20190201/templatecreatevm.png" alt></p>
+</li>
+</ol>
+<h3 id="7-11-基于模板创建cloned虚拟机"><a href="#7-11-基于模板创建cloned虚拟机" class="headerlink" title="7.11 基于模板创建cloned虚拟机"></a>7.11 基于模板创建cloned虚拟机</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/31/ovirt-4-2-install-guest-agent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2193,177 +2401,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/08/go语言简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/08/go语言简介/" itemprop="url"><go in action> chapter1 Go简介 翻译实践</go></a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T20:19:18+08:00">
-                2019-01-08
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go-in-action/" itemprop="url" rel="index">
-                    <span itemprop="name">go in action</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-Go简介"><a href="#1-Go简介" class="headerlink" title="1 Go简介"></a>1 Go简介</h1><p>计算机一直在演进,但编程语言却原地踏步.手机处理器已经比我们最初的电脑核心数还要多,高性能服务器已经有64,128个甚至更多的核心,但我们还在使用基于单个核心的编程技术.<br>编程的艺术也已经进化.许多程序已经不再是单一开发者:它们被分布在不同时区与不同时间的团队编写.大型项目被分成小块分配给程序员,然后以软件库或包的形式递送回组成完整的应用.<br>今天的程序员与计算越来越相信开源软件的力量.Go是一种轻松共享代码程序语言.Go工具集使得使用其它人的打包更轻松,也更容易共享自己的包.<br>在这一章你会看到Go与其它编程语言的不同.Go重新思考了传统的面向对象的开发,并提供了一个有效的代码重用思想.Go使得有效的利用现存服务器的所有核心更容易,在大型项目中的不利因素一去不复返.</p>
-<h2 id="1-1-使用Go解决当今编程挑战"><a href="#1-1-使用Go解决当今编程挑战" class="headerlink" title="1.1 使用Go解决当今编程挑战"></a>1.1 使用Go解决当今编程挑战</h2><p>Go团队长期致力于解决面向软件开发的问题.开发者经常为项目的快速开发与性能之间做痛苦的语言选择.C和C++运行快速,但例如ruby和python经常可以快速开发.Go架起了两者的桥梁,并为快速开发提供了高性能特性.<br>作为一门编程语言,Go被定义为不限定它包含的,也包括它不包含的.Go提供了简明的语法及少量的关键字易于记忆.Go提供了超快的编译器,以至于你会感觉不到它运行过.作为GO开发者,明显花费更少的时间等待项目创建.由于GO内置并行特性,软件不需要被调度使用资源而强制使用特殊的进程库.GO使用简单有效的类系统封装面向对象开发,你可以专注于代码重用.GO提供了GC垃圾回收,不需要关注内存管理.</p>
-<h3 id="1-1-1-敏捷开发"><a href="#1-1-1-敏捷开发" class="headerlink" title="1.1.1 敏捷开发"></a>1.1.1 敏捷开发</h3><p>使用C或C++编译大型应用通常花费大量的时间.<br>GO通过使用智能编译器与简便的信赖解决算法提供快速轻量的编译.当你创建一个GO程序,编译器只需要查看直接包含的库,而不是像jave,c,c++一样追踪全部包所包含的所有库的依赖.所以许多GO应用秒内编译.全部的GO资源树在当今的硬件条件下20秒内编译.<br>使用动态语言编写应用使得产品快速开发因为它们在写代码与执行之间没有中间步骤.交换的代价是动态语言不能提供type安全,但静态语言可以.运行同时需要全面的测试套件去调用发现不正确的type bugs.<br>想像一下使用动态语言如javascript编写大型应用,通过一个函数等待接收一个ID字段.这个字段是一个整数,字符串还是UUID?只能通过查看源代码找出来.你可以尝试执行这个函数传入一个数字,字符串然后查看将会发生什么.在GO中,你不需要花费时间惊异,因为编译器会为你捕捉不同.</p>
-<h3 id="1-1-2-并行"><a href="#1-1-2-并行" class="headerlink" title="1.1.2 并行"></a>1.1.2 并行</h3><p>作为程序员的一件困难的事是编写高效地利用硬件上运行的可用资源的应用.现在计算机会有多个核心,但多数程序语言没有高效的工具轻松调度那些附加的资源.它们通常需要大量的线程同步代码,容易带来错误.<br>GO的concurryency是它强大的特性之一.goroutines类型线程,但使用非常少的内存,只需要非常少的代码实现.Channels可以与内部go例行程序同步发送typed信息.这简化了一个程序模型,你可以在goroutines之间发送数据,而不是让goroutines序使用相同的数据.<br>下面来详细查看这些特性.</p>
-<h4 id="1-1-2-1-goroutines"><a href="#1-1-2-1-goroutines" class="headerlink" title="1.1.2.1 goroutines"></a>1.1.2.1 goroutines</h4><p><img src="/img/2019-01-08/1.2goroutines" alt><br>goroutines是与其它goroutines并行运行的功能,是程序的接入口.类似在其它编程语言中使用的线程,但go语言中一个线程上运行多个goroutines.举例说明,如果你想写一个web服务程序同时处理不同的web请求,在C或java中你必须写大量的额外代码处理线程.但在GO内置goroutines使用net/http库处理并行.每个请求自动绑定并只在自己的goroutine中运行.goroutines相比threads只需更少内存,go runtime会自动调度goroutines的执行,配置分配给一些的逻辑处理器.每个逻辑处理器绑定到单个OS thread.如此使得你的应用显著的减少开发工作量更有效率.<br>如果你想并行的执行一些代码以便抽出时间完成其它事情,对此goroutine是完美的.<br>如上所述,goruotines的开销很小,所以成千上万的大量运行是常见的.</p>
-<h4 id="1-1-2-2-Channels"><a href="#1-1-2-2-Channels" class="headerlink" title="1.1.2.2 Channels"></a>1.1.2.2 Channels</h4><p><img src="/img/2019-01-08/1.3channels.png" alt><br>Channels是一种在goroutines之间安全的数据通信的数据构造.channels可以帮助减少编程语言共享内存访问中的常规错误.<br>并行最大的挑战是确保数据不会被并行运行的程序,线程或goroutines非预期的修改.当多个线程在没有锁或同步机制的状态下修改相同的数据,悲剧总是发生.在其它编程语言中,当你拥有全局变量和共享内存,你需要使用复杂的锁练习避免对同一变量的非同步修改.<br>Channels的解决方法是提供了一个pattern确保并行修改数据安全.Channels强制pattern同一时间只能有一个goroutine修改数据.想像一下应用有许多不同的进程需要顺序地调用或修改数据.使用goruntines和channels,你可以安全的建模.<br>如上图,有3个goroutines,2个channels.goroutine 1 通过channel one发送数据到已经等待中的goroutines 2.两个goroutines的数据交换是同步的,一旦传送发生,两个goroutines都会知道交换地址.当goroutine 2 使用这些数据处理完它的任务,它会发送这些数据到已经等待中的goroutine3.交换同样是同步的,双方都可以保证交换成功.这种安全的交换数据方式不需要其它的锁或同步架构.<br>重要的一点,channels不提供数据访问保护.如果多份数据通过channel交换,每个goroutine只能修改自己那份保证了数据安全.如果数据指向变动,每个goroutine要读写数据的话仍然需要同步.</p>
-<h3 id="1-1-3-GO的类型系统"><a href="#1-1-3-GO的类型系统" class="headerlink" title="1.1.3 GO的类型系统"></a>1.1.3 GO的类型系统</h3><p>Go提供了一个灵活的无层次的类型系统,它可以最小重构开销重用代码.它仍然面向对象开发,但没有传统的困扰.如果你曾经在java或C++程序中花费大量时间规划抽象类和接口,你会意识到GO简单类型系统的优点.GO composition使开发者重用功能只要简单的封闭类型.其它编程语言使用composition会深感疲惫于继承,非常复杂及难用.go的类型由小型类组成,区别于传统的基于继承的模式.<br>另外,GO有一个独特的接口实现,允许你建模行为,而不是建模类型.你不需要宣告你的行为接口,编译器的工作会确定类型值是否满足你正使用的接口.GO的基本库的接口通常非常小,只提供了少量的功能.在实践中这将花费一些时间适应,特别是你一直使用面向对象的语言,如java.</p>
-<h5 id="类型相当简单"><a href="#类型相当简单" class="headerlink" title="类型相当简单"></a>类型相当简单</h5><p><img src="/img/2019-01-08/composition.png" alt><br>Go拥有内置类如int和string,同时还有用户定义类型.一个典型的用户自定类是存储数据的类字段.如果你了解C的数据结构,GO的用户定义类看起来熟悉,操作也相似.但类需要宣告方法操作那些数据.崦不是创建一长串的继承结构-客户端扩展-用户扩展-实体.GO开发者创建小型类,客户与管理员,然后嵌入一个更大一点类.</p>
-<h5 id="小行为接口模型"><a href="#小行为接口模型" class="headerlink" title="小行为接口模型"></a>小行为接口模型</h5><p>接口表达了类行为.如果一个类值实现在接口,意味着这个类值拥有了一系列的行为.你不需要宣告你实现了一个接口,只要编写这个实现.在其它编程语言中称为鸭子类型–如果它叫起来像鸭子,它就可以是个鸭子.GO是这种说法的很好实现.在GO中,如果你的类实现一个接口方法,一个类值会被存储在接口上.不需要特别的声明.<br>在严格的面向对象语言如JAVA,接口总是被围绕.你总是需要在写代码前思考一个大型的继承链.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface User &#123;</span><br><span class="line">public void login();</span><br><span class="line">public void logout();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>用java实现这个接口需要完整满足所有许诺的类,明确的宣告实现的接口.并为对比,GO接口类描述只需要一个操作.<br>举例说明,GO使用中一个最通用的接口io.Reader.这个接口提供一个简单的方法宣告类可被其它标准库理解的方式读取数据.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Reader interface &#123;</span><br><span class="line">Read(p []byte) (n int, err error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>写一个类实现io.Reader接口,只需要实现一个read方法,接收一个byte数据片,返回一个整数或错误.<br>这与其它面向对象的编程语言使用的接口系统有着根本的区别.GO接口更小更直接.在实践中,这对重用代码与组合大有好处.你可以实现一个io.Reader在近乎任何有数据可用的类上,然后发送到任何知道如何从io.Reader读取的go函数.<br>GO中所有的网络库都使用io.Reader接口构建,因为它允许不同的网络操作需求与应用程序分离.使得接口有趣,优雅,灵活.同一个io.Reader能够对文件,缓存,套接字及其它数据源简单的操作.使用单一接口允许操作数据高效地,不分数据源.</p>
-<h3 id="1-1-4-内存管理"><a href="#1-1-4-内存管理" class="headerlink" title="1.1.4 内存管理"></a>1.1.4 内存管理</h3><p>不当的内存管理会使用应用崩溃和内存泄漏.GO拥有一个现代垃圾回收机制.在其它系统语言中,如C,C++,你需要使用前分配一片内存,使用完后释放它.如果正确的执行失败,程序会崩溃或内存泄漏.一片内存不再需要时总是很难追踪.线程或重并行架构使得难上加难.如果你脑中有垃圾回收的想法去写代码,GO的垃圾回收只增加了一点的程序执行时间消耗,但显著减少了开发工作量.go去掉了编程的单调,把bean留给了会计师.</p>
-<h2 id="1-2-你好-GO"><a href="#1-2-你好-GO" class="headerlink" title="1.2 你好,GO"></a>1.2 你好,GO</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line">func main()&#123;</span><br><span class="line">    fmt.Println(&quot;Hello Tianfei!)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2414,7 +2451,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2425,7 +2462,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2436,7 +2473,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

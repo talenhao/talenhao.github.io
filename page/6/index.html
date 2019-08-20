@@ -323,6 +323,499 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/28/wireshark-preamble-fcs/" itemprop="url">为什么wireshark抓取ethernet II前导8字符与FCS</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
+                2017-09-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:00:36+08:00">
+                2019-07-30
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分<br>如图:<br>红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议)<br><img src="/img/post/Spectacle.XF5278.png" alt="manager page"></p>
+<p>查找资料好觉得这篇文章说得很清楚明了<br>(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a>)</p>
+<blockquote>
+<p>在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目 的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处 理。这时我们的抓包软件才能抓到数据，因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，</p>
+</blockquote>
+<blockquote>
+<p>帧格式图,<br><img src="/img/post/frame.png" alt="manager page"></p>
+</blockquote>
+<p>参考:<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/monit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/28/monit/" itemprop="url">使用Monit替代supversor管理及监控服务小结</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
+                2017-09-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本来准备使用satl推送supervisor来着,研究了一下monit官方文档并试用了一下,这几天使用下来与supervisor对比感受.</p>
+<blockquote>
+<p>Monit - utility for monitoring services on a Unix system</p>
+</blockquote>
+<ol>
+<li>管理监控:</li>
+</ol>
+<ul>
+<li>管理:process,programs(任何脚本),files,directories,filesystems.</li>
+<li>监控处理:auto restart not run, auto restart not respond, stop when use too much resource, monitor change(timestamps, checksum, size, 内容), 网络检测(tcp/ip, socket, protocol(任何协议), ssl), system resources(cpu,mem,load,io,空间…)</li>
+<li>服务依赖: 依赖检测,顺序启动服务</li>
+</ul>
+<ol start="2">
+<li>日志及监控:</li>
+</ol>
+<ul>
+<li>支持记录日志到syslog或自己的日志文件</li>
+<li>error判断规则自定义发送alert message</li>
+</ul>
+<ol start="3">
+<li>web界面</li>
+<li>语法</li>
+</ol>
+<blockquote>
+<p>SYNOPSIS<br>monit [options] <arguments></arguments></p>
+</blockquote>
+<p>两者的ctl脚本操作比较相似, monit不仅仅是个服务管理系统,资源监控也是相当丰富,比supervisor强大太多.</p>
+<p>区别如下,如有错误,请指正:</p>
+<table>
+<thead>
+<tr>
+<th align="left">monit</th>
+<th align="left">supervisor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">非常小,安装简单</td>
+<td align="left">只支持python2.4-2.7之间的版本,pip安装稍显复杂</td>
+</tr>
+<tr>
+<td align="left">c编写,无其它依赖</td>
+<td align="left">python编写,依赖其它第三方库</td>
+</tr>
+<tr>
+<td align="left">配置语法灵活,功能强大</td>
+<td align="left">功能一般,只能处理了进程</td>
+</tr>
+<tr>
+<td align="left">支持监控告警</td>
+<td align="left">不支持告警</td>
+</tr>
+<tr>
+<td align="left">非侵入</td>
+<td align="left">侵入式,需要supervisor启动,而且不支持daemoned</td>
+</tr>
+<tr>
+<td align="left">支持服务依赖</td>
+<td align="left">依赖支持不友好</td>
+</tr>
+</tbody></table>
+<p>monit 使用帮助</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 monit.d]# monit --help </span><br><span class="line">Usage: monit [options] &#123;arguments&#125;</span><br><span class="line">Options are as follows:</span><br><span class="line"> -c file       Use this control file</span><br><span class="line"> -d n          Run as a daemon once per n seconds</span><br><span class="line"> -g name       Set group name for start, stop, restart, monitor, unmonitor, status and summary</span><br><span class="line"> -l logfile    Print log information to this file</span><br><span class="line"> -p pidfile    Use this lock file in daemon mode</span><br><span class="line"> -s statefile  Set the file monit should write state information to</span><br><span class="line"> -I            Do not run in background (needed for run from init)</span><br><span class="line"> --id          Print Monit&apos;s unique ID</span><br><span class="line"> --resetid     Reset Monit&apos;s unique ID. Use with caution</span><br><span class="line"> -t            Run syntax check for the control file</span><br><span class="line"> -v            Verbose mode, work noisy (diagnostic output)</span><br><span class="line"> -vv           Very verbose mode, same as -v plus log stacktrace on error</span><br><span class="line"> -H [filename] Print SHA1 and MD5 hashes of the file or of stdin if the</span><br><span class="line">               filename is omited; monit will exit afterwards</span><br><span class="line"> -V            Print version number and patchlevel</span><br><span class="line"> -h            Print this text</span><br><span class="line">Optional action arguments for non-daemon mode are as follows:</span><br><span class="line"> start all           - Start all services</span><br><span class="line"> start name          - Only start the named service</span><br><span class="line"> stop all            - Stop all services</span><br><span class="line"> stop name           - Only stop the named service</span><br><span class="line"> restart all         - Stop and start all services</span><br><span class="line"> restart name        - Only restart the named service</span><br><span class="line"> monitor all         - Enable monitoring of all services</span><br><span class="line"> monitor name        - Only enable monitoring of the named service</span><br><span class="line"> unmonitor all       - Disable monitoring of all services</span><br><span class="line"> unmonitor name      - Only disable monitoring of the named service</span><br><span class="line"> reload              - Reinitialize monit</span><br><span class="line"> status [name]       - Print full status information for service(s)</span><br><span class="line"> summary [name]      - Print short status information for service(s)</span><br><span class="line"> quit                - Kill monit daemon process</span><br><span class="line"> validate            - Check all services and start if not running</span><br><span class="line"> procmatch &lt;pattern&gt; - Test process matching pattern</span><br><span class="line"></span><br><span class="line">(Action arguments operate on services defined in the control file)</span><br></pre></td></tr></table></figure>
+
+<p>当前系统进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[graylog2@web53 bin]$ ps ux fww</span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">graylog2 32286  0.0  0.0 108336  1908 pts/1    S    16:28   0:00 -bash</span><br><span class="line">graylog2  2130  1.0  0.0 110200  1044 pts/1    R+   21:53   0:00  \_ ps ux fww</span><br></pre></td></tr></table></figure>
+
+<p>配置monit的服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 monit.d]# cat *</span><br><span class="line">check process elasticsearch with pidfile /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid</span><br><span class="line">  group elasticsearch</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; cd /data/graylog2/elasticsearch-5.6.1/bin/;  ./elasticsearch -d --pidfile /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">    with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;kill -9 `cat /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid`&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 127.0.0.1 port 9200</span><br><span class="line">  then restart</span><br><span class="line">check process graylog2 with pidfile /tmp/graylog.pid</span><br><span class="line">  group graylog2</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/graylog-2.3.1/bin/graylogctl start -f /data/graylog2/graylog-2.3.1/graylog.conf -d&apos;&quot; as UID graylog2 with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/graylog-2.3.1/bin/graylogctl stop&apos;&quot; as UID graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 192.168.1.53 port 12345</span><br><span class="line">  then restart</span><br><span class="line"></span><br><span class="line">check process mongodb with pidfile /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod.pid</span><br><span class="line">  group mongodb</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod --dbpath /data/graylog2/mongodb-linux-x86_64-3.4.9/db/ --pidfilepath /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod.pid --logpath /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongodb.log&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">    with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod --shutdown --dbpath /data/graylog2/mongodb-linux-x86_64-3.4.9/db/&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 192.168.1.53 port 27017</span><br><span class="line">  then restart</span><br></pre></td></tr></table></figure>
+
+<p>启动monit管理服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[graylog2@web53 bin]$ ps ux </span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">graylog2  6109  120  1.6 15419244 1114420 ?    Sl   22:00   2:17 /data/graylog2/jdk1.8.0_144/bin/java -Djava.library.path=/data/graylog2/</span><br><span class="line">graylog2  7246  2.0  0.0 110236  1144 pts/1    R+   22:01   0:00 ps ux</span><br><span class="line">graylog2 32286  0.0  0.0 108336  1908 pts/1    S    16:28   0:00 -bash</span><br></pre></td></tr></table></figure>
+
+<p>从日志上可以看出启动过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[CST Sep 27 22:00:00] info     : Reinitializing monit daemon</span><br><span class="line">[CST Sep 27 22:00:00] info     : Awakened by the SIGHUP signal</span><br><span class="line">Reinitializing Monit - Control file &apos;/etc/monit.conf&apos;</span><br><span class="line">[CST Sep 27 22:00:00] info     : Shutting down Monit HTTP server</span><br><span class="line">[CST Sep 27 22:00:01] info     : Monit HTTP server stopped</span><br><span class="line">[CST Sep 27 22:00:01] error    : Cannot translate &apos;web53&apos; to FQDN name -- Name or service not known</span><br><span class="line">[CST Sep 27 22:00:01] info     : Starting Monit HTTP server at [0.0.0.0]:2812</span><br><span class="line">[CST Sep 27 22:00:01] info     : Monit HTTP server started</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;web53&apos; Monit reloaded</span><br><span class="line">[CST Sep 27 22:00:01] error    : &apos;graylog2&apos; process is not running</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;graylog2&apos; trying to restart</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;graylog2&apos; start: /bin/bash</span><br><span class="line">[CST Sep 27 22:01:05] info     : &apos;graylog2&apos; process is running with pid 6109</span><br><span class="line">[CST Sep 27 22:02:05] error    : &apos;graylog2&apos; process is not running</span><br><span class="line">[CST Sep 27 22:02:05] info     : &apos;graylog2&apos; trying to restart</span><br><span class="line">[CST Sep 27 22:02:05] info     : &apos;graylog2&apos; start: /bin/bash</span><br><span class="line">[CST Sep 28 14:55:21] error    : &apos;elasticsearch&apos; process is not running</span><br><span class="line">[CST Sep 28 14:55:21] info     : &apos;elasticsearch&apos; trying to restart</span><br><span class="line">[CST Sep 28 14:55:21] info     : &apos;elasticsearch&apos; start: /bin/bash</span><br><span class="line">[CST Sep 28 14:56:24] info     : &apos;elasticsearch&apos; process is running with pid 4059</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 ~]# monit status</span><br><span class="line">Cannot translate &apos;web53&apos; to FQDN name -- Name or service not known</span><br><span class="line">The Monit daemon 5.14 uptime: 17h 42m </span><br><span class="line"></span><br><span class="line">Process &apos;mongodb&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               9674</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               0</span><br><span class="line">  uptime                            3h 6m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            46.1 MB</span><br><span class="line">  memory total                      46.1 MB</span><br><span class="line">  memory percent                    0.0%</span><br><span class="line">  memory percent total              0.0%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [192.168.1.53]:27017 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">Process &apos;graylog2&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               31630</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               0</span><br><span class="line">  uptime                            24m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            1.1 GB</span><br><span class="line">  memory total                      1.1 GB</span><br><span class="line">  memory percent                    1.7%</span><br><span class="line">  memory percent total              1.7%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [192.168.1.53]:12345 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">Process &apos;elasticsearch&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               4059</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               507</span><br><span class="line">  uptime                            17m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            2.8 GB</span><br><span class="line">  memory total                      2.8 GB</span><br><span class="line">  memory percent                    4.5%</span><br><span class="line">  memory percent total              4.5%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [127.0.0.1]:9200 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">System &apos;web53&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  load average                      [1.35] [1.32] [1.39]</span><br><span class="line">  cpu                               5.2%us 1.0%sy 0.8%wa</span><br><span class="line">  memory usage                      17.0 GB [27.0%]</span><br><span class="line">  swap usage                        0 B [0.0%]</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/img/post/Screenshot_20170928_150658.png" alt="manager page"><br><img src="/img/post/Screenshot_20170928_150725.png" alt="process page"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/27/supervisor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/27/supervisor/" itemprop="url">supervisord 从入门到放弃</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T00:00:00+08:00">
+                2017-09-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#supervisord 从入门到放弃</p>
+<blockquote>
+<p>Supervisor 在在类UNIX系统上控制进程运行的一个应用.通过fock子进程的方式管理服务的运行,在服务stop时自动重启.<br>这几天简单试用了下supervisord,使用中发现几个问题:</p>
+</blockquote>
+<ol>
+<li>只能支持非后台的进程(they should run in the foreground, not be daemons)</li>
+<li>由于是fock的方式管理,只支持由supervisor自己启动的服务,对于已经在线运行的大量服务,不好意思,无法管理.(这个很蛋疼,现网那么多服务,总不能都重启一遍吧?!)</li>
+<li>有些服务即使非后台运行,也无法正常操作成功.我试用了使用superviser启动graylog2,使用graylog2的前台运行graylogctl run运行服务.</li>
+</ol>
+<blockquote>
+<p>supervisor对服务的侵入性(intrusive)硬伤,目前我用supervisor只能做些简单服务的管理.<br>下一步试下non-intrusive的monit.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/25/sublime快捷键/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1274,312 +1767,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/08/19/RundeckJobResult/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/19/RundeckJobResult/" itemprop="url">rundeck日报发送脚本</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T00:00:00+08:00">
-                2017-08-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="RundeckJobResult"><a href="#RundeckJobResult" class="headerlink" title="RundeckJobResult"></a>RundeckJobResult</h1><hr>
-<h2 id="rundeck-日报发送脚本使用指南"><a href="#rundeck-日报发送脚本使用指南" class="headerlink" title="rundeck 日报发送脚本使用指南"></a><em>rundeck 日报发送脚本使用指南</em></h2><ul>
-<li>收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.*</li>
-</ul>
-<p>source ~/.virtualenvs/rundeck3.6/bin/activate</p>
-<h3 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">用法：</span><br><span class="line">RdJobResult.py [--命令选项] [参数]</span><br><span class="line"></span><br><span class="line">命令选项：</span><br><span class="line"></span><br><span class="line">    --<span class="built_in">help</span>, -h                      帮助。</span><br><span class="line"></span><br><span class="line">    --version, -V                   输出版本号。</span><br><span class="line"></span><br><span class="line">    --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,...   接收邮件的地址。</span><br><span class="line"></span><br><span class="line">eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,...</span><br></pre></td></tr></table></figure>
-
-<h3 id="log文件"><a href="#log文件" class="headerlink" title="log文件"></a>log文件</h3><blockquote>
-<p>/tmp/rundeck_job_status.py.log.${date},${hour.min}</p>
-</blockquote>
-<p>eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22</p>
-<h3 id="在rundeck上做成一个job"><a href="#在rundeck上做成一个job" class="headerlink" title="在rundeck上做成一个job"></a>在rundeck上做成一个job</h3><p><strong>每日23:59分执行</strong><br><img src="https://github.com/talenhao/RundeckJobResult/blob/master/img/RdJobResult.png?raw=true" alt="image"></p>
-<p>邮件内容</p>
-<p><img src="https://github.com/talenhao/RundeckJobResult/blob/master/img/rd_mail.png?raw=true" alt="image"></p>
-<hr>
-<table>
-<thead>
-<tr>
-<th align="left">订阅</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">常规订阅:</td>
-<td align="left">如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。</td>
-</tr>
-<tr>
-<td align="left">临时订阅:</td>
-<td align="left">如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。</td>
-</tr>
-</tbody></table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/08/19/elasticsearch_request_time_collect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/19/elasticsearch_request_time_collect/" itemprop="url">elasticsearch_request_time_collect</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T00:00:00+08:00">
-                2017-08-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="elasticsearch-request-time-collect"><a href="#elasticsearch-request-time-collect" class="headerlink" title="elasticsearch_request_time_collect"></a>elasticsearch_request_time_collect</h1><h4 id="https-github-com-talenhao-elasticsearch-request-time-collect"><a href="#https-github-com-talenhao-elasticsearch-request-time-collect" class="headerlink" title="https://github.com/talenhao/elasticsearch_request_time_collect"></a><a href="https://github.com/talenhao/elasticsearch_request_time_collect" target="_blank" rel="noopener">https://github.com/talenhao/elasticsearch_request_time_collect</a></h4><p><em>收集es中指定索引中的所有request_time及request字段,并处理成报表.</em></p>
-<h3 id="elasticsearch-request-time-collect脚本使用说明"><a href="#elasticsearch-request-time-collect脚本使用说明" class="headerlink" title="elasticsearch_request_time_collect脚本使用说明"></a>elasticsearch_request_time_collect脚本使用说明</h3><h4 id="激活python环境"><a href="#激活python环境" class="headerlink" title="激活python环境"></a>激活python环境</h4><p>source /virtual_python3.6.1/bin/activate</p>
-<h4 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/elasticsearch_request_time_collect.py [--命令选项] [参数]</span><br><span class="line"></span><br><span class="line">命令选项：</span><br><span class="line">    --help, -H                      帮助</span><br><span class="line">    --version, -V                   输出版本号</span><br><span class="line">    --index-regex -i                索引,支持正则 eg:in.access.log</span><br><span class="line">    --date, -d                      收集的日期   eg:2017.08.16</span><br><span class="line">    --es-ip -h                      Elasticsearch IP地址</span><br><span class="line">    --es-port -p                    Elasticsearch 端口</span><br></pre></td></tr></table></figure>
-
-<h4 id="默认参数为"><a href="#默认参数为" class="headerlink" title="默认参数为:"></a>默认参数为:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># default args</span><br><span class="line">es_host = &quot;192.168.1.1&quot;</span><br><span class="line">es_port = &apos;9200&apos;</span><br><span class="line">search_date = today</span><br><span class="line">index_regex = &quot;*access.log&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">time python elasticsearch_request_time_collect.py -i *access.log -d 2017.08.16 -h 192.168.1.1</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">api: &apos;/adfafaf/sfdaf&apos;</span><br><span class="line">api: &apos;/client/timeline/hadfasfafafasf&apos;</span><br><span class="line">api: &apos;/client/adfasfsafasfasfasfaf&apos;</span><br><span class="line"></span><br><span class="line">real    0m32.262s</span><br><span class="line">user    0m25.998s</span><br><span class="line">sys     0m1.919s</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1625,7 +1817,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1636,7 +1828,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1647,7 +1839,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

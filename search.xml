@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[c primer plus 学习笔记]]></title>
+    <url>%2F2019%2F08%2F20%2Fc-primer-plus-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[第二章#include&lt;stdio.h&gt;包含一个文件,C编译器的预处理指令#(头文件可定义一些常量,函数名,实际代码在另一个库文件中,头文件相当于组织程序) int main(void)int返回类型,main是主函数,void表示空参数 /*注释*/ //注释 {}函数体 int num;变量(variable)标识符(identifer)声明(declaration) -&gt;mem位置,数据类型 所有变量必须先声明才能使用 num = 5;赋值表达式 fun(vargs);函数调用 C语言的基本模块: 函数 C语言数据类型(分配合适内存空间) int C语言重要特性 关键字 声明; 语句;]]></content>
+      <categories>
+        <category>c</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[centos 7 关闭笔记本合盖挂起功能]]></title>
+    <url>%2F2019%2F08%2F13%2Fcentos-7-%E5%85%B3%E9%97%AD%E7%AC%94%E8%AE%B0%E6%9C%AC%E5%90%88%E7%9B%96%E6%8C%82%E8%B5%B7%E5%8A%9F%E8%83%BD%2F</url>
+    <content type="text"><![CDATA[centos 7 关闭笔记本合盖挂起功能家里有一台dell的老笔记本，安装了centos7系统使用。默认系统配置把笔记本电脑屏合上后会造成挂起，网络断开。笔记本不能合盖，放置占位，也会造成灰尘进入键盘等总之不是很方便。systemd可以处理ACPI事件，这个默认配置可以通过修改systemd-logind.service的行为修改。 123456789101112131415161718192021222324252627282930313233343536[root@server ~]# vi /etc/systemd/logind.conf# This file is part of systemd.## systemd is free software; you can redistribute it and/or modify it# under the terms of the GNU Lesser General Public License as published by# the Free Software Foundation; either version 2.1 of the License, or# (at your option) any later version.## Entries in this file show the compile time defaults.# You can change settings by editing this file.# Defaults can be restored by simply deleting this file.## See logind.conf(5) for details.[Login]#NAutoVTs=6#ReserveVT=6#KillUserProcesses=no#KillOnlyUsers=#KillExcludeUsers=root#InhibitDelayMaxSec=5#HandlePowerKey=poweroff#HandleSuspendKey=suspend#HandleHibernateKey=hibernate#HandleLidSwitch=suspendHandleLidSwitch=ignore #这个合盖操作修改为ignore，合盖时不做任务操作。#HandleLidSwitchDocked=ignore#PowerKeyIgnoreInhibited=no#SuspendKeyIgnoreInhibited=no#HibernateKeyIgnoreInhibited=no#LidSwitchIgnoreInhibited=yes#IdleAction=ignore#IdleActionSec=30min#RuntimeDirectorySize=10%#RemoveIPC=no#UserTasksMax= 行为可以是 ignore、poweroff、reboot、halt、suspend、hibernate、hybrid-sleep、lock 或 kexec。 123[root@server ~]# systemctl list-units |grep logindsystemd-logind.service loaded active running Login Service[root@server ~]# systemctl restart systemd-logind 重启服务后合上笔记本，网络不受影响。 123[root@server ~]# ping 192.168.3.1PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.64 bytes from 192.168.3.1: icmp_seq=1 ttl=64 time=0.557 ms]]></content>
+      <categories>
+        <category>centos</category>
+      </categories>
+      <tags>
+        <tag>centos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git study]]></title>
+    <url>%2F2019%2F08%2F12%2Fgit-study%2F</url>
+    <content type="text"><![CDATA[git study Git 对待数据的方法: Git 对待数据更像是一个快照流,没有更改的直接保留一个链接到原来的文件 subversion存储每个版本与初始文件的差异 git近乎所有操作都在本地执行,所以速度很快.其它CCVS离线后基本做不了什么 git存储sha-1校验和( 40 个十六进制字符),并以此做索引引用. GIT三种状态 已修改 modified -&gt; 工作目录 已暂存 staged(版本标记) -&gt; 暂存区 已提交 commited(存储到数据库) -&gt; 仓库 GIT三个工作区工作目录,暂存区,仓库 GIT安装1[Mon Aug 12 talen@tp-arch-tianfei ~]$ sudo pacman -S git GIT 配置配置路径git config 有三个配置文件路径 系统配置/etc/gitconfig 1git config --system 当前用户配置 ~/.gitconfig 或 ~/config/git/config 1git config --global 当前仓库配置 .git/config 配置用户信息如要配置当前用户或系统层配置,添加–global或–system参数 12$ git config user.name "Tianfei hao"$ git config user.email haotianfei@example.com 检查配置1$ git config --list GIT基础1234567891011121314151617git initgit addgit rm 删除工作区的文件 --cached只删除staged中的文件 --force适用于已经删除工作区文件,但已经提交到staged中的文件git mv 重命名文件git commit -a //跳过add,将staged的文件暂存一并提交 --amendgit clonegit statusgit diff // modified与staged对比git diff --cached/--staged //staged与commited对比git log -p 显示diff -数字 显示最近几次的提交 --stat 每一次提交的统计信息 .gitignore 文件忽略跟踪 空行,#开头会被忽略 使用标准glob模式匹配( shell 所使用的简化了的正则表达式) * 匹配任意字符 [abc] 方括号内任意字符 ? 单个任意字符 [0-9] 范围 a/**/z 中间任意目录 使用/开头防止递归,/结尾表示目录 !表示取反]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[arch linux pacman清理]]></title>
     <url>%2F2019%2F08%2F06%2Farch-linux-pacman%E6%B8%85%E7%90%86%2F</url>
     <content type="text"><![CDATA[pacman清理已经安装的包缓存文件 12345678910pacman -Scc[Tue Aug 06 talen@tp-arch-tianfei pkg]$ sudo pacman -Scc[sudo] password for talen:Cache directory: /var/cache/pacman/pkg/:: Do you want to remove ALL files from cache? [y/N] yremoving all files from cache...Database directory: /var/lib/pacman/:: Do you want to remove unused repositories? [Y/n] yremoving unused sync repositories...]]></content>
@@ -27,7 +60,7 @@
   <entry>
     <title><![CDATA[react study]]></title>
     <url>%2F2019%2F08%2F01%2Freact-study%2F</url>
-    <content type="text"><![CDATA[React学习笔记graph TB JavaScript-->JavaScript_runtime JavaScript_runtime-->Node.js JavaScript-->v8 v8(Google Chrome V8 引擎)-->Node.js Node.js-->webpack(npm package 管理器) webpack(webpack 打包器)-->npm JSX-->babel(babel编译器) npm-->create-react-app(create-react-app官方脚手架) create-react-app-->React(React framework) React_component(React 组件化三大基本要素) babel-->React_component(React) render-->React_component React_component-->React out_data(外部数据)-->this.props this.props-->render(render方法) bindin(内部数据)-->this.state this.state-->render add-dom(步骤 1 添加一个 DOM 容器到 HTML)-->script-tag(步骤 2 添加 Script 标签) script-tag-->create_react(步骤 3创建一个 React 组件) 面向数据编程 语法 … 展开运算符 组件 父组件通过属性向子组件传递参数 子组件通过this.props接收父组件传递过来的参数值 子组件如想和父组件通信,需要调用父组件传递过来的方法 123456789class HelloMessage extends Reacts.Component&#123; render()&#123; return( &lt;div&gt; hello, &#123;this.props.name&#125; &lt;/div&gt; ); &#125;&#125;]]></content>
+    <content type="text"><![CDATA[React学习笔记graph TB JavaScript-->JavaScript_runtime JavaScript_runtime-->Node.js JavaScript-->v8 v8(Google Chrome V8 引擎)-->Node.js Node.js-->webpack(npm package 管理器) webpack(webpack 打包器)-->npm JSX-->babel(babel编译器) npm-->create-react-app(create-react-app官方脚手架) create-react-app-->React(React framework) React_component(React 组件化三大基本要素) babel-->React_component(React) render-->React_component React_component-->React React-->vdom(虚拟DOM) React-->diff(DIFF算法) out_data(外部数据)-->this.props this.props-->render(render方法) bindin(内部数据)-->this.state this.state-->render add-dom(步骤 1 添加一个 DOM 容器到 HTML)-->script-tag(步骤 2 添加 Script 标签) script-tag-->create_react(步骤 3创建一个 React 组件) 面向数据编程 语法 … 展开运算符 组件 父组件通过属性向子组件传递参数 子组件通过this.props接收父组件传递过来的参数值 子组件如想和父组件通信,需要调用父组件传递过来的方法 123456789class HelloMessage extends Reacts.Component&#123; render()&#123; return( &lt;div&gt; hello, &#123;this.props.name&#125; &lt;/div&gt; ); &#125;&#125;]]></content>
       <categories>
         <category>react</category>
         <category>front-end</category>
@@ -96,7 +129,7 @@
   <entry>
     <title><![CDATA[运维常用术语]]></title>
     <url>%2F2019%2F04%2F12%2F%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD%2F</url>
-    <content type="text"><![CDATA[12TCO（总体拥有成本）黑石物理服务器2.0: 基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器]]></content>
+    <content type="text"><![CDATA[12TCO（总体拥有成本）黑石物理服务器2.0: 基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器 1234云盾Web应用防火墙（Web Application Firewall，简称 WAF）基于云安全大数据能力，用于防御SQL注入、XSS跨站脚本、常见Web服务器插件漏洞、木马上传、非授权核心资源访问等OWASP常见攻击，并过滤海量恶意CC攻击，避免您的网站资产数据泄露，保障网站的安全与可用性。如何使用WAF您购买Web应用防火墙后，把域名解析到Web应用防火墙提供的CNAME地址上，并配置源站服务器IP，即可启用Web应用防火墙。启用之后，您网站所有的公网流量都会先经过Web应用防火墙，恶意攻击流量在Web应用防火墙上被检测过滤，而正常流量返回给源站IP，从而确保源站IP安全、稳定、可用。]]></content>
       <categories>
         <category>uncategorized</category>
       </categories>
@@ -374,6 +407,15 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[FreeRADIUS Beginner's Guide]]></title>
+    <url>%2F2018%2F12%2F14%2FFreeRADIUS%20Beginner's%20Guide%2F</url>
+    <content type="text"><![CDATA[4. Authentication认证过程: data link layer -&gt; success -&gt; network layer 认证协议: userpassword: PAP (password Authentication protocal)密码认证协议(p2p) client -&gt; (密码明文) -&gt; NAS -&gt; (加密密码) -&gt; RADIUS SERVER CHAP (challenge-handshake authentication protocal)询问交互认证协议 NAS -&gt; 重复发送随机间隔的 challenge -&gt; user -&gt; hash identifiter &amp; 明文密码 -&gt; NAS -&gt; 加密密码 -&gt; radius server MS-CHAP 微软chap协议,增强了功能,如用户修改密码,错误消息等. chapv1 &amp; chapv2 user -&gt; 包含微软特殊字段NT-Response + 加密密码 -&gt; NAS EAP协议使用MS-CHAP 12345678910111213141516171819202122232425[root@localhost raddb]# vi /etc/raddb/users添加以下2行&quot;tianfei&quot; Cleartext-Password := &quot;passgo&quot; Reply-Message = &quot;Hello, %&#123;User-Name&#125;&quot;[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123Sent Access-Request Id 170 from 0.0.0.0:44098 to 127.0.0.1:1812 length 77 User-Name = &quot;tianfei&quot; User-Password = &quot;passgo&quot; NAS-IP-Address = 127.0.0.1 NAS-Port = 100 Message-Authenticator = 0x00 Cleartext-Password = &quot;passgo&quot;Received Access-Reject Id 170 from 127.0.0.1:1812 to 0.0.0.0:0 length 20(0) -: Expected Access-Accept got Access-Reject[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123Sent Access-Request Id 155 from 0.0.0.0:44387 to 127.0.0.1:1812 length 77 User-Name = &quot;tianfei&quot; User-Password = &quot;passgo&quot; NAS-IP-Address = 127.0.0.1 NAS-Port = 100 Message-Authenticator = 0x00 Cleartext-Password = &quot;passgo&quot;Received Access-Accept Id 155 from 127.0.0.1:1812 to 0.0.0.0:0 length 36 Reply-Message = &quot;Hello, tianfei&quot; 服务器日志输出 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374Ready to process requests(0) Received Access-Request Id 155 from 127.0.0.1:44387 to 127.0.0.1:1812 length 77(0) User-Name = &quot;tianfei&quot;(0) User-Password = &quot;passgo&quot;(0) NAS-IP-Address = 127.0.0.1(0) NAS-Port = 100(0) Message-Authenticator = 0x5328ee7e1eaa61d3555baa241acb7582(0) # Executing section authorize from file /etc/raddb/sites-enabled/default(0) authorize &#123;(0) policy filter_username &#123;(0) if (&amp;User-Name) &#123;(0) if (&amp;User-Name) -&gt; TRUE(0) if (&amp;User-Name) &#123;(0) if (&amp;User-Name =~ / /) &#123;(0) if (&amp;User-Name =~ / /) -&gt; FALSE(0) if (&amp;User-Name =~ /@[^@]*@/ ) &#123;(0) if (&amp;User-Name =~ /@[^@]*@/ ) -&gt; FALSE(0) if (&amp;User-Name =~ /\.\./ ) &#123;(0) if (&amp;User-Name =~ /\.\./ ) -&gt; FALSE(0) if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/)) &#123;(0) if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/)) -&gt; FALSE(0) if (&amp;User-Name =~ /\.$/) &#123;(0) if (&amp;User-Name =~ /\.$/) -&gt; FALSE(0) if (&amp;User-Name =~ /@\./) &#123;(0) if (&amp;User-Name =~ /@\./) -&gt; FALSE(0) &#125; # if (&amp;User-Name) = notfound(0) &#125; # policy filter_username = notfound(0) [preprocess] = ok(0) [chap] = noop(0) [mschap] = noop(0) [digest] = noop(0) suffix: Checking for suffix after &quot;@&quot;(0) suffix: No &apos;@&apos; in User-Name = &quot;tianfei&quot;, looking up realm NULL(0) suffix: No such realm &quot;NULL&quot;(0) [suffix] = noop(0) eap: No EAP-Message, not doing EAP(0) [eap] = noop(0) files: users: Matched entry tianfei at line 1(0) files: EXPAND Hello, %&#123;User-Name&#125;(0) files: --&gt; Hello, tianfei(0) [files] = ok(0) [expiration] = noop(0) [logintime] = noop(0) [pap] = updated(0) &#125; # authorize = updated(0) Found Auth-Type = PAP(0) # Executing group from file /etc/raddb/sites-enabled/default(0) Auth-Type PAP &#123;(0) pap: Login attempt with password(0) pap: Comparing with &quot;known good&quot; Cleartext-Password(0) pap: User authenticated successfully(0) [pap] = ok(0) &#125; # Auth-Type PAP = ok(0) # Executing section post-auth from file /etc/raddb/sites-enabled/default(0) post-auth &#123;(0) update &#123;(0) No attributes updated(0) &#125; # update = noop(0) [exec] = noop(0) policy remove_reply_message_if_eap &#123;(0) if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) &#123;(0) if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) -&gt; FALSE(0) else &#123;(0) [noop] = noop(0) &#125; # else = noop(0) &#125; # policy remove_reply_message_if_eap = noop(0) &#125; # post-auth = noop(0) Sent Access-Accept Id 155 from 127.0.0.1:1812 to 127.0.0.1:44387 length 0(0) Reply-Message = &quot;Hello, tianfei&quot;(0) Finished requestWaking up in 4.9 seconds.(0) Cleaning up request packet ID 155 with timestamp +6Ready to process requests]]></content>
+      <tags>
+        <tag>radius</tag>
+        <tag>AAA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ovirt 运维管理]]></title>
     <url>%2F2018%2F12%2F14%2Fovirt%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%2F</url>
     <content type="text"><![CDATA[用户管理internal域用户管理设置及重置用户密码 –password-valid-to选项必须指定密码无期时间,否则过期时间设置为当前时间,时间格式为 yyyy-MM-dd HH:mm:ssX 默认密码长度不小于6位 用户之前3次使用的密码不能再次设置 12345[root@ovirt-engine ~]# /usr/bin/ovirt-aaa-jdbc-tool user password-reset vmuser --password-valid-to=&quot;2019-01-01 12:00:00+0800&quot;Password:Reenter password:updating user vmuser...user updated successfully]]></content>
@@ -384,15 +426,6 @@
         <tag>ovirt</tag>
         <tag>kvm</tag>
         <tag>RHV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[FreeRADIUS Beginner's Guide]]></title>
-    <url>%2F2018%2F12%2F14%2FFreeRADIUS%20Beginner's%20Guide%2F</url>
-    <content type="text"><![CDATA[4. Authentication认证过程: data link layer -&gt; success -&gt; network layer 认证协议: userpassword: PAP (password Authentication protocal)密码认证协议(p2p) client -&gt; (密码明文) -&gt; NAS -&gt; (加密密码) -&gt; RADIUS SERVER CHAP (challenge-handshake authentication protocal)询问交互认证协议 NAS -&gt; 重复发送随机间隔的 challenge -&gt; user -&gt; hash identifiter &amp; 明文密码 -&gt; NAS -&gt; 加密密码 -&gt; radius server MS-CHAP 微软chap协议,增强了功能,如用户修改密码,错误消息等. chapv1 &amp; chapv2 user -&gt; 包含微软特殊字段NT-Response + 加密密码 -&gt; NAS EAP协议使用MS-CHAP 12345678910111213141516171819202122232425[root@localhost raddb]# vi /etc/raddb/users添加以下2行&quot;tianfei&quot; Cleartext-Password := &quot;passgo&quot; Reply-Message = &quot;Hello, %&#123;User-Name&#125;&quot;[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123Sent Access-Request Id 170 from 0.0.0.0:44098 to 127.0.0.1:1812 length 77 User-Name = &quot;tianfei&quot; User-Password = &quot;passgo&quot; NAS-IP-Address = 127.0.0.1 NAS-Port = 100 Message-Authenticator = 0x00 Cleartext-Password = &quot;passgo&quot;Received Access-Reject Id 170 from 127.0.0.1:1812 to 0.0.0.0:0 length 20(0) -: Expected Access-Accept got Access-Reject[root@localhost raddb]# radtest tianfei passgo 127.0.0.1 100 testing123Sent Access-Request Id 155 from 0.0.0.0:44387 to 127.0.0.1:1812 length 77 User-Name = &quot;tianfei&quot; User-Password = &quot;passgo&quot; NAS-IP-Address = 127.0.0.1 NAS-Port = 100 Message-Authenticator = 0x00 Cleartext-Password = &quot;passgo&quot;Received Access-Accept Id 155 from 127.0.0.1:1812 to 0.0.0.0:0 length 36 Reply-Message = &quot;Hello, tianfei&quot; 服务器日志输出 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374Ready to process requests(0) Received Access-Request Id 155 from 127.0.0.1:44387 to 127.0.0.1:1812 length 77(0) User-Name = &quot;tianfei&quot;(0) User-Password = &quot;passgo&quot;(0) NAS-IP-Address = 127.0.0.1(0) NAS-Port = 100(0) Message-Authenticator = 0x5328ee7e1eaa61d3555baa241acb7582(0) # Executing section authorize from file /etc/raddb/sites-enabled/default(0) authorize &#123;(0) policy filter_username &#123;(0) if (&amp;User-Name) &#123;(0) if (&amp;User-Name) -&gt; TRUE(0) if (&amp;User-Name) &#123;(0) if (&amp;User-Name =~ / /) &#123;(0) if (&amp;User-Name =~ / /) -&gt; FALSE(0) if (&amp;User-Name =~ /@[^@]*@/ ) &#123;(0) if (&amp;User-Name =~ /@[^@]*@/ ) -&gt; FALSE(0) if (&amp;User-Name =~ /\.\./ ) &#123;(0) if (&amp;User-Name =~ /\.\./ ) -&gt; FALSE(0) if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/)) &#123;(0) if ((&amp;User-Name =~ /@/) &amp;&amp; (&amp;User-Name !~ /@(.+)\.(.+)$/)) -&gt; FALSE(0) if (&amp;User-Name =~ /\.$/) &#123;(0) if (&amp;User-Name =~ /\.$/) -&gt; FALSE(0) if (&amp;User-Name =~ /@\./) &#123;(0) if (&amp;User-Name =~ /@\./) -&gt; FALSE(0) &#125; # if (&amp;User-Name) = notfound(0) &#125; # policy filter_username = notfound(0) [preprocess] = ok(0) [chap] = noop(0) [mschap] = noop(0) [digest] = noop(0) suffix: Checking for suffix after &quot;@&quot;(0) suffix: No &apos;@&apos; in User-Name = &quot;tianfei&quot;, looking up realm NULL(0) suffix: No such realm &quot;NULL&quot;(0) [suffix] = noop(0) eap: No EAP-Message, not doing EAP(0) [eap] = noop(0) files: users: Matched entry tianfei at line 1(0) files: EXPAND Hello, %&#123;User-Name&#125;(0) files: --&gt; Hello, tianfei(0) [files] = ok(0) [expiration] = noop(0) [logintime] = noop(0) [pap] = updated(0) &#125; # authorize = updated(0) Found Auth-Type = PAP(0) # Executing group from file /etc/raddb/sites-enabled/default(0) Auth-Type PAP &#123;(0) pap: Login attempt with password(0) pap: Comparing with &quot;known good&quot; Cleartext-Password(0) pap: User authenticated successfully(0) [pap] = ok(0) &#125; # Auth-Type PAP = ok(0) # Executing section post-auth from file /etc/raddb/sites-enabled/default(0) post-auth &#123;(0) update &#123;(0) No attributes updated(0) &#125; # update = noop(0) [exec] = noop(0) policy remove_reply_message_if_eap &#123;(0) if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) &#123;(0) if (&amp;reply:EAP-Message &amp;&amp; &amp;reply:Reply-Message) -&gt; FALSE(0) else &#123;(0) [noop] = noop(0) &#125; # else = noop(0) &#125; # policy remove_reply_message_if_eap = noop(0) &#125; # post-auth = noop(0) Sent Access-Accept Id 155 from 127.0.0.1:1812 to 127.0.0.1:44387 length 0(0) Reply-Message = &quot;Hello, tianfei&quot;(0) Finished requestWaking up in 4.9 seconds.(0) Cleaning up request packet ID 155 with timestamp +6Ready to process requests]]></content>
-      <tags>
-        <tag>radius</tag>
-        <tag>AAA</tag>
       </tags>
   </entry>
   <entry>
@@ -603,21 +636,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[rundeck日报发送脚本]]></title>
-    <url>%2F2017%2F08%2F19%2FRundeckJobResult%2F</url>
-    <content type="text"><![CDATA[RundeckJobResult rundeck 日报发送脚本使用指南 收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.* source ~/.virtualenvs/rundeck3.6/bin/activate usage12345678910111213用法：RdJobResult.py [--命令选项] [参数]命令选项： --help, -h 帮助。 --version, -V 输出版本号。 --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,... 接收邮件的地址。eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,... log文件 /tmp/rundeck_job_status.py.log.${date},${hour.min} eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22 在rundeck上做成一个job每日23:59分执行 邮件内容 订阅 说明 常规订阅: 如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。 临时订阅: 如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。]]></content>
-      <tags>
-        <tag>rundeck</tag>
-        <tag>ETL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[elasticsearch_request_time_collect]]></title>
     <url>%2F2017%2F08%2F19%2Felasticsearch_request_time_collect%2F</url>
     <content type="text"><![CDATA[elasticsearch_request_time_collecthttps://github.com/talenhao/elasticsearch_request_time_collect收集es中指定索引中的所有request_time及request字段,并处理成报表. elasticsearch_request_time_collect脚本使用说明激活python环境source /virtual_python3.6.1/bin/activate 用法：123456789/elasticsearch_request_time_collect.py [--命令选项] [参数]命令选项： --help, -H 帮助 --version, -V 输出版本号 --index-regex -i 索引,支持正则 eg:in.access.log --date, -d 收集的日期 eg:2017.08.16 --es-ip -h Elasticsearch IP地址 --es-port -p Elasticsearch 端口 默认参数为:12345# default argses_host = &quot;192.168.1.1&quot;es_port = &apos;9200&apos;search_date = todayindex_regex = &quot;*access.log&quot; eg:12345678910time python elasticsearch_request_time_collect.py -i *access.log -d 2017.08.16 -h 192.168.1.1...api: &apos;/adfafaf/sfdaf&apos;api: &apos;/client/timeline/hadfasfafafasf&apos;api: &apos;/client/adfasfsafasfasfasfaf&apos;real 0m32.262suser 0m25.998ssys 0m1.919s]]></content>
       <tags>
         <tag>elasticsearch</tag>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[rundeck日报发送脚本]]></title>
+    <url>%2F2017%2F08%2F19%2FRundeckJobResult%2F</url>
+    <content type="text"><![CDATA[RundeckJobResult rundeck 日报发送脚本使用指南 收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.* source ~/.virtualenvs/rundeck3.6/bin/activate usage12345678910111213用法：RdJobResult.py [--命令选项] [参数]命令选项： --help, -h 帮助。 --version, -V 输出版本号。 --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,... 接收邮件的地址。eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,... log文件 /tmp/rundeck_job_status.py.log.${date},${hour.min} eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22 在rundeck上做成一个job每日23:59分执行 邮件内容 订阅 说明 常规订阅: 如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。 临时订阅: 如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。]]></content>
+      <tags>
+        <tag>rundeck</tag>
+        <tag>ETL</tag>
       </tags>
   </entry>
 </search>

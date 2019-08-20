@@ -323,6 +323,569 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/10/ovirt架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/10/ovirt架构/" itemprop="url">ovirt 架构介绍</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T00:00:00+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
+                    <span itemprop="name">Ovirt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于Ovirt虚拟化"><a href="#关于Ovirt虚拟化" class="headerlink" title="关于Ovirt虚拟化"></a>关于Ovirt虚拟化</h1><h2 id="1-虚拟化架构"><a href="#1-虚拟化架构" class="headerlink" title="1.虚拟化架构"></a>1.虚拟化架构</h2><ul>
+<li>standalone管理端部署<ol>
+<li>管理端部署在物理机上</li>
+<li>管理机实现高可用要使用第三方实现<br><img src="/img/ovirt/RHV_STANDARD_ARCHITECTURE1.png" alt="standalone管理端部署"></li>
+</ol>
+</li>
+<li>Self-Hosted Engine部署<ol>
+<li>管理端使用cokpit部署或cli的方式部署在虚拟机中</li>
+<li>不需要扩展HA,实现自管理虚拟机engine高可用<br><img src="/img/ovirt/RHV_SHE_ARCHITECTURE1.png" alt="Self-hosted"></li>
+</ol>
+</li>
+</ul>
+<h2 id="2-组件及术语"><a href="#2-组件及术语" class="headerlink" title="2.组件及术语"></a>2.组件及术语</h2><p>术语|解释<br>data center|包含所有物理机,虚拟机上的逻辑资源的最高级别容器.包含cluster,vm,storage domain,network等<br>cluster|物理机hosts的集合池,上面部署VMs,共享相同的网络及存储,虚拟机可以在host之间迁移.<br>host|部署VM的物理宿主机<br>self-hosted engine node|self-hosted Engine部署的物理宿主机<br>storage domain|存储域,逻辑概念,存储虚拟磁盘或iso镜像<br>virtual machines|运行操作系统的虚拟机.多个虚拟机可以组成pool.<br>Template|预定义的虚拟机配置.方便快速创建大量相同配置的虚拟机.<br>vm pool|多个相同标记的虚拟机组成的池.<br>snapshot|保存虚拟机一个时间点的状态,可以恢复到那个点.<br>logical networks| 物理网络的逻辑描述,逻辑网络分组不同的manager,hosts,storages,vms流量<br>events and monitors|事件提醒,方便管理员管理<br>vdsm|host agent服务,与管理端通信.<br>storage pool manager(spm)|一个数据中心只有一个spm角色,负责存储metadata维护.<br>Host Storage Manager(HSM)|Any non-SPM host in the data center that can be used for data operations, such as moving a disk between storage domains. This prevents a bottleneck at the SPM host, which should be used for shorter metadata operations.<br>Remote viewer|连接虚拟机的可视化接口<br>High availability|虚拟机中断时使用自动重启,维护2份资源,在失败时直接替换.<br>HA service|包括ovirt-ha-agent,ovirt-ha-broker,管理hosted-engine vm的高可用.</p>
+<h1 id="Ovirt虚拟化组件"><a href="#Ovirt虚拟化组件" class="headerlink" title="Ovirt虚拟化组件"></a>Ovirt虚拟化组件</h1><h2 id="1-Virtual-manager"><a href="#1-Virtual-manager" class="headerlink" title="1. Virtual manager"></a>1. Virtual manager</h2><ol>
+<li>web 化的图形管理页面</li>
+<li>restful api管理接口</li>
+</ol>
+<h2 id="2-hosts"><a href="#2-hosts" class="headerlink" title="2. hosts"></a>2. hosts</h2><p>两种类型的机器:</p>
+<ol>
+<li>装有REDHAT 7或CENTOS 7的物理机</li>
+<li>ovirt官方提供的基于以上系统精减的node节点</li>
+</ol>
+<h2 id="3-storage"><a href="#3-storage" class="headerlink" title="3. storage"></a>3. storage</h2><p>至少种类型的基本存储域:</p>
+<ol>
+<li>ISO domain<blockquote>
+<p>存储系统安装镜像及驱动等</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>data domain</p>
+<blockquote>
+<p>存储VM磁盘镜像</p>
+</blockquote>
+</li>
+<li><p>export domain</p>
+<blockquote>
+<p>临时迁移数据用的,现在已经被import data domain 代替</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="4-data-warehouse"><a href="#4-data-warehouse" class="headerlink" title="4. data warehouse"></a>4. data warehouse</h2><p>ovirt_engine_history 历史信息数据库,为报表等服务.</p>
+<h2 id="5-network"><a href="#5-network" class="headerlink" title="5. network"></a>5. network</h2><p>Ovirt通过逻辑网络切分隔离流量,默认只有一个虚拟网络,可以添加多个分配到不同的网卡及bond不同的网卡提升性能</p>
+<p>ovirtmgmt|Management<br>vmnet|General virtual machine traffic<br>storagenet|Storage-related traffic (such as NFS or iSCSI)<br>mvmt|Virtual machine migration traffic<br>vmdt|Virtual machine display traffic<br>glusternet|Gluster storage traffic</p>
+<h1 id="安装Ovirt"><a href="#安装Ovirt" class="headerlink" title="安装Ovirt"></a>安装Ovirt</h1><p><img src="/img/ovirt/RHEV_SHE_454569_0717_JCS_deployment_02.png" alt></p>
+<h1 id="访问Ovirt"><a href="#访问Ovirt" class="headerlink" title="访问Ovirt"></a>访问Ovirt</h1><ul>
+<li><p>支持读写的接口</p>
+<ul>
+<li>Administration Portal<ul>
+<li>浏览器图形界面,管理资源环境</li>
+</ul>
+</li>
+<li>VM Portal<ul>
+<li>浏览器图形界面,受限用户管理虚拟机资源</li>
+</ul>
+</li>
+<li>Cockpit<ul>
+<li>主机管理配置</li>
+<li>self-hosted Engine部署</li>
+</ul>
+</li>
+<li>Rest api<ul>
+<li>任何支持HTTP action的语言,通过API的方式查询或修改虚拟环境</li>
+</ul>
+</li>
+<li>Software Development Kit (SDK)<ul>
+<li>Python</li>
+<li>Java</li>
+<li>Ruby</li>
+</ul>
+</li>
+<li>Ansible<ul>
+<li>自动化程序</li>
+</ul>
+</li>
+<li>Self-Hosted Engine Command Line Utility<ul>
+<li>执行管理任务</li>
+<li>管理虚拟环境</li>
+</ul>
+</li>
+<li>VDSM Hooks<ul>
+<li>由 Administration Portal 触发修改虚拟机</li>
+</ul>
+</li>
+<li>Command Line Shell(ovirt-engine-cli)(未来将放弃)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>支持只读的接口</p>
+<ul>
+<li>ovirt_engine_history</li>
+<li>Libvirt on Hosts<ul>
+<li>virsh -r</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>不被支持的接口</p>
+<ul>
+<li>vdsm-client</li>
+<li>直接修改(engine)数据库</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/10/12/telnet服务安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/12/telnet服务安装/" itemprop="url">安装telnet服务</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T00:00:00+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#环境</p>
+<ul>
+<li>os: OpenSUSE Tumbleweed</li>
+<li>pc: Thinkpad T460s</li>
+</ul>
+<p>#描述</p>
+<h3 id="远程登陆方式主要有三种："><a href="#远程登陆方式主要有三种：" class="headerlink" title="远程登陆方式主要有三种："></a>远程登陆方式主要有三种：</h3><p>1 明文文本模式:telnet,rsh等，不安全，现在很少使用，但在一些特殊场所还会有所使用。<br>2 加密文本模式:ssh<br>3 图形模式：xdmcp,vnc,rdp等</p>
+<h3 id="1-查询系统中是否已经安装了telnet服务"><a href="#1-查询系统中是否已经安装了telnet服务" class="headerlink" title="1.查询系统中是否已经安装了telnet服务"></a>1.查询系统中是否已经安装了telnet服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt ~]# rpm -qa |grep telnet</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装telnet-server服务端及telnet客户端包"><a href="#2-安装telnet-server服务端及telnet客户端包" class="headerlink" title="2.安装telnet-server服务端及telnet客户端包"></a>2.安装telnet-server服务端及telnet客户端包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt ~]# yum install telnet-server talnet</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-telnet服务是由xinetd守护进程维护的，需要启动xinetd服务"><a href="#3-telnet服务是由xinetd守护进程维护的，需要启动xinetd服务" class="headerlink" title="3.telnet服务是由xinetd守护进程维护的，需要启动xinetd服务"></a>3.telnet服务是由xinetd守护进程维护的，需要启动xinetd服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt ~]# yum install xinetd</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-rhel7版本使用systemd代替init-d维护启动进程，7版本以下使用init-d管理"><a href="#4-rhel7版本使用systemd代替init-d维护启动进程，7版本以下使用init-d管理" class="headerlink" title="4.rhel7版本使用systemd代替init.d维护启动进程，7版本以下使用init.d管理"></a>4.rhel7版本使用systemd代替init.d维护启动进程，7版本以下使用init.d管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt ~]# systemctl start xinetd</span><br></pre></td></tr></table></figure>
+
+<p>7版本以下修改/etc/xinetd.d/telnet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hostovirt ~]# vi /etc/xinetd.d/telnet </span><br><span class="line"># default: on</span><br><span class="line"># description: The telnet server serves telnet sessions; it uses \</span><br><span class="line">#       unencrypted username/password pairs for authentication.</span><br><span class="line">service telnet</span><br><span class="line">&#123;</span><br><span class="line">        flags           = REUSE</span><br><span class="line">        socket_type     = stream        </span><br><span class="line">        wait            = no</span><br><span class="line">        user            = root</span><br><span class="line">        server          = /usr/sbin/in.telnetd</span><br><span class="line">        log_on_failure  += USERID</span><br><span class="line">        disable         = no    # 这个配置项由yes修改为no</span><br><span class="line">[root@ovirt ~]# service xinetd start</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-启动telnet-server-7版本使用systemd-7版本以下使用init-d启动xinetd后会自动启动telnet"><a href="#5-启动telnet-server-7版本使用systemd-7版本以下使用init-d启动xinetd后会自动启动telnet" class="headerlink" title="5.启动telnet-server,7版本使用systemd,7版本以下使用init.d启动xinetd后会自动启动telnet"></a>5.启动telnet-server,7版本使用systemd,7版本以下使用init.d启动xinetd后会自动启动telnet</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt etc]# systemctl start telnet.socket</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-防火墙开放端口"><a href="#6-防火墙开放端口" class="headerlink" title="6.防火墙开放端口"></a>6.防火墙开放端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt etc]# firewall-cmd --zone=public --add-port=23/tcp</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+
+<p>iptables操作方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hostovirt ~]# iptables -I INPUT -p tcp --dport 23 -j ACCEPT</span><br><span class="line">[root@ovirt etc]# firewall-cmd --zone=public --list-ports</span><br><span class="line">23/tcp</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-使用nmap查看端口状态-STATE为open状态"><a href="#7-使用nmap查看端口状态-STATE为open状态" class="headerlink" title="7.使用nmap查看端口状态,STATE为open状态"></a>7.使用nmap查看端口状态,STATE为open状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; nmap 192.168.56.101 -p 23</span><br><span class="line">Starting Nmap 7.70 ( https://nmap.org ) at 2018-10-11 14:41 CST</span><br><span class="line">Nmap scan report for ovirt.wasu (192.168.56.101)</span><br><span class="line">Host is up (0.00037s latency).</span><br><span class="line"></span><br><span class="line">PORT   STATE    SERVICE</span><br><span class="line">23/tcp filtered telnet</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; nmap 192.168.56.101 -p 23</span><br><span class="line">Starting Nmap 7.70 ( https://nmap.org ) at 2018-10-11 14:43 CST</span><br><span class="line">Nmap scan report for ovirt.wasu (192.168.56.101)</span><br><span class="line">Host is up (0.00032s latency).</span><br><span class="line"></span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">23/tcp open  telnet</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-出于安全原因，默认telnet终端是不能登陆的，暂时移除-etc-securetty"><a href="#8-出于安全原因，默认telnet终端是不能登陆的，暂时移除-etc-securetty" class="headerlink" title="8.出于安全原因，默认telnet终端是不能登陆的，暂时移除/etc/securetty"></a>8.出于安全原因，默认telnet终端是不能登陆的，暂时移除/etc/securetty</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~&gt; telnet -l root 192.168.56.101</span><br><span class="line">Trying 192.168.56.101...</span><br><span class="line">Connected to 192.168.56.101.</span><br><span class="line">Escape character is &apos;^]&apos;.</span><br><span class="line">Password: </span><br><span class="line">Login incorrect</span><br><span class="line"></span><br><span class="line">ovirt login: </span><br><span class="line">[root@ovirt etc]# mv /etc/securetty&#123;,.bak&#125;</span><br><span class="line">haotianfei@tianfei-opensuse:~&gt; telnet -l root 192.168.56.101 23</span><br><span class="line">Trying 192.168.56.101...</span><br><span class="line">Connected to 192.168.56.101.</span><br><span class="line">Escape character is &apos;^]&apos;.</span><br><span class="line">Password: </span><br><span class="line">Last failed login: Thu Oct 11 02:44:46 EDT 2018 from ::ffff:192.168.56.1 on pts/1</span><br><span class="line">There were 3 failed login attempts since the last successful login.</span><br><span class="line">Last login: Thu Oct 11 02:35:13 from ::ffff:192.168.56.1</span><br><span class="line">[root@ovirt ~]#</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/10/01/Homebrew,MacOS下类yum,zypper,apt的包管理工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/01/Homebrew,MacOS下类yum,zypper,apt的包管理工具/" itemprop="url">Homebrew,MacOS下类yum,zypper,apt的包管理工具</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-01T00:00:00+08:00">
+                2018-10-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>os: macOS Mojave</li>
+<li>pc: Apple macbook 13’ pro 2015</li>
+</ul>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>Home-brew 是macos下类似rpm系的yum,zypper,dnf等的包管理系统。官方定义为：macOS 缺失的软件包的管理器。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装方式很简单，直接一条脚本命令完成。其间会自动下载一些所需要的组件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line">192:~ tf$ /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line">==&gt; This script will install:</span><br><span class="line">/usr/local/bin/brew</span><br><span class="line">/usr/local/share/doc/homebrew</span><br><span class="line">/usr/local/share/man/man1/brew.1</span><br><span class="line">/usr/local/share/zsh/site-functions/_brew</span><br><span class="line">/usr/local/etc/bash_completion.d/brew</span><br><span class="line">/usr/local/Homebrew</span><br><span class="line">==&gt; The Xcode Command Line Tools will be installed.</span><br><span class="line"></span><br><span class="line">Press RETURN to continue or any other key to abort</span><br><span class="line">==&gt; Searching online for the Command Line Tools</span><br><span class="line">==&gt; /usr/bin/sudo /usr/bin/touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress</span><br><span class="line">Password:</span><br><span class="line">==&gt; Installing Command Line Tools (macOS Mojave version 10.14) for Xcode-10.0</span><br><span class="line">==&gt; /usr/bin/sudo /usr/sbin/softwareupdate -i Command\ Line\ Tools\ (macOS\ Mojave\ version\ 10.14)\ for\ Xcode-10.0</span><br><span class="line">Software Update Tool</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Downloading Command Line Tools (macOS Mojave version 10.14) for Xcode</span><br><span class="line">Downloaded Command Line Tools (macOS Mojave version 10.14) for Xcode</span><br><span class="line">Installing Command Line Tools (macOS Mojave version 10.14) for Xcode</span><br><span class="line">Done with Command Line Tools (macOS Mojave version 10.14) for Xcode</span><br><span class="line">Done.</span><br><span class="line">==&gt; /usr/bin/sudo /bin/rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress</span><br><span class="line">==&gt; /usr/bin/sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools</span><br><span class="line">==&gt; Downloading and installing Homebrew...</span><br><span class="line">remote: Enumerating objects: 30, done.</span><br><span class="line">remote: Counting objects: 100% (30/30), done.</span><br><span class="line">remote: Compressing objects: 100% (27/27), done.</span><br><span class="line">remote: Total 111012 (delta 11), reused 11 (delta 3), pack-reused 110982</span><br><span class="line">Receiving objects: 100% (111012/111012), 25.26 MiB | 884.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (81258/81258), done.</span><br><span class="line">From https://github.com/Homebrew/brew</span><br><span class="line"> * [new branch]          master     -&gt; origin/master</span><br><span class="line"> * [new tag]             0.1        -&gt; 0.1</span><br><span class="line"> * [new tag]             0.2        -&gt; 0.2</span><br><span class="line"> * [new tag]             0.3        -&gt; 0.3</span><br><span class="line"> * [new tag]             0.4        -&gt; 0.4</span><br><span class="line"> * [new tag]             0.5        -&gt; 0.5</span><br><span class="line"> * [new tag]             0.6        -&gt; 0.6</span><br><span class="line"> * [new tag]             0.7        -&gt; 0.7</span><br><span class="line"> * [new tag]             0.7.1      -&gt; 0.7.1</span><br><span class="line"> * [new tag]             0.8        -&gt; 0.8</span><br><span class="line"> * [new tag]             0.8.1      -&gt; 0.8.1</span><br><span class="line"> * [new tag]             0.9        -&gt; 0.9</span><br><span class="line"> * [new tag]             0.9.1      -&gt; 0.9.1</span><br><span class="line"> * [new tag]             0.9.2      -&gt; 0.9.2</span><br><span class="line"> * [new tag]             0.9.3      -&gt; 0.9.3</span><br><span class="line"> * [new tag]             0.9.4      -&gt; 0.9.4</span><br><span class="line"> * [new tag]             0.9.5      -&gt; 0.9.5</span><br><span class="line"> * [new tag]             0.9.8      -&gt; 0.9.8</span><br><span class="line"> * [new tag]             0.9.9      -&gt; 0.9.9</span><br><span class="line"> * [new tag]             1.0.0      -&gt; 1.0.0</span><br><span class="line"> * [new tag]             1.0.1      -&gt; 1.0.1</span><br><span class="line"> * [new tag]             1.0.2      -&gt; 1.0.2</span><br><span class="line"> * [new tag]             1.0.3      -&gt; 1.0.3</span><br><span class="line"> * [new tag]             1.0.4      -&gt; 1.0.4</span><br><span class="line"> * [new tag]             1.0.5      -&gt; 1.0.5</span><br><span class="line"> * [new tag]             1.0.6      -&gt; 1.0.6</span><br><span class="line"> * [new tag]             1.0.7      -&gt; 1.0.7</span><br><span class="line"> * [new tag]             1.0.8      -&gt; 1.0.8</span><br><span class="line"> * [new tag]             1.0.9      -&gt; 1.0.9</span><br><span class="line"> * [new tag]             1.1.0      -&gt; 1.1.0</span><br><span class="line"> * [new tag]             1.1.1      -&gt; 1.1.1</span><br><span class="line"> * [new tag]             1.1.10     -&gt; 1.1.10</span><br><span class="line"> * [new tag]             1.1.11     -&gt; 1.1.11</span><br><span class="line"> * [new tag]             1.1.12     -&gt; 1.1.12</span><br><span class="line"> * [new tag]             1.1.13     -&gt; 1.1.13</span><br><span class="line"> * [new tag]             1.1.2      -&gt; 1.1.2</span><br><span class="line"> * [new tag]             1.1.3      -&gt; 1.1.3</span><br><span class="line"> * [new tag]             1.1.4      -&gt; 1.1.4</span><br><span class="line"> * [new tag]             1.1.5      -&gt; 1.1.5</span><br><span class="line"> * [new tag]             1.1.6      -&gt; 1.1.6</span><br><span class="line"> * [new tag]             1.1.7      -&gt; 1.1.7</span><br><span class="line"> * [new tag]             1.1.8      -&gt; 1.1.8</span><br><span class="line"> * [new tag]             1.1.9      -&gt; 1.1.9</span><br><span class="line"> * [new tag]             1.2.0      -&gt; 1.2.0</span><br><span class="line"> * [new tag]             1.2.1      -&gt; 1.2.1</span><br><span class="line"> * [new tag]             1.2.2      -&gt; 1.2.2</span><br><span class="line"> * [new tag]             1.2.3      -&gt; 1.2.3</span><br><span class="line"> * [new tag]             1.2.4      -&gt; 1.2.4</span><br><span class="line"> * [new tag]             1.2.5      -&gt; 1.2.5</span><br><span class="line"> * [new tag]             1.2.6      -&gt; 1.2.6</span><br><span class="line"> * [new tag]             1.3.0      -&gt; 1.3.0</span><br><span class="line"> * [new tag]             1.3.1      -&gt; 1.3.1</span><br><span class="line"> * [new tag]             1.3.2      -&gt; 1.3.2</span><br><span class="line"> * [new tag]             1.3.3      -&gt; 1.3.3</span><br><span class="line"> * [new tag]             1.3.4      -&gt; 1.3.4</span><br><span class="line"> * [new tag]             1.3.5      -&gt; 1.3.5</span><br><span class="line"> * [new tag]             1.3.6      -&gt; 1.3.6</span><br><span class="line"> * [new tag]             1.3.7      -&gt; 1.3.7</span><br><span class="line"> * [new tag]             1.3.8      -&gt; 1.3.8</span><br><span class="line"> * [new tag]             1.3.9      -&gt; 1.3.9</span><br><span class="line"> * [new tag]             1.4.0      -&gt; 1.4.0</span><br><span class="line"> * [new tag]             1.4.1      -&gt; 1.4.1</span><br><span class="line"> * [new tag]             1.4.2      -&gt; 1.4.2</span><br><span class="line"> * [new tag]             1.4.3      -&gt; 1.4.3</span><br><span class="line"> * [new tag]             1.5.0      -&gt; 1.5.0</span><br><span class="line"> * [new tag]             1.5.1      -&gt; 1.5.1</span><br><span class="line"> * [new tag]             1.5.10     -&gt; 1.5.10</span><br><span class="line"> * [new tag]             1.5.11     -&gt; 1.5.11</span><br><span class="line"> * [new tag]             1.5.12     -&gt; 1.5.12</span><br><span class="line"> * [new tag]             1.5.13     -&gt; 1.5.13</span><br><span class="line"> * [new tag]             1.5.14     -&gt; 1.5.14</span><br><span class="line"> * [new tag]             1.5.2      -&gt; 1.5.2</span><br><span class="line"> * [new tag]             1.5.3      -&gt; 1.5.3</span><br><span class="line"> * [new tag]             1.5.4      -&gt; 1.5.4</span><br><span class="line"> * [new tag]             1.5.5      -&gt; 1.5.5</span><br><span class="line"> * [new tag]             1.5.6      -&gt; 1.5.6</span><br><span class="line"> * [new tag]             1.5.7      -&gt; 1.5.7</span><br><span class="line"> * [new tag]             1.5.8      -&gt; 1.5.8</span><br><span class="line"> * [new tag]             1.5.9      -&gt; 1.5.9</span><br><span class="line"> * [new tag]             1.6.0      -&gt; 1.6.0</span><br><span class="line"> * [new tag]             1.6.1      -&gt; 1.6.1</span><br><span class="line"> * [new tag]             1.6.10     -&gt; 1.6.10</span><br><span class="line"> * [new tag]             1.6.11     -&gt; 1.6.11</span><br><span class="line"> * [new tag]             1.6.12     -&gt; 1.6.12</span><br><span class="line"> * [new tag]             1.6.13     -&gt; 1.6.13</span><br><span class="line"> * [new tag]             1.6.14     -&gt; 1.6.14</span><br><span class="line"> * [new tag]             1.6.15     -&gt; 1.6.15</span><br><span class="line"> * [new tag]             1.6.16     -&gt; 1.6.16</span><br><span class="line"> * [new tag]             1.6.17     -&gt; 1.6.17</span><br><span class="line"> * [new tag]             1.6.2      -&gt; 1.6.2</span><br><span class="line"> * [new tag]             1.6.3      -&gt; 1.6.3</span><br><span class="line"> * [new tag]             1.6.4      -&gt; 1.6.4</span><br><span class="line"> * [new tag]             1.6.5      -&gt; 1.6.5</span><br><span class="line"> * [new tag]             1.6.6      -&gt; 1.6.6</span><br><span class="line"> * [new tag]             1.6.7      -&gt; 1.6.7</span><br><span class="line"> * [new tag]             1.6.8      -&gt; 1.6.8</span><br><span class="line"> * [new tag]             1.6.9      -&gt; 1.6.9</span><br><span class="line"> * [new tag]             1.7.0      -&gt; 1.7.0</span><br><span class="line"> * [new tag]             1.7.1      -&gt; 1.7.1</span><br><span class="line"> * [new tag]             1.7.2      -&gt; 1.7.2</span><br><span class="line"> * [new tag]             1.7.3      -&gt; 1.7.3</span><br><span class="line"> * [new tag]             1.7.4      -&gt; 1.7.4</span><br><span class="line"> * [new tag]             1.7.5      -&gt; 1.7.5</span><br><span class="line"> * [new tag]             1.7.6      -&gt; 1.7.6</span><br><span class="line">HEAD is now at b41d2e525 Merge pull request #4995 from sjackman/gcc</span><br><span class="line">==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:</span><br><span class="line">  https://github.com/Homebrew/brew#donations</span><br><span class="line">==&gt; Tapping homebrew/core</span><br><span class="line">Cloning into &apos;/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core&apos;...</span><br><span class="line">remote: Enumerating objects: 4860, done.</span><br><span class="line">remote: Counting objects: 100% (4860/4860), done.</span><br><span class="line">remote: Compressing objects: 100% (4655/4655), done.</span><br><span class="line">remote: Total 4860 (delta 55), reused 343 (delta 15), pack-reused 0</span><br><span class="line">Receiving objects: 100% (4860/4860), 4.08 MiB | 870.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (55/55), done.</span><br><span class="line">Tapped 2 commands and 4646 formulae (4,903 files, 12.7MB).</span><br><span class="line">==&gt; Migrating /Library/Caches/Homebrew to /Users/tf/Library/Caches/Homebrew...</span><br><span class="line">==&gt; Deleting /Library/Caches/Homebrew...</span><br><span class="line">Already up-to-date.</span><br><span class="line">==&gt; Installation successful!</span><br><span class="line"></span><br><span class="line">==&gt; Homebrew has enabled anonymous aggregate formulae and cask analytics.</span><br><span class="line">Read the analytics documentation (and how to opt-out) here:</span><br><span class="line">  https://docs.brew.sh/Analytics.html</span><br><span class="line"></span><br><span class="line">==&gt; Homebrew is run entirely by unpaid volunteers. Please consider donating:</span><br><span class="line">  https://github.com/Homebrew/brew#donations</span><br><span class="line">==&gt; Next steps:</span><br><span class="line">- Run `brew help` to get started</span><br><span class="line">- Further documentation: </span><br><span class="line">    https://docs.brew.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>使用跟其它包管理工具类似，如先查找包keepassxc，然后brew install安装.<br>brew cask 用来安装一些macos app,字体，插件及一些第三方非开源软件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">192:~ tf$ brew  search keepassxc</span><br><span class="line">==&gt; Casks</span><br><span class="line">homebrew/cask/keepassxc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">192:~ tf$ brew cask install keepassxc</span><br><span class="line">Updating Homebrew...</span><br><span class="line">==&gt; Auto-updated Homebrew!</span><br><span class="line">Updated 1 tap (homebrew/cask).</span><br><span class="line">No changes to formulae.</span><br><span class="line"></span><br><span class="line">==&gt; Satisfying dependencies</span><br><span class="line">==&gt; Downloading https://github.com/keepassxreboot/keepassxc/releases/download/2.3.4/KeePassXC-2.3.4.dmg</span><br><span class="line">==&gt; Downloading from https://github-production-release-asset-2e65be.s3.amazonaws.com/52729242/4b068f00-a70b-11e8-9301-d3a2d7e33ccd?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credentia</span><br><span class="line">######################################################################## 100.0%</span><br><span class="line">==&gt; Verifying SHA-256 checksum for Cask &apos;keepassxc&apos;.</span><br><span class="line">==&gt; Installing Cask keepassxc</span><br><span class="line">==&gt; Moving App &apos;KeePassXC.app&apos; to &apos;/Applications/KeePassXC.app&apos;.</span><br><span class="line">🍺  keepassxc was successfully installed!</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p>Homebrew官方网站 <a href="https://brew.sh" target="_blank" rel="noopener">https://brew.sh</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/08/03/ssh免密码登陆的一些注意点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1339,504 +1902,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/wireshark-preamble-fcs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/wireshark-preamble-fcs/" itemprop="url">为什么wireshark抓取ethernet II前导8字符与FCS</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:00:36+08:00">
-                2019-07-30
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天使用wireshark抓取frame,对照帧格式发现wireshark抓取出的帧少了两个部分<br>如图:<br>红圈是目标地址,蓝圈是源地址,绿圈是类型(这是ehternet II区别802.3的地方,可以识别上层协议)<br><img src="/img/post/Spectacle.XF5278.png" alt="manager page"></p>
-<p>查找资料好觉得这篇文章说得很清楚明了<br>(<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a>)</p>
-<blockquote>
-<p>在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目 的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处 理。这时我们的抓包软件才能抓到数据，因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，</p>
-</blockquote>
-<blockquote>
-<p>帧格式图,<br><img src="/img/post/frame.png" alt="manager page"></p>
-</blockquote>
-<p>参考:<a href="http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5e8ca2db0100vopc.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/28/monit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/28/monit/" itemprop="url">使用Monit替代supversor管理及监控服务小结</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-28T00:00:00+08:00">
-                2017-09-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本来准备使用satl推送supervisor来着,研究了一下monit官方文档并试用了一下,这几天使用下来与supervisor对比感受.</p>
-<blockquote>
-<p>Monit - utility for monitoring services on a Unix system</p>
-</blockquote>
-<ol>
-<li>管理监控:</li>
-</ol>
-<ul>
-<li>管理:process,programs(任何脚本),files,directories,filesystems.</li>
-<li>监控处理:auto restart not run, auto restart not respond, stop when use too much resource, monitor change(timestamps, checksum, size, 内容), 网络检测(tcp/ip, socket, protocol(任何协议), ssl), system resources(cpu,mem,load,io,空间…)</li>
-<li>服务依赖: 依赖检测,顺序启动服务</li>
-</ul>
-<ol start="2">
-<li>日志及监控:</li>
-</ol>
-<ul>
-<li>支持记录日志到syslog或自己的日志文件</li>
-<li>error判断规则自定义发送alert message</li>
-</ul>
-<ol start="3">
-<li>web界面</li>
-<li>语法</li>
-</ol>
-<blockquote>
-<p>SYNOPSIS<br>monit [options] <arguments></arguments></p>
-</blockquote>
-<p>两者的ctl脚本操作比较相似, monit不仅仅是个服务管理系统,资源监控也是相当丰富,比supervisor强大太多.</p>
-<p>区别如下,如有错误,请指正:</p>
-<table>
-<thead>
-<tr>
-<th align="left">monit</th>
-<th align="left">supervisor</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">非常小,安装简单</td>
-<td align="left">只支持python2.4-2.7之间的版本,pip安装稍显复杂</td>
-</tr>
-<tr>
-<td align="left">c编写,无其它依赖</td>
-<td align="left">python编写,依赖其它第三方库</td>
-</tr>
-<tr>
-<td align="left">配置语法灵活,功能强大</td>
-<td align="left">功能一般,只能处理了进程</td>
-</tr>
-<tr>
-<td align="left">支持监控告警</td>
-<td align="left">不支持告警</td>
-</tr>
-<tr>
-<td align="left">非侵入</td>
-<td align="left">侵入式,需要supervisor启动,而且不支持daemoned</td>
-</tr>
-<tr>
-<td align="left">支持服务依赖</td>
-<td align="left">依赖支持不友好</td>
-</tr>
-</tbody></table>
-<p>monit 使用帮助</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 monit.d]# monit --help </span><br><span class="line">Usage: monit [options] &#123;arguments&#125;</span><br><span class="line">Options are as follows:</span><br><span class="line"> -c file       Use this control file</span><br><span class="line"> -d n          Run as a daemon once per n seconds</span><br><span class="line"> -g name       Set group name for start, stop, restart, monitor, unmonitor, status and summary</span><br><span class="line"> -l logfile    Print log information to this file</span><br><span class="line"> -p pidfile    Use this lock file in daemon mode</span><br><span class="line"> -s statefile  Set the file monit should write state information to</span><br><span class="line"> -I            Do not run in background (needed for run from init)</span><br><span class="line"> --id          Print Monit&apos;s unique ID</span><br><span class="line"> --resetid     Reset Monit&apos;s unique ID. Use with caution</span><br><span class="line"> -t            Run syntax check for the control file</span><br><span class="line"> -v            Verbose mode, work noisy (diagnostic output)</span><br><span class="line"> -vv           Very verbose mode, same as -v plus log stacktrace on error</span><br><span class="line"> -H [filename] Print SHA1 and MD5 hashes of the file or of stdin if the</span><br><span class="line">               filename is omited; monit will exit afterwards</span><br><span class="line"> -V            Print version number and patchlevel</span><br><span class="line"> -h            Print this text</span><br><span class="line">Optional action arguments for non-daemon mode are as follows:</span><br><span class="line"> start all           - Start all services</span><br><span class="line"> start name          - Only start the named service</span><br><span class="line"> stop all            - Stop all services</span><br><span class="line"> stop name           - Only stop the named service</span><br><span class="line"> restart all         - Stop and start all services</span><br><span class="line"> restart name        - Only restart the named service</span><br><span class="line"> monitor all         - Enable monitoring of all services</span><br><span class="line"> monitor name        - Only enable monitoring of the named service</span><br><span class="line"> unmonitor all       - Disable monitoring of all services</span><br><span class="line"> unmonitor name      - Only disable monitoring of the named service</span><br><span class="line"> reload              - Reinitialize monit</span><br><span class="line"> status [name]       - Print full status information for service(s)</span><br><span class="line"> summary [name]      - Print short status information for service(s)</span><br><span class="line"> quit                - Kill monit daemon process</span><br><span class="line"> validate            - Check all services and start if not running</span><br><span class="line"> procmatch &lt;pattern&gt; - Test process matching pattern</span><br><span class="line"></span><br><span class="line">(Action arguments operate on services defined in the control file)</span><br></pre></td></tr></table></figure>
-
-<p>当前系统进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[graylog2@web53 bin]$ ps ux fww</span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">graylog2 32286  0.0  0.0 108336  1908 pts/1    S    16:28   0:00 -bash</span><br><span class="line">graylog2  2130  1.0  0.0 110200  1044 pts/1    R+   21:53   0:00  \_ ps ux fww</span><br></pre></td></tr></table></figure>
-
-<p>配置monit的服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 monit.d]# cat *</span><br><span class="line">check process elasticsearch with pidfile /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid</span><br><span class="line">  group elasticsearch</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; cd /data/graylog2/elasticsearch-5.6.1/bin/;  ./elasticsearch -d --pidfile /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">    with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;kill -9 `cat /data/graylog2/elasticsearch-5.6.1/bin/elasticsearch.pid`&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 127.0.0.1 port 9200</span><br><span class="line">  then restart</span><br><span class="line">check process graylog2 with pidfile /tmp/graylog.pid</span><br><span class="line">  group graylog2</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/graylog-2.3.1/bin/graylogctl start -f /data/graylog2/graylog-2.3.1/graylog.conf -d&apos;&quot; as UID graylog2 with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/graylog-2.3.1/bin/graylogctl stop&apos;&quot; as UID graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 192.168.1.53 port 12345</span><br><span class="line">  then restart</span><br><span class="line"></span><br><span class="line">check process mongodb with pidfile /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod.pid</span><br><span class="line">  group mongodb</span><br><span class="line">  start program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod --dbpath /data/graylog2/mongodb-linux-x86_64-3.4.9/db/ --pidfilepath /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod.pid --logpath /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongodb.log&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">    with timeout 60 seconds</span><br><span class="line">  stop  program = &quot;/bin/bash -c &apos;source /data/graylog2/.bash_profile ; /data/graylog2/mongodb-linux-x86_64-3.4.9/bin/mongod --shutdown --dbpath /data/graylog2/mongodb-linux-x86_64-3.4.9/db/&apos;&quot;</span><br><span class="line">    as UID graylog2 and gid graylog2</span><br><span class="line">  if failed</span><br><span class="line">    host 192.168.1.53 port 27017</span><br><span class="line">  then restart</span><br></pre></td></tr></table></figure>
-
-<p>启动monit管理服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[graylog2@web53 bin]$ ps ux </span><br><span class="line">USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">graylog2  6109  120  1.6 15419244 1114420 ?    Sl   22:00   2:17 /data/graylog2/jdk1.8.0_144/bin/java -Djava.library.path=/data/graylog2/</span><br><span class="line">graylog2  7246  2.0  0.0 110236  1144 pts/1    R+   22:01   0:00 ps ux</span><br><span class="line">graylog2 32286  0.0  0.0 108336  1908 pts/1    S    16:28   0:00 -bash</span><br></pre></td></tr></table></figure>
-
-<p>从日志上可以看出启动过程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[CST Sep 27 22:00:00] info     : Reinitializing monit daemon</span><br><span class="line">[CST Sep 27 22:00:00] info     : Awakened by the SIGHUP signal</span><br><span class="line">Reinitializing Monit - Control file &apos;/etc/monit.conf&apos;</span><br><span class="line">[CST Sep 27 22:00:00] info     : Shutting down Monit HTTP server</span><br><span class="line">[CST Sep 27 22:00:01] info     : Monit HTTP server stopped</span><br><span class="line">[CST Sep 27 22:00:01] error    : Cannot translate &apos;web53&apos; to FQDN name -- Name or service not known</span><br><span class="line">[CST Sep 27 22:00:01] info     : Starting Monit HTTP server at [0.0.0.0]:2812</span><br><span class="line">[CST Sep 27 22:00:01] info     : Monit HTTP server started</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;web53&apos; Monit reloaded</span><br><span class="line">[CST Sep 27 22:00:01] error    : &apos;graylog2&apos; process is not running</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;graylog2&apos; trying to restart</span><br><span class="line">[CST Sep 27 22:00:01] info     : &apos;graylog2&apos; start: /bin/bash</span><br><span class="line">[CST Sep 27 22:01:05] info     : &apos;graylog2&apos; process is running with pid 6109</span><br><span class="line">[CST Sep 27 22:02:05] error    : &apos;graylog2&apos; process is not running</span><br><span class="line">[CST Sep 27 22:02:05] info     : &apos;graylog2&apos; trying to restart</span><br><span class="line">[CST Sep 27 22:02:05] info     : &apos;graylog2&apos; start: /bin/bash</span><br><span class="line">[CST Sep 28 14:55:21] error    : &apos;elasticsearch&apos; process is not running</span><br><span class="line">[CST Sep 28 14:55:21] info     : &apos;elasticsearch&apos; trying to restart</span><br><span class="line">[CST Sep 28 14:55:21] info     : &apos;elasticsearch&apos; start: /bin/bash</span><br><span class="line">[CST Sep 28 14:56:24] info     : &apos;elasticsearch&apos; process is running with pid 4059</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">[root@web53 ~]# monit status</span><br><span class="line">Cannot translate &apos;web53&apos; to FQDN name -- Name or service not known</span><br><span class="line">The Monit daemon 5.14 uptime: 17h 42m </span><br><span class="line"></span><br><span class="line">Process &apos;mongodb&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               9674</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               0</span><br><span class="line">  uptime                            3h 6m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            46.1 MB</span><br><span class="line">  memory total                      46.1 MB</span><br><span class="line">  memory percent                    0.0%</span><br><span class="line">  memory percent total              0.0%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [192.168.1.53]:27017 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">Process &apos;graylog2&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               31630</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               0</span><br><span class="line">  uptime                            24m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            1.1 GB</span><br><span class="line">  memory total                      1.1 GB</span><br><span class="line">  memory percent                    1.7%</span><br><span class="line">  memory percent total              1.7%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [192.168.1.53]:12345 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">Process &apos;elasticsearch&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  pid                               4059</span><br><span class="line">  parent pid                        1</span><br><span class="line">  uid                               507</span><br><span class="line">  effective uid                     507</span><br><span class="line">  gid                               507</span><br><span class="line">  uptime                            17m </span><br><span class="line">  children                          0</span><br><span class="line">  memory                            2.8 GB</span><br><span class="line">  memory total                      2.8 GB</span><br><span class="line">  memory percent                    4.5%</span><br><span class="line">  memory percent total              4.5%</span><br><span class="line">  cpu percent                       0.0%</span><br><span class="line">  cpu percent total                 0.0%</span><br><span class="line">  port response time                0.000s to [127.0.0.1]:9200 type TCP/IP protocol DEFAULT</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br><span class="line"></span><br><span class="line">System &apos;web53&apos;</span><br><span class="line">  status                            Running</span><br><span class="line">  monitoring status                 Monitored</span><br><span class="line">  load average                      [1.35] [1.32] [1.39]</span><br><span class="line">  cpu                               5.2%us 1.0%sy 0.8%wa</span><br><span class="line">  memory usage                      17.0 GB [27.0%]</span><br><span class="line">  swap usage                        0 B [0.0%]</span><br><span class="line">  data collected                    Thu, 28 Sep 2017 15:12:38</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/img/post/Screenshot_20170928_150658.png" alt="manager page"><br><img src="/img/post/Screenshot_20170928_150725.png" alt="process page"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2017/09/27/supervisor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/27/supervisor/" itemprop="url">supervisord 从入门到放弃</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T00:00:00+08:00">
-                2017-09-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#supervisord 从入门到放弃</p>
-<blockquote>
-<p>Supervisor 在在类UNIX系统上控制进程运行的一个应用.通过fock子进程的方式管理服务的运行,在服务stop时自动重启.<br>这几天简单试用了下supervisord,使用中发现几个问题:</p>
-</blockquote>
-<ol>
-<li>只能支持非后台的进程(they should run in the foreground, not be daemons)</li>
-<li>由于是fock的方式管理,只支持由supervisor自己启动的服务,对于已经在线运行的大量服务,不好意思,无法管理.(这个很蛋疼,现网那么多服务,总不能都重启一遍吧?!)</li>
-<li>有些服务即使非后台运行,也无法正常操作成功.我试用了使用superviser启动graylog2,使用graylog2的前台运行graylogctl run运行服务.</li>
-</ol>
-<blockquote>
-<p>supervisor对服务的侵入性(intrusive)硬伤,目前我用supervisor只能做些简单服务的管理.<br>下一步试下non-intrusive的monit.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1882,7 +1952,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1893,7 +1963,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1904,7 +1974,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

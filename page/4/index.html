@@ -323,6 +323,340 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/31/ovirt-4-2-install-guest-agent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/31/ovirt-4-2-install-guest-agent/" itemprop="url">ovirt 4.2 为Centos linux虚拟机安装 guest agent</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T00:22:29+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
+                    <span itemprop="name">Ovirt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>2.4.1. Red Hat Virtualization Guest Agents and Drivers</p>
+<p>Oivrt guest agents 为Linux和Windows虚拟机提供了附加信息和功能,其中最核心的包括监控虚拟机资源使用和使用管理界面优雅的关闭或重启虚拟机</p>
+<p>没有安装前虚拟机的IP地址无法获取<br><img src="/img/20190131/noagent.png" alt></p>
+<p>生产主要使用CentOS7.6的系统(其它CentOS系列基本相同),安装如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# yum install centos-release-ovirt42</span><br><span class="line">[root@dns01 ~]# yum install -y ovirt-guest-agent-common</span><br></pre></td></tr></table></figure>
+
+<p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@dns01 ~]# systemctl start ovirt-guest-agent.service </span><br><span class="line">[root@dns01 ~]# systemctl enable ovirt-guest-agent.service </span><br><span class="line">[root@dns01 ~]# systemctl status ovirt-guest-agent.service</span><br><span class="line">● ovirt-guest-agent.service - oVirt Guest Agent</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/ovirt-guest-agent.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Sat 2019-02-02 22:38:38 CST; 2s ago</span><br><span class="line">  Process: 12089 ExecStartPre=/bin/chown ovirtagent:ovirtagent /run/ovirt-guest-agent.pid (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 12086 ExecStartPre=/bin/touch /run/ovirt-guest-agent.pid (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 12083 ExecStartPre=/sbin/modprobe virtio_console (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 12093 (python)</span><br><span class="line">   CGroup: /system.slice/ovirt-guest-agent.service</span><br><span class="line">           └─12093 /usr/bin/python /usr/share/ovirt-guest-agent/ovirt-guest-agent.py</span><br><span class="line"></span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Starting oVirt Guest Agent...</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Started oVirt Guest Agent.</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot userhelper[12101]: pam_succeed_if(ovirt-container-list:auth): requirement &quot;user = ovirtagent&quot; was met by user &quot;ovirtagent&quot;</span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot userhelper[12101]: running &apos;/usr/share/ovirt-guest-agent/container-list&apos; with root privileges on behalf of &apos;ovirtagent&apos;</span><br><span class="line">Feb 02 22:38:39 dns01.talen.iot userhelper[12103]: pam_succeed_if(ovirt-container-list:auth): requirement &quot;user = ovirtagent&quot; was met by user &quot;ovirtagent&quot;</span><br><span class="line">Feb 02 22:38:39 dns01.talen.iot userhelper[12103]: running &apos;/usr/share/ovirt-guest-agent/container-list&apos; with root privileges on behalf of &apos;ovirtagent&apos;</span><br><span class="line"></span><br><span class="line">[root@dns01 ~]# systemctl start qemu-guest-agent.service</span><br><span class="line">[root@dns01 ~]# systemctl enable qemu-guest-agent.service</span><br><span class="line">[root@dns01 ~]# systemctl status qemu-guest-agent.service           </span><br><span class="line">● qemu-guest-agent.service - QEMU Guest Agent</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/qemu-guest-agent.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Sat 2019-02-02 22:38:38 CST; 20min ago</span><br><span class="line"> Main PID: 12082 (qemu-ga)</span><br><span class="line">   CGroup: /system.slice/qemu-guest-agent.service</span><br><span class="line">           └─12082 /usr/bin/qemu-ga --method=virtio-serial --path=/dev/virtio-ports/org.qemu.guest_agent.0 --blacklist=guest-file-open,guest-file-close,guest-file-read,guest-file-write,guest-file-seek,gue...</span><br><span class="line"></span><br><span class="line">Feb 02 22:38:38 dns01.talen.iot systemd[1]: Started QEMU Guest Agent.</span><br></pre></td></tr></table></figure>
+
+<p>服务启动后提示消失,并能获取到虚拟机IP等信息.</p>
+<p><img src="/img/20190131/yesagent.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/27/Install-SecureCRT-8-3-4-on-openSUSE-15-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/27/Install-SecureCRT-8-3-4-on-openSUSE-15-1/" itemprop="url">Install SecureCRT 8.3.4 on openSUSE 15.1</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-27T19:01:58+08:00">
+                2019-01-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
+                2019-07-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/openSUSE/" itemprop="url" rel="index">
+                    <span itemprop="name">openSUSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>官方下载scrt-sfx-8.3.4.1699.rhel7-64.tar.gz并解压,我这里是/home/haotianfei/bin/scrt8.3.4/scrt-sfx-8.3.4/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/haotianfei/bin/scrt8.3.4/</span><br><span class="line">tar zxvf scrt-sfx-8.3.4.1699.rhel7-64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压后进入bin目录运行提示找不到openssl的库文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/scrt-sfx-8.3.4&gt; ./SecureCRT</span><br><span class="line">./SecureCRT: error while loading shared libraries: libssl.so.10: cannot open shared object file: No such file or directory</span><br><span class="line">./SecureCRT: error while loading shared libraries: libcrypto.so.10: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>这里使用<a href="http://www.openssl.org官方网站下载编译,然后链接到/usr/lib64/的方式" target="_blank" rel="noopener">www.openssl.org官方网站下载编译,然后链接到/usr/lib64/的方式</a></p>
+<p><a href="https://www.openssl.org/source/old/1.0.2/" target="_blank" rel="noopener">https://www.openssl.org/source/old/1.0.2/</a></p>
+<p>1.0.2版本的最后一个版本1.0.2p<br><a href="https://www.openssl.org/source/old/1.0.2/openssl-1.0.2p.tar.gz" target="_blank" rel="noopener">https://www.openssl.org/source/old/1.0.2/openssl-1.0.2p.tar.gz</a></p>
+<p>解压并编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; ./config shared zlib-dynamic</span><br><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; make</span><br></pre></td></tr></table></figure>
+
+<p>将编译好的so文件链接到系统库目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; sudo ln -sf `pwd`/libssl.so.1.0.0 /usr/lib64/libssl.so.10</span><br><span class="line">haotianfei@tianfei-opensuse:~/bin/scrt8.3.4/openssl-devel/openssl-1.0.2p&gt; sudo ln -sf `pwd`/libcrypto.so.1.0.0 /usr/lib64/libcrypto.so.10</span><br></pre></td></tr></table></figure>
+
+<p>虽然还是会提示版本信息不可用,但已经可以正常运行使用了.</p>
+<p><img src="/img/2019-01-27/scrt.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/27/dns-can-t-resolv-out-domain/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2030,296 +2364,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/23/yum列出指定源的包含的所有包/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/23/yum列出指定源的包含的所有包/" itemprop="url">yum列出指定源的包含的所有包</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T00:00:00+08:00">
-                2018-12-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>列出指定源所包含的所有包列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@tianfeicentos ~]# yum repository-packages kubernetes list</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.cn99.com</span><br><span class="line"> * epel: ftp.cuhk.edu.hk</span><br><span class="line"> * extras: mirrors.163.com</span><br><span class="line"> * updates: mirrors.163.com</span><br><span class="line">Installed Packages</span><br><span class="line">kubectl.x86_64                                                                                  1.13.1-0                                                                            @kubernetes</span><br><span class="line">kubelet.x86_64                                                                                  1.13.1-0                                                                            @kubernetes</span><br><span class="line">kubernetes-cni.x86_64                                                                           0.6.0-0                                                                             @kubernetes</span><br><span class="line">Available Packages</span><br><span class="line">cri-tools.x86_64                                                                                1.12.0-0                                                                            kubernetes</span><br><span class="line">kubeadm.x86_64                                                                                  1.13.1-0                                                                            kubernetes</span><br><span class="line">rkt.x86_64                                                                                      1.27.0-1                                                                            kubernetes</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/19/tty pts 区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/19/tty pts 区别/" itemprop="url">pts,tty的区别</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T00:00:00+08:00">
-                2018-12-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-25T10:10:43+08:00">
-                2019-07-25
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redhat/" itemprop="url" rel="index">
-                    <span itemprop="name">Redhat</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A tty is a regular terminal device (the console on your server, for example).</span><br><span class="line">A pts is a psuedo terminal slave (an xterm or an ssh connection).</span><br></pre></td></tr></table></figure>
-
-<p>转自:”<a href="https://unix.stackexchange.com/questions/21280/difference-between-pts-and-tty&quot;" target="_blank" rel="noopener">https://unix.stackexchange.com/questions/21280/difference-between-pts-and-tty&quot;</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2370,7 +2414,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2381,7 +2425,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2392,7 +2436,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

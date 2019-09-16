@@ -759,21 +759,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[rundeck日报发送脚本]]></title>
-    <url>%2F2017%2F08%2F19%2FRundeckJobResult%2F</url>
-    <content type="text"><![CDATA[RundeckJobResult rundeck 日报发送脚本使用指南 收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.* source ~/.virtualenvs/rundeck3.6/bin/activate usage12345678910111213用法：RdJobResult.py [--命令选项] [参数]命令选项： --help, -h 帮助。 --version, -V 输出版本号。 --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,... 接收邮件的地址。eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,... log文件 /tmp/rundeck_job_status.py.log.${date},${hour.min} eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22 在rundeck上做成一个job每日23:59分执行 邮件内容 订阅 说明 常规订阅: 如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。 临时订阅: 如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。]]></content>
-      <tags>
-        <tag>rundeck</tag>
-        <tag>ETL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[elasticsearch_request_time_collect]]></title>
     <url>%2F2017%2F08%2F19%2Felasticsearch_request_time_collect%2F</url>
     <content type="text"><![CDATA[elasticsearch_request_time_collecthttps://github.com/talenhao/elasticsearch_request_time_collect收集es中指定索引中的所有request_time及request字段,并处理成报表. elasticsearch_request_time_collect脚本使用说明激活python环境source /virtual_python3.6.1/bin/activate 用法：123456789/elasticsearch_request_time_collect.py [--命令选项] [参数]命令选项： --help, -H 帮助 --version, -V 输出版本号 --index-regex -i 索引,支持正则 eg:in.access.log --date, -d 收集的日期 eg:2017.08.16 --es-ip -h Elasticsearch IP地址 --es-port -p Elasticsearch 端口 默认参数为:12345# default argses_host = &quot;192.168.1.1&quot;es_port = &apos;9200&apos;search_date = todayindex_regex = &quot;*access.log&quot; eg:12345678910time python elasticsearch_request_time_collect.py -i *access.log -d 2017.08.16 -h 192.168.1.1...api: &apos;/adfafaf/sfdaf&apos;api: &apos;/client/timeline/hadfasfafafasf&apos;api: &apos;/client/adfasfsafasfasfasfaf&apos;real 0m32.262suser 0m25.998ssys 0m1.919s]]></content>
       <tags>
         <tag>elasticsearch</tag>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[rundeck日报发送脚本]]></title>
+    <url>%2F2017%2F08%2F19%2FRundeckJobResult%2F</url>
+    <content type="text"><![CDATA[RundeckJobResult rundeck 日报发送脚本使用指南 收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.* source ~/.virtualenvs/rundeck3.6/bin/activate usage12345678910111213用法：RdJobResult.py [--命令选项] [参数]命令选项： --help, -h 帮助。 --version, -V 输出版本号。 --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,... 接收邮件的地址。eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,... log文件 /tmp/rundeck_job_status.py.log.${date},${hour.min} eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22 在rundeck上做成一个job每日23:59分执行 邮件内容 订阅 说明 常规订阅: 如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。 临时订阅: 如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。]]></content>
+      <tags>
+        <tag>rundeck</tag>
+        <tag>ETL</tag>
       </tags>
   </entry>
 </search>

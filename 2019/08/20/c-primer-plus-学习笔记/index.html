@@ -654,13 +654,13 @@ int-->进制(进制:16,8,2..)
 </li>
 </ul>
 <p><img src="/images/1566554717693.png" alt="1566554717693"></p>
-<h2 id="第六章-C控制语句-循环"><a href="#第六章-C控制语句-循环" class="headerlink" title="第六章 C控制语句:循环"></a>第六章 C控制语句:循环</h2><p>程序流:</p>
+<h2 id="第六章-C控制语句-循环-嵌套循环"><a href="#第六章-C控制语句-循环-嵌套循环" class="headerlink" title="第六章 C控制语句:循环,嵌套循环"></a>第六章 C控制语句:循环,嵌套循环</h2><p>程序流:</p>
 <ol>
 <li>语句序列</li>
 <li>循环</li>
 <li>分支</li>
 </ol>
-<p>三种循环:</p>
+<p>三种循环:(入口循环:for/while;出口循环:do while)</p>
 <ul>
 <li><p>for</p>
 <ul>
@@ -688,6 +688,13 @@ update-->test</pre>
 </ul>
 </li>
 <li><p>do while</p>
+<ul>
+<li><p>当while循环前需要执行循环体的逻辑时,出口循环可以更简洁.</p>
+</li>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  statement</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span> (expression);</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
 </li>
 </ul>
 <p>condition:</p>
@@ -696,6 +703,27 @@ update-->test</pre>
 <li>0为假</li>
 </ul>
 <h4 id="赋值运算符-1"><a href="#赋值运算符-1" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><p><code>=,+=,-=,*=,/=,%=</code></p>
+<h4 id="数组array-列表list"><a href="#数组array-列表list" class="headerlink" title="数组array/列表list"></a>数组array/列表list</h4><p>C编译器不检查数组索引的合理性,可能会将赋值超过索引的值存储在其它位置,可能破坏其它数据并导致程序出错.</p>
+<p>数组可以使用下标subscript,索引indice,偏移量offset表示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> ary[<span class="number">15</span>];声明数组,含有<span class="number">15</span>个<span class="keyword">float</span>元素</span><br></pre></td></tr></table></figure>
+
+<h2 id="第九章-函数"><a href="#第九章-函数" class="headerlink" title="第九章 函数"></a>第九章 函数</h2><p>函数声明(函数原型funcation prototype)-&gt;函数定义</p>
+<pre class="mermaid">
+sequenceDiagram
+participant main as 主调函数
+participant call as 被调函数
+
+opt 驱动程序
+main->>call:实参
+end
+opt 栈stack
+main->>main:参数
+main->>call:被调函数从stack中读取参数值
+end
+call-->>call:形参
+call-->>main:return</pre>
+
+<h3 id="递归recursion"><a href="#递归recursion" class="headerlink" title="递归recursion"></a>递归recursion</h3><p>函数调用自身</p>
 
       
     </div>
@@ -905,7 +933,7 @@ update-->test</pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -916,7 +944,7 @@ update-->test</pre>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -927,7 +955,7 @@ update-->test</pre>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -997,7 +1025,7 @@ update-->test</pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c-primer-plus-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">c primer plus 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-认识C语言"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 认识C语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-C语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">第二章 C语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言的基本模块"><span class="nav-number">1.2.1.</span> <span class="nav-text">C语言的基本模块:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言重要特性"><span class="nav-number">1.2.2.</span> <span class="nav-text">C语言重要特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言的结构"><span class="nav-number">1.2.3.</span> <span class="nav-text">C语言的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-数据和C"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 数据和C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据-承载信息的数字和符号"><span class="nav-number">1.3.1.</span> <span class="nav-text">数据 承载信息的数字和符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型关键字"><span class="nav-number">1.3.2.</span> <span class="nav-text">基本类型关键字:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言数据类型-分配合适内存空间"><span class="nav-number">1.3.3.</span> <span class="nav-text">C语言数据类型(分配合适内存空间)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#char"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">char</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-字符串和格式化输入-输出-数据表示"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 字符串和格式化输入/输出(数据表示)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2字符串-字符序列-双引号"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.2字符串(字符序列)(双引号)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3常量和C预处理器"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.3常量和C预处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-运算符-表达式expression和语句statement-数据处理"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 运算符,表达式expression和语句statement(数据处理)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">1.5.1.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本运算符"><span class="nav-number">1.5.2.</span> <span class="nav-text">基本运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">赋值运算符=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加法运算符"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">加法运算符+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法运算符"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">减法运算符-</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘法运算符"><span class="nav-number">1.5.3.</span> <span class="nav-text">乘法运算符*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除法运算符"><span class="nav-number">1.5.4.</span> <span class="nav-text">除法运算符/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符优先级"><span class="nav-number">1.5.5.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它运算符"><span class="nav-number">1.5.6.</span> <span class="nav-text">其它运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-C控制语句-循环"><span class="nav-number">1.6.</span> <span class="nav-text">第六章 C控制语句:循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符-1"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">赋值运算符</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c-primer-plus-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">c primer plus 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-认识C语言"><span class="nav-number">1.1.</span> <span class="nav-text">第一章 认识C语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-C语言概述"><span class="nav-number">1.2.</span> <span class="nav-text">第二章 C语言概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言的基本模块"><span class="nav-number">1.2.1.</span> <span class="nav-text">C语言的基本模块:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言重要特性"><span class="nav-number">1.2.2.</span> <span class="nav-text">C语言重要特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言的结构"><span class="nav-number">1.2.3.</span> <span class="nav-text">C语言的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-数据和C"><span class="nav-number">1.3.</span> <span class="nav-text">第三章 数据和C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据-承载信息的数字和符号"><span class="nav-number">1.3.1.</span> <span class="nav-text">数据 承载信息的数字和符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型关键字"><span class="nav-number">1.3.2.</span> <span class="nav-text">基本类型关键字:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言数据类型-分配合适内存空间"><span class="nav-number">1.3.3.</span> <span class="nav-text">C语言数据类型(分配合适内存空间)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#char"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">char</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-字符串和格式化输入-输出-数据表示"><span class="nav-number">1.4.</span> <span class="nav-text">第四章 字符串和格式化输入/输出(数据表示)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2字符串-字符序列-双引号"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.2字符串(字符序列)(双引号)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3常量和C预处理器"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.3常量和C预处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-运算符-表达式expression和语句statement-数据处理"><span class="nav-number">1.5.</span> <span class="nav-text">第五章 运算符,表达式expression和语句statement(数据处理)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">1.5.1.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本运算符"><span class="nav-number">1.5.2.</span> <span class="nav-text">基本运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">赋值运算符=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加法运算符"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">加法运算符+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法运算符"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">减法运算符-</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘法运算符"><span class="nav-number">1.5.3.</span> <span class="nav-text">乘法运算符*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除法运算符"><span class="nav-number">1.5.4.</span> <span class="nav-text">除法运算符/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符优先级"><span class="nav-number">1.5.5.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它运算符"><span class="nav-number">1.5.6.</span> <span class="nav-text">其它运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-C控制语句-循环-嵌套循环"><span class="nav-number">1.6.</span> <span class="nav-text">第六章 C控制语句:循环,嵌套循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符-1"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组array-列表list"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">数组array/列表list</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章-函数"><span class="nav-number">1.7.</span> <span class="nav-text">第九章 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归recursion"><span class="nav-number">1.7.1.</span> <span class="nav-text">递归recursion</span></a></li></ol></li></ol></div>
             
 
           </div>

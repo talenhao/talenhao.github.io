@@ -557,13 +557,30 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
 <p>JVM会缓存解析10秒,ES覆盖为60秒,反向解析10秒</p>
 <h2 id="Aggregations"><a href="#Aggregations" class="headerlink" title="Aggregations"></a>Aggregations</h2><p>四类</p>
 <ol>
-<li>bucketing分组</li>
+<li>bucketing分组<ol>
+<li>terms<ol>
+<li>size<ol>
+<li>先收集所有shard上的一定数量的响应,然后再汇总一起,结果不是很精准</li>
+<li>Numeric value (1000000000000000000000) out of range of int (-2147483648 - 2147483647)\n at [Source: org.elasticsearch.transport.netty4.ByteBufStreamInput@4af5e4f0; line: 16, column: 54]”</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>composite<ol>
+<li>[composite] aggregation cannot be used with a parent aggregation</li>
+</ol>
+</li>
+</ol>
+</li>
 <li>metric度量<ol>
 <li>avg/加权avg</li>
 </ol>
 </li>
 <li>matrix矩阵(在多个字段基础上产生矩阵)</li>
-<li>pipeline管道(在其它聚合基础上再次聚合)</li>
+<li>pipeline管道(在其它聚合基础上再次聚合)<ol>
+<li>Each bucket may be sorted based on its <code>_key</code>, <code>_count</code> or its sub-aggregations. </li>
+</ol>
+</li>
 </ol>
 <p>聚合嵌套功能十分强大</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法结构 aggregations或aggs</span></span><br><span class="line"><span class="string">"aggregations"</span> : &#123;</span><br><span class="line">    <span class="string">"&lt;aggregation_name&gt;"</span> : &#123;</span><br><span class="line">        <span class="string">"&lt;aggregation_type&gt;"</span> : &#123;</span><br><span class="line">            &lt;aggregation_body&gt;</span><br><span class="line">        &#125;</span><br><span class="line">        [,<span class="string">"meta"</span> : &#123;  [&lt;meta_data_body&gt;] &#125; ]?</span><br><span class="line">        [,"aggregations" : &#123; [&lt;sub_aggregation&gt;]+ &#125; ]?</span><br><span class="line">    &#125;</span><br><span class="line">    [,"&lt;aggregation_name_2&gt;" : &#123; ... &#125; ]*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -775,7 +792,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -786,7 +803,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -797,7 +814,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

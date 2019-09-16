@@ -323,6 +323,1089 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/09/11/浏览器攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/11/浏览器攻击/" itemprop="url">浏览器攻击</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T09:51:49+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-11T09:51:49+08:00">
+                2019-09-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/safe/" itemprop="url" rel="index">
+                    <span itemprop="name">safe</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="浏览器跨域"><a href="#浏览器跨域" class="headerlink" title="浏览器跨域"></a>浏览器跨域</h2><p>JavaScript出于<em>安全</em>方面的考虑做的<em>同源</em>策略的<em>限制</em>，不允许<em>跨域</em>访问其他资源。跨域请求成功后，浏览器会拦截服务器端返回的结果</p>
+<p>同源:<code>域名、协议、端口均相同。举例来说，`http://www.example.com/dir/page.html`这个网址，协议是`http://`，域名是`www.example.com`，端口是`80`（默认端口可以省略）</code></p>
+<h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><p>攻击者指挥用户攻击目标网站</p>
+<pre class="mermaid">graph LR
+user-->|1,username&password|target(目标网站)
+target-->|2,OK&set cookie|user
+user-.->|3,目标cookie存在,访问攻击者站点|tacker[攻击者站点]
+tacker-.->|4,让用户请求目标网站执行特定操作|user
+user-.->|5,利用自己的权限做攻击操作|target</pre>
+
+<pre class="mermaid">sequenceDiagram
+participant attacker as 攻击者站点
+participant user as 用户
+participant target as 目标站点
+
+user->>+target:1,request,username&password
+target-->>user:2,response,set-cookie
+user->>+attacker:3,request,请求攻击者站点
+attacker-->>-user:4,response,指挥用户访问目标站点
+user->>-target:5,request,利用自己的权限发起攻击操作</pre>
+
+<h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><p>伪装用户自己发起攻击</p>
+<pre class="mermaid">sequenceDiagram
+participant attacker as 攻击者站点
+participant user as 用户
+participant target as 目标站点
+
+attacker-->>user:1,request,发送含有攻击代码的目标站点链接
+user->>+target:2,request,携带攻击代码,请求目标站点
+target-->>user:3,response,目标站点执行后返回用户数据
+user->>attacker:4,request,在用户不知情时将cookie,session发送给攻击者
+attacker->>-target:5,request,伪装用户访问目标站点</pre>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/09/06/监控系统预测和异常判断/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/06/监控系统预测和异常判断/" itemprop="url">监控系统预测和异常判断</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-06T15:08:23+08:00">
+                2019-09-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-06T15:08:23+08:00">
+                2019-09-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="监控系统预测和异常判断"><a href="#监控系统预测和异常判断" class="headerlink" title="监控系统预测和异常判断"></a>监控系统预测和异常判断</h1><p>基于算法的 IT 运维平台(Algorithmic IT operations platforms)</p>
+<ol>
+<li>机器学习</li>
+<li>数学统计<ol>
+<li>方差分析可以用来判断几组观察到的数据或者处理的结果是否存在显著差异。</li>
+<li>在方差分析中，我们把要考察其均值是否存在显著差异的指标变量称为响应变量，对响应变量取值有影响的其他变量称为因素。例如，信用卡消费水平和治疗效果为响应变量，地区和药品则为因素。在方差分析中，因素的取值应为离散型的，其不同的取值称为水平。例如，每一个具体地区或者每一种药品都对应着一个水平。根据因素的个数，方差分析可以分为单因素方差分析和多因素方差分析</li>
+<li><strong>正态分布像一只倒扣的钟。两头低，中间高，左右对称。大部分数据集中在平均值，小部分在两端。</strong></li>
+</ol>
+</li>
+</ol>
+<h2 id="异常判断"><a href="#异常判断" class="headerlink" title="异常判断"></a>异常判断</h2><h3 id="异常情形"><a href="#异常情形" class="headerlink" title="异常情形"></a>异常情形</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>少量</th>
+<th>大量</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>间断</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>连续</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>周期</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>指数平滑法是一种特殊的加权平均法，加权的特点是对离预测值较近的历史数据给予较大的权数，对离预测期较远的历史数据给予较小的权数，权数由近到远按指数规律递减，所以，这种预测方法被称为指数平滑法。它可分为一次指数平滑法、二次指数平滑法及更高次指数平滑法。</p>
+<h3 id="异常算法"><a href="#异常算法" class="headerlink" title="异常算法"></a>异常算法</h3><p>skyline 一共提供了 7 个异常检测算法，如果有 5 个以上认为是异常，那么 skyline就认为这个序列异常了.</p>
+<p>异常检测算法实际写在了 <code>src/analyzer/algorithms.py</code></p>
+<ol>
+<li>first_hour_average、</li>
+<li>simple_stddev_from_moving_average、</li>
+<li>stddev_from_moving_average、</li>
+<li>mean_subtraction_cumulation、</li>
+<li>least_squares</li>
+<li>histogram_bins、</li>
+<li>grubbs、</li>
+<li>median_absolute_deviation、</li>
+<li>Kolmogorov-Smirnov_test</li>
+</ol>
+<h3 id="first-hour-average"><a href="#first-hour-average" class="headerlink" title="first_hour_average"></a>first_hour_average</h3><p>这是最简单的。先求本周期内最前面的第一个小时的平均值和标准差，然后和最新的三个值的平均值(tail_avg()，这是后面多数算法都通用的做法)做比较。如果 tail_avg 和 第一小时平均值的差距大于 3 倍的标准差，那么认定为异常。</p>
+<h3 id="simple-stddev-from-moving-average"><a href="#simple-stddev-from-moving-average" class="headerlink" title="simple_stddev_from_moving_average"></a>simple_stddev_from_moving_average</h3><p>把上面算法的范围扩大化，求的是整个周期内全部数据的平均值和标准差。</p>
+<h3 id="stddev-from-moving-average"><a href="#stddev-from-moving-average" class="headerlink" title="stddev_from_moving_average"></a>stddev_from_moving_average</h3><p>在上面算法的基础上，采用指数加权移动平均值。对周期内采点数量较少的情况更好一些。</p>
+<h3 id="mean-subtraction-cumulation"><a href="#mean-subtraction-cumulation" class="headerlink" title="mean_subtraction_cumulation"></a>mean_subtraction_cumulation</h3><p>做法是这样的：</p>
+<ol>
+<li>排除最后一个值；</li>
+<li>求剩余序列的平均值；</li>
+<li>全序列减去上面这个平均值；</li>
+<li>求剩余序列的标准差；</li>
+<li>判断全序列最后一个值是否大于 3 倍的标准差</li>
+</ol>
+<p>在代码中本来还计算了一次序列的指数加权移动平均值，但是算完了却没用，感觉怪怪的。</p>
+<h3 id="least-squares"><a href="#least-squares" class="headerlink" title="least_squares"></a>least_squares</h3><p>采用最小二乘法拟近时间序列，然后用实际值减去拟近值得到新序列。然后判断新序列的最后三个值的平均值是否大于 3 倍的新序列标准差。</p>
+<p>所谓最小二乘法，简单说就是对一个 [x, y] 序列，会有一对常数 [m, c]，让 Y = mx + c 等式中的 Y 和 y 在全序列上最接近。</p>
+<h3 id="histogram-bins"><a href="#histogram-bins" class="headerlink" title="histogram_bins"></a>histogram_bins</h3><p>将整个周期序列的数据按照直方图统计法归入 15 个直方中，然后看最后三个值的平均值属于这 15 个直方的具体哪个。如果这个直方中包含的数据小于 20 个，判断为异常。</p>
+<p>从算法中可以知道，如果周期内数据量不够，很容易被判断为异常的。</p>
+<h3 id="grubbs"><a href="#grubbs" class="headerlink" title="grubbs"></a>grubbs</h3><p>将整个周期序列的数据按照格拉布斯法求异常值。</p>
+<p>标准的格拉布斯法是这样的：</p>
+<ol>
+<li>从小到大排序；</li>
+<li>求序列的平均值和标准差；</li>
+<li>计算最小值和最大值与平均值的差距，更大的那个为可疑值；</li>
+<li>可疑值减去平均值，再除以标准差，如果大于格拉布斯临界值，那么就是异常值；</li>
+<li>排除异常值，对剩余序列循环做 1-5 步骤。</li>
+</ol>
+<p>这里只用判断时间序列的最后是否异常，所以直接将最后三个值的平均值作为可疑值判断是否异常即可。</p>
+<p><strong>2013 年 07 月 23 日更新</strong></p>
+<p>新增了一个异常算法，现在有 8 个了，要通过 6 个才算真异常。</p>
+<p>新增的是”绝对中值偏差法”</p>
+<h3 id="median-absolute-deviation"><a href="#median-absolute-deviation" class="headerlink" title="median_absolute_deviation"></a>median_absolute_deviation</h3><p>具体实现是：序列的最后一个值，比该序列的绝对中值大 6 倍以上，即判断为异常。</p>
+<p>注意这里是中值，不是平均值。</p>
+<p><strong>2013 年 08 月 14 日更新</strong></p>
+<p>新增一个异常算法，现在有 9 个了。</p>
+<p>新增的是”柯尔莫诺夫-斯米尔诺夫检验法”</p>
+<h3 id="Kolmogorov-Smirnov-test"><a href="#Kolmogorov-Smirnov-test" class="headerlink" title="Kolmogorov-Smirnov_test"></a>Kolmogorov-Smirnov_test</h3><p>具体实现是：计算序列内最近十分钟的数值的ks测试分布，然后计算序列中最近一个小时前到十分钟前这 50 分钟的数值的ks测试分布；如果两个分布相差较大，即判断为异常。</p>
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><h3 id="预测算法"><a href="#预测算法" class="headerlink" title="预测算法"></a>预测算法</h3><p>时序存储</p>
+<p> rrdtool 和 graphite</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/09/04/keepalived/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/04/keepalived/" itemprop="url">keepalived</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T11:01:41+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-04T11:01:41+08:00">
+                2019-09-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lb/" itemprop="url" rel="index">
+                    <span itemprop="name">lb</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h1><pre class="mermaid">graph TB
+keepalived_module-->core
+keepalived_module-->check
+keepalived_module-->vrrp</pre>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/09/04/VRRP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/04/VRRP协议/" itemprop="url">VRRP协议</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T09:42:41+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-04T09:42:41+08:00">
+                2019-09-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="VRRP协议"><a href="#VRRP协议" class="headerlink" title="VRRP协议"></a>VRRP协议</h1><p>Skew time(秒)=(256－Backup路由器的优先级)/256</p>
+<p>Master_Down_Interval(秒)=(3×VRRP报文的发送时间间隔)+Skew time</p>
+<pre class="mermaid">sequenceDiagram
+participant up as 上层路由器
+participant m as master router
+Note left of m: 00-00-5E-00-01-{VRID} & VIP & 优先级
+participant s as backup router
+
+loop interval
+m-->>s: vrrp 通告报文 I'm alive!
+end
+loop interval
+s-->>m:BFD检测快速切换
+end
+loop interval
+m-->>up:NQA检测调整自身优先级
+end</pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/04/VRRP协议/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/09/01/pgp加密/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/pgp加密/" itemprop="url">pgp加密</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T12:28:35+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T12:28:35+08:00">
+                2019-09-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pgp-gpg/" itemprop="url" rel="index">
+                    <span itemprop="name">pgp,gpg</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="pgp加密"><a href="#pgp加密" class="headerlink" title="pgp加密"></a>pgp加密</h1><p>GnuPG 是一个用来进行非对称加密(PGP)的免费软件，简称GPG</p>
+<p>PGP是一个基于RSA公匙加密体系的邮件加密软件</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/30/elasticsearch-dsl使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 技术随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/30/elasticsearch-dsl使用/" itemprop="url">elasticsearch_dsl使用</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T15:59:40+08:00">
+                2019-08-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-30T15:59:40+08:00">
+                2019-08-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">POST /_search</span><br><span class="line">&#123;</span><br><span class="line">&quot;size&quot;: 0,</span><br><span class="line">&quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;by_grp&quot; : &#123;</span><br><span class="line">        &quot;terms&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;grpId&quot;,</span><br><span class="line">            &quot;size&quot;: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;aggs&quot;: &#123;</span><br><span class="line">            &quot;twitter_count&quot;: &#123;</span><br><span class="line">                &quot;range&quot;: &#123;</span><br><span class="line">                    &quot;field&quot;: &quot;twitter.followers&quot;,</span><br><span class="line">                    &quot;ranges&quot;: [</span><br><span class="line">                        &#123; &quot;to&quot; : 501&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 501, &quot;to&quot; : 1001&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 1001, &quot;to&quot; : 5001&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 5001&#125;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;aggs&quot; : &#123;</span><br><span class="line">                    &quot;email_addy&quot;: &#123;</span><br><span class="line">                        &quot;terms&quot; : &#123;</span><br><span class="line">                            &quot;field&quot;: &quot;email.value&quot;,</span><br><span class="line">                            &quot;size&quot;: 0</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s.aggs.bucket(<span class="string">'by_grp'</span>, <span class="string">'terms'</span>, field=<span class="string">'grpId'</span>, size=<span class="number">0</span>) \</span><br><span class="line">.bucket(<span class="string">'twitter_count'</span>, <span class="string">'range'</span>, field=<span class="string">'twitter.followers'</span>,</span><br><span class="line">    ranges=[</span><br><span class="line">        &#123;<span class="string">'to'</span>: <span class="number">5001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">5001</span>, <span class="string">'to'</span>: <span class="number">10001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">10001</span>, <span class="string">'to'</span>: <span class="number">50001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">50001</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">) \</span><br><span class="line">.bucket(<span class="string">'email_addy'</span>, <span class="string">'terms'</span>, field=<span class="string">'email.value'</span>, size=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/28/mq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1112,1005 +2195,33 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
 <p>JVM会缓存解析10秒,ES覆盖为60秒,反向解析10秒</p>
 <h2 id="Aggregations"><a href="#Aggregations" class="headerlink" title="Aggregations"></a>Aggregations</h2><p>四类</p>
 <ol>
-<li>bucketing分组</li>
+<li>bucketing分组<ol>
+<li>terms<ol>
+<li>size<ol>
+<li>先收集所有shard上的一定数量的响应,然后再汇总一起,结果不是很精准</li>
+<li>Numeric value (1000000000000000000000) out of range of int (-2147483648 - 2147483647)\n at [Source: org.elasticsearch.transport.netty4.ByteBufStreamInput@4af5e4f0; line: 16, column: 54]”</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>composite<ol>
+<li>[composite] aggregation cannot be used with a parent aggregation</li>
+</ol>
+</li>
+</ol>
+</li>
 <li>metric度量<ol>
 <li>avg/加权avg</li>
 </ol>
 </li>
 <li>matrix矩阵(在多个字段基础上产生矩阵)</li>
-<li>pipeline管道(在其它聚合基础上再次聚合)</li>
+<li>pipeline管道(在其它聚合基础上再次聚合)<ol>
+<li>Each bucket may be sorted based on its <code>_key</code>, <code>_count</code> or its sub-aggregations. </li>
+</ol>
+</li>
 </ol>
 <p>聚合嵌套功能十分强大</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法结构 aggregations或aggs</span></span><br><span class="line"><span class="string">"aggregations"</span> : &#123;</span><br><span class="line">    <span class="string">"&lt;aggregation_name&gt;"</span> : &#123;</span><br><span class="line">        <span class="string">"&lt;aggregation_type&gt;"</span> : &#123;</span><br><span class="line">            &lt;aggregation_body&gt;</span><br><span class="line">        &#125;</span><br><span class="line">        [,<span class="string">"meta"</span> : &#123;  [&lt;meta_data_body&gt;] &#125; ]?</span><br><span class="line">        [,"aggregations" : &#123; [&lt;sub_aggregation&gt;]+ &#125; ]?</span><br><span class="line">    &#125;</span><br><span class="line">    [,"&lt;aggregation_name_2&gt;" : &#123; ... &#125; ]*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/26/nginx实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/26/nginx实践/" itemprop="url">未命名</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-26T13:48:23+08:00">
-                2019-08-26
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-26T13:48:23+08:00">
-                2019-08-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="nginx笔记"><a href="#nginx笔记" class="headerlink" title="nginx笔记"></a>nginx笔记</h1><h2 id="第三章-场景实践篇"><a href="#第三章-场景实践篇" class="headerlink" title="第三章 场景实践篇"></a>第三章 场景实践篇</h2><h3 id="静态web服务"><a href="#静态web服务" class="headerlink" title="静态web服务"></a>静态web服务</h3><h4 id="跨域访问"><a href="#跨域访问" class="headerlink" title="跨域访问"></a>跨域访问</h4><p>服务器允许网站请求其它域名的内容.</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Orgin http://example.com;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods POST,GET,PUT,DELETE,OPTIONS;</span><br></pre></td></tr></table></figure>
-
-<h4 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h4><p>nginx支持简单方式</p>
-<ul>
-<li><p>http Referer(<strong>Module ngx_http_referer_module</strong>)</p>
-<ul>
-<li><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">referer_hash_bucket_size</span> <span class="number">64</span>;</span><br><span class="line"><span class="attribute">referer_hash_max_size</span> <span class="number">2048</span>;</span><br><span class="line"><span class="attribute">valid_referers</span> <span class="literal">none</span> | <span class="literal">blocked</span> | server_names | string ...;</span><br><span class="line"><span class="comment"># 匹配为empty string,不匹配为1</span></span><br><span class="line"><span class="comment"># none为空</span></span><br><span class="line"><span class="comment"># blocked是被代理或防火墙删除了http://或https://后剩余的url</span></span><br><span class="line"><span class="comment"># server_names其中之一</span></span><br><span class="line"><span class="comment"># string ... 其它匹配字符串</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意:valid_referers and $valid_referer单复数格式</span></span><br><span class="line"><span class="attribute">valid_referers</span> <span class="literal">none</span> <span class="literal">blocked</span> server_names</span><br><span class="line">               <span class="regexp">*.example.com</span> <span class="regexp">example.*</span> www.example.org/galleries/</span><br><span class="line">               ~\.google\.;</span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$valid_referer</span>)&#123;</span><br><span class="line">		<span class="attribute">return</span> <span class="number">403</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="代理服务"><a href="#代理服务" class="headerlink" title="代理服务"></a>代理服务</h4><p><code>http</code></p>
-<p><code>https</code></p>
-<p><code>rtmp</code></p>
-<p><code>icmp/pop/smtp</code></p>
-<h5 id="正向代理-客户端"><a href="#正向代理-客户端" class="headerlink" title="正向代理(客户端)"></a>正向代理(客户端)</h5><h5 id="反向代理-服务端"><a href="#反向代理-服务端" class="headerlink" title="反向代理(服务端)"></a>反向代理(服务端)</h5><p>ngx_http_proxy_module</p>
-<table>
-<thead>
-<tr>
-<th align="left">Syntax:</th>
-<th><code>proxy_pass URL;</code>  //http,https,socket</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Default:</td>
-<td>—</td>
-</tr>
-<tr>
-<td align="left">Context:</td>
-<td><code>location</code>, <code>if in location</code>, <code>limit_except</code></td>
-</tr>
-</tbody></table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/23/LINUX常用工具集/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/23/LINUX常用工具集/" itemprop="url">LINUX常用工具集</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T13:57:00+08:00">
-                2019-08-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-23T13:57:00+08:00">
-                2019-08-23
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>网络监控:</p>
-<p><strong>NetHogs</strong>是一个开源的命令行工具（类似于Linux的top命令），用来按进程或程序实时统计网络带宽使用率。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/20/c-primer-plus-学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/20/c-primer-plus-学习笔记/" itemprop="url">c primer plus 学习笔记</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T14:48:09+08:00">
-                2019-08-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-20T14:48:09+08:00">
-                2019-08-20
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="c-primer-plus-学习笔记"><a href="#c-primer-plus-学习笔记" class="headerlink" title="c primer plus 学习笔记"></a>c primer plus 学习笔记</h1><h2 id="第一章-认识C语言"><a href="#第一章-认识C语言" class="headerlink" title="第一章 认识C语言"></a>第一章 认识C语言</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/20/c-primer-plus-学习笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/13/centos-7-关闭笔记本合盖挂起功能/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/13/centos-7-关闭笔记本合盖挂起功能/" itemprop="url">centos 7 关闭笔记本合盖挂起功能</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T20:22:34+08:00">
-                2019-08-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-13T20:22:34+08:00">
-                2019-08-13
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/centos/" itemprop="url" rel="index">
-                    <span itemprop="name">centos</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>centos 7 关闭笔记本合盖挂起功能<br>家里有一台dell的老笔记本，安装了centos7系统使用。<br>默认系统配置把笔记本电脑屏合上后会造成挂起，网络断开。笔记本不能合盖，放置占位，也会造成灰尘进入键盘等总之不是很方便。<br>systemd可以处理ACPI事件，这个默认配置可以通过修改systemd-logind.service的行为修改。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/13/centos-7-关闭笔记本合盖挂起功能/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/12/git-study/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/12/git-study/" itemprop="url">git study</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-12T14:49:17+08:00">
-                2019-08-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-12T14:49:17+08:00">
-                2019-08-12
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="git-study"><a href="#git-study" class="headerlink" title="git study"></a>git study</h1><p> Git 对待数据的方法:</p>
-<ol>
-<li><p>Git 对待数据更像是一个快照流,没有更改的直接保留一个链接到原来的文件</p>
-<p>subversion存储每个版本与初始文件的差异</p>
-</li>
-<li><p>git近乎所有操作都在本地执行,所以速度很快.其它CCVS离线后基本做不了什么</p>
-</li>
-<li><p>git存储sha-1校验和( 40 个十六进制字符),并以此做索引引用.</p>
-</li>
-</ol>
-<h2 id="GIT三种状态"><a href="#GIT三种状态" class="headerlink" title="GIT三种状态"></a>GIT三种状态</h2><ol>
-<li>已修改 modified    -&gt; 工作目录</li>
-<li>已暂存 staged(版本标记)  -&gt; 暂存区</li>
-<li>已提交 commited(存储到数据库) -&gt; 仓库</li>
-</ol>
-<p><img src="/images/1565675036087.png" alt="1565675036087"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/12/git-study/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/06/arch-linux-pacman清理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 技术随笔">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/06/arch-linux-pacman清理/" itemprop="url">arch linux pacman清理</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-06T17:37:36+08:00">
-                2019-08-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-06T17:37:36+08:00">
-                2019-08-06
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/arch/" itemprop="url" rel="index">
-                    <span itemprop="name">arch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="pacman"><a href="#pacman" class="headerlink" title="pacman"></a>pacman</h1><p>清理已经安装的包缓存文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pacman -Scc</span><br><span class="line"></span><br><span class="line">[Tue Aug 06 talen@tp-arch-tianfei pkg]$ sudo pacman -Scc</span><br><span class="line">[sudo] password for talen:</span><br><span class="line">Cache directory: /var/cache/pacman/pkg/</span><br><span class="line">:: Do you want to remove ALL files from cache? [y/N] y</span><br><span class="line">removing all files from cache...</span><br><span class="line">Database directory: /var/lib/pacman/</span><br><span class="line">:: Do you want to remove unused repositories? [Y/n] y</span><br><span class="line">removing unused sync repositories...</span><br></pre></td></tr></table></figure>
-
-
           
         
       
@@ -2149,7 +2260,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2195,7 +2306,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2206,7 +2317,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2217,7 +2328,7 @@ CCR-->replicated_cluster(replicated cluster只读)</pre>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

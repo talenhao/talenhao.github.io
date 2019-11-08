@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="内核参数vm.max_map_count1sysctl -w vm.max_map_count=262144  Elasticsearch uses a mmapfs directory by default to store its indices. The default operating system limits on mmap counts is likely to be too lo">
+<meta name="description" content="内核kernel参数Linux下有3个特殊的进程，idle进程(PID = 0), init进程(PID = 1)和kthreadd(PID = 2)内核初始化rest_init函数中，由进程 0 (swapper 进程)创建了两个process    init 进程 (pid = 1, ppid = 0)    kthreadd (pid = 2, ppid = 0)所有其它的内核线程的ppid">
 <meta name="keywords" content="linux,kernel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kernel参数">
 <meta property="og:url" content="https://talenhao.github.io/2019/08/27/kernel参数/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="内核参数vm.max_map_count1sysctl -w vm.max_map_count=262144  Elasticsearch uses a mmapfs directory by default to store its indices. The default operating system limits on mmap counts is likely to be too lo">
+<meta property="og:description" content="内核kernel参数Linux下有3个特殊的进程，idle进程(PID = 0), init进程(PID = 1)和kthreadd(PID = 2)内核初始化rest_init函数中，由进程 0 (swapper 进程)创建了两个process    init 进程 (pid = 1, ppid = 0)    kthreadd (pid = 2, ppid = 0)所有其它的内核线程的ppid">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-08-27T07:38:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kernel参数">
-<meta name="twitter:description" content="内核参数vm.max_map_count1sysctl -w vm.max_map_count=262144  Elasticsearch uses a mmapfs directory by default to store its indices. The default operating system limits on mmap counts is likely to be too lo">
+<meta name="twitter:description" content="内核kernel参数Linux下有3个特殊的进程，idle进程(PID = 0), init进程(PID = 1)和kthreadd(PID = 2)内核初始化rest_init函数中，由进程 0 (swapper 进程)创建了两个process    init 进程 (pid = 1, ppid = 0)    kthreadd (pid = 2, ppid = 0)所有其它的内核线程的ppid">
 
 
 
@@ -430,7 +430,8 @@
       
 
       
-        <h1 id="内核参数"><a href="#内核参数" class="headerlink" title="内核参数"></a>内核参数</h1><h2 id="vm-max-map-count"><a href="#vm-max-map-count" class="headerlink" title="vm.max_map_count"></a>vm.max_map_count</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+        <h1 id="内核kernel参数"><a href="#内核kernel参数" class="headerlink" title="内核kernel参数"></a>内核kernel参数</h1><p>Linux下有3个特殊的进程，idle进程(PID = 0), init进程(PID = 1)和kthreadd(PID = 2)<br>内核初始化rest_init函数中，由进程 0 (swapper 进程)创建了两个process<br>    init 进程 (pid = 1, ppid = 0)<br>    kthreadd (pid = 2, ppid = 0)<br>所有其它的内核线程的ppid 都是 2，也就是说它们都是由kthreadd thread创建的</p>
+<h2 id="vm-max-map-count"><a href="#vm-max-map-count" class="headerlink" title="vm.max_map_count"></a>vm.max_map_count</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
 
 <p>Elasticsearch uses a <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-store.html#mmapfs" target="_blank" rel="noopener"><code>mmapfs</code></a> directory by default to store its indices. The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.</p>
 <p><strong><code>mmapfs</code></strong></p>
@@ -644,7 +645,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -666,7 +667,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -736,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内核参数"><span class="nav-number">1.</span> <span class="nav-text">内核参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vm-max-map-count"><span class="nav-number">1.1.</span> <span class="nav-text">vm.max_map_count</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内核kernel参数"><span class="nav-number">1.</span> <span class="nav-text">内核kernel参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vm-max-map-count"><span class="nav-number">1.1.</span> <span class="nav-text">vm.max_map_count</span></a></li></ol></li></ol></div>
             
 
           </div>

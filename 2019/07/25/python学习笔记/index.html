@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
+<meta name="description" content="python 笔记独立环境graph TB pyenv--&amp;gt;wrappervirtualenv_lazy wrappervirtualenv_lazy--&amp;gt;mkvirtualenv mkvirtualenv--&amp;gt;workon    I/O multiplexinggraph TB DefaultSelector--生成事件注册--&amp;gt;register fileobj--参数--&amp;gt;register e">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python学习笔记">
 <meta property="og:url" content="https://talenhao.github.io/2019/07/25/python学习笔记/index.html">
 <meta property="og:site_name" content="天飞 技术随笔">
-<meta property="og:description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
+<meta property="og:description" content="python 笔记独立环境graph TB pyenv--&amp;gt;wrappervirtualenv_lazy wrappervirtualenv_lazy--&amp;gt;mkvirtualenv mkvirtualenv--&amp;gt;workon    I/O multiplexinggraph TB DefaultSelector--生成事件注册--&amp;gt;register fileobj--参数--&amp;gt;register e">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://talenhao.github.io/images/1564143774413.png">
 <meta property="og:image" content="https://talenhao.github.io/images/1564058294189.png">
 <meta property="og:updated_time" content="2019-07-25T07:28:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python学习笔记">
-<meta name="twitter:description" content="python 笔记设计模型1. 装饰器(decorator)模式(俄罗斯套娃封装) 123@装饰器二	@装饰器一		核心对象   创建一个装饰函数,内部定义一个wrapper新函数执行一些操作,将被装饰函数作为参数传入装饰函数,返回新函数 行为类似多重继承. 当在装饰器与继承之间选择时,只需要根据一些条件对对象进行动态修改时使用装饰器. 日志装饰器,传递一些参数动态记录日志   作用: 增强核心对">
+<meta name="twitter:description" content="python 笔记独立环境graph TB pyenv--&amp;gt;wrappervirtualenv_lazy wrappervirtualenv_lazy--&amp;gt;mkvirtualenv mkvirtualenv--&amp;gt;workon    I/O multiplexinggraph TB DefaultSelector--生成事件注册--&amp;gt;register fileobj--参数--&amp;gt;register e">
 <meta name="twitter:image" content="https://talenhao.github.io/images/1564143774413.png">
 
 
@@ -433,7 +433,31 @@
       
 
       
-        <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
+        <h1 id="python-笔记"><a href="#python-笔记" class="headerlink" title="python 笔记"></a>python 笔记</h1><h2 id="独立环境"><a href="#独立环境" class="headerlink" title="独立环境"></a>独立环境</h2><pre class="mermaid">graph TB
+pyenv-->wrappervirtualenv_lazy
+wrappervirtualenv_lazy-->mkvirtualenv
+mkvirtualenv-->workon</pre>
+
+
+
+<h2 id="I-O-multiplexing"><a href="#I-O-multiplexing" class="headerlink" title="I/O multiplexing"></a>I/O multiplexing</h2><pre class="mermaid">graph TB
+DefaultSelector--生成事件注册-->register
+fileobj--参数-->register
+events--参数-->register
+data--参数-->register
+register--instance-->SelectorKey
+SelectorKey--event is ready-->select
+select --> event_list("[(key, events),(SelectorKey instance, bitmask of events ready ),...]")
+event_list-->SelectorKey
+event_list-->mask
+SelectorKey-->fileobj
+SelectorKey-->fd
+SelectorKey-->events
+SelectorKey-->data</pre>
+
+
+
+<h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><h3 id="1-装饰器-decorator-模式"><a href="#1-装饰器-decorator-模式" class="headerlink" title="1. 装饰器(decorator)模式"></a>1. 装饰器(decorator)模式</h3><p>(俄罗斯套娃封装)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@装饰器二</span></span><br><span class="line"><span class="meta">	@装饰器一</span></span><br><span class="line">		核心对象</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -569,6 +593,7 @@
 <li>在最近的Python3.5版本中引入async/await关键字</li>
 </ol>
 </blockquote>
+<h2 id="同步的异步实现"><a href="#同步的异步实现" class="headerlink" title="同步的异步实现"></a>同步的异步实现</h2><p>借助 Python 的 <a href="https://docs.python.org/2/reference/expressions.html#yieldexpr" target="_blank" rel="noopener">generator 功能</a>，<a href="https://twistedmatrix.com/trac/" target="_blank" rel="noopener">Twisted</a> 和 <a href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener">Tornado</a> 纷纷提供了这样的功能。</p>
 <h2 id="生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行"><a href="#生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行" class="headerlink" title="生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)"></a>生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)</h2><p>函数是顺序执行,生成器也是顺序计算的.</p>
 <p>协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。</p>
 <p>注意，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断。</p>
@@ -599,6 +624,7 @@
 <ol>
 <li>项目中如何使用yield，使用的思路就是，中断代码执行，在yield之前打开一个资源，然后在yield之后关闭这个资源，这样可以很好地保证每次只有一个资源被打开，同时执行完成之后资源会被关闭</li>
 <li>第二个思路，就是节约内存，不要一下子加载所有的资源</li>
+<li>IO密集型</li>
 </ol>
 </li>
 </ol>
@@ -884,7 +910,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -906,7 +932,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -976,7 +1002,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-笔记"><span class="nav-number">1.</span> <span class="nav-text">python 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模型"><span class="nav-number">1.1.</span> <span class="nav-text">设计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-装饰器-decorator-模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 装饰器(decorator)模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-观察者模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.  观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-策略模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-状态模式"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.状态模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-单件模式"><span class="nav-number">1.1.5.</span> <span class="nav-text">5.单件模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-模板模式"><span class="nav-number">1.1.6.</span> <span class="nav-text">6.模板模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-适配模式-adapter"><span class="nav-number">1.1.7.</span> <span class="nav-text">7.适配模式(adapter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-外观模式-facade"><span class="nav-number">1.1.8.</span> <span class="nav-text">8.外观模式(facade)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-享元模式"><span class="nav-number">1.1.9.</span> <span class="nav-text">9.享元模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-命令模式"><span class="nav-number">1.1.10.</span> <span class="nav-text">10.命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-抽象工厂模式"><span class="nav-number">1.1.11.</span> <span class="nav-text">11.抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-组合模式"><span class="nav-number">1.1.12.</span> <span class="nav-text">12.组合模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器iterator-amp-递归器"><span class="nav-number">1.2.</span> <span class="nav-text">迭代器iterator&amp;递归器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式-amp-语句"><span class="nav-number">1.3.</span> <span class="nav-text">表达式 &amp; 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-运算符"><span class="nav-number">1.4.</span> <span class="nav-text">python 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python逻辑运算符"><span class="nav-number">1.4.1.</span> <span class="nav-text">Python逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学运算"><span class="nav-number">1.4.2.</span> <span class="nav-text">数学运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#print"><span class="nav-number">1.5.</span> <span class="nav-text">print</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#byte-amp-string"><span class="nav-number">1.6.</span> <span class="nav-text">byte &amp; string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.7.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameters"><span class="nav-number">1.8.</span> <span class="nav-text">Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写"><span class="nav-number">1.9.</span> <span class="nav-text">文件读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.10.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程-多线程"><span class="nav-number">1.11.</span> <span class="nav-text">多进程,多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行"><span class="nav-number">1.12.</span> <span class="nav-text">生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">1.13.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#True-amp-False"><span class="nav-number">1.13.0.1.</span> <span class="nav-text">True &amp; False</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.14.</span> <span class="nav-text">面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">1.15.</span> <span class="nav-text">其它</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-笔记"><span class="nav-number">1.</span> <span class="nav-text">python 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#独立环境"><span class="nav-number">1.1.</span> <span class="nav-text">独立环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O-multiplexing"><span class="nav-number">1.2.</span> <span class="nav-text">I/O multiplexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模型"><span class="nav-number">1.3.</span> <span class="nav-text">设计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-装饰器-decorator-模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 装饰器(decorator)模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-观察者模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.  观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-策略模式"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-状态模式"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.状态模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-单件模式"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.单件模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-模板模式"><span class="nav-number">1.3.6.</span> <span class="nav-text">6.模板模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-适配模式-adapter"><span class="nav-number">1.3.7.</span> <span class="nav-text">7.适配模式(adapter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-外观模式-facade"><span class="nav-number">1.3.8.</span> <span class="nav-text">8.外观模式(facade)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-享元模式"><span class="nav-number">1.3.9.</span> <span class="nav-text">9.享元模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-命令模式"><span class="nav-number">1.3.10.</span> <span class="nav-text">10.命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-抽象工厂模式"><span class="nav-number">1.3.11.</span> <span class="nav-text">11.抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-组合模式"><span class="nav-number">1.3.12.</span> <span class="nav-text">12.组合模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器iterator-amp-递归器"><span class="nav-number">1.4.</span> <span class="nav-text">迭代器iterator&amp;递归器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式-amp-语句"><span class="nav-number">1.5.</span> <span class="nav-text">表达式 &amp; 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-运算符"><span class="nav-number">1.6.</span> <span class="nav-text">python 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python逻辑运算符"><span class="nav-number">1.6.1.</span> <span class="nav-text">Python逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学运算"><span class="nav-number">1.6.2.</span> <span class="nav-text">数学运算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#print"><span class="nav-number">1.7.</span> <span class="nav-text">print</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#byte-amp-string"><span class="nav-number">1.8.</span> <span class="nav-text">byte &amp; string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.9.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameters"><span class="nav-number">1.10.</span> <span class="nav-text">Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读写"><span class="nav-number">1.11.</span> <span class="nav-text">文件读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.12.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程-多线程"><span class="nav-number">1.13.</span> <span class="nav-text">多进程,多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步的异步实现"><span class="nav-number">1.14.</span> <span class="nav-text">同步的异步实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器-generator-协程-yield-需要多次调用-执行先中断-返回变量-再执行"><span class="nav-number">1.15.</span> <span class="nav-text">生成器(generator)(协程)(yield,需要多次调用:执行先中断,返回变量,再执行.)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">1.16.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#True-amp-False"><span class="nav-number">1.16.0.1.</span> <span class="nav-text">True &amp; False</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.17.</span> <span class="nav-text">面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">1.18.</span> <span class="nav-text">其它</span></a></li></ol></div>
             
 
           </div>

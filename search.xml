@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[microservice]]></title>
+    <url>%2F2019%2F12%2F23%2Fmicroservice%2F</url>
+    <content type="text"><![CDATA[MicroService微服务]]></content>
+      <categories>
+        <category>service mesh</category>
+      </categories>
+      <tags>
+        <tag>service mesh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mysql DAL]]></title>
+    <url>%2F2019%2F12%2F23%2FMysql-DAL%2F</url>
+    <content type="text"><![CDATA[MySQL 数据访问层中间件（DAL）graph TB client-->altas client-->mysql_router client-->mycat altas-->master mysql_router-->master mycat-->master altas-->slave mysql_router-->slave mycat-->slave graph TB cobar-->mycat 使用横向扩展，读写分离提升读性能 使用分库分表提升写性能]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>untags</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[历年关键字]]></title>
+    <url>%2F2019%2F12%2F19%2F%E5%8E%86%E5%B9%B4%E5%85%B3%E9%94%AE%E5%AD%97%2F</url>
+    <content type="text"><![CDATA[2019微服务 service mesh 服务网格 serviceless chaos enginering 混沌工程 ant]]></content>
+      <categories>
+        <category>uncategorized</category>
+      </categories>
+      <tags>
+        <tag>untags</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kubernetes学习笔记]]></title>
+    <url>%2F2019%2F11%2F27%2Fkubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[docker 图片来自[https://www.qikqiak.com/k8s-book/docs/2.Docker%20%E7%AE%80%E4%BB%8B.html](https://www.qikqiak.com/k8s-book/docs/2.Docker 简介.html) 命令1$ docker pull [选项] [Docker Registry 地址[:端口]/]仓库名[:标签] 运行1234docker run -i -t --rm 镜像:标签 /bin/bash$ docker run ubuntu:16.04 /bin/echo 'Hello world'-d 后台运行docker commit修复运行的镜像读写层后提交 列出镜像 123 docker image lsREPOSITORY TAG IMAGE ID CREATED SIZEdocker.io/redis latest 3c41ce05add9 5 months ago 95 MB 当利用docker run来创建容器时，Docker 在后台运行的标准操作包括： 检查本地是否存在指定的镜像，不存在就从公有仓库下载 利用镜像创建并启动一个容器 分配一个文件系统，并在只读的镜像层外面挂载一层可读写层 从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去 从地址池配置一个 ip 地址给容器 执行用户指定的应用程序 执行完毕后容器被终止 dockerfileUnion FS 是有最大层数限制的，比如 AUFS，曾经是最大不得超过 42 层，现在是不得超过 127 层 FROM 指定基础镜像 官方高质量镜像 scratch 一个虚拟的镜像,表示空白 RUN 运行命令(使用&amp;&amp;连接生成一层FS, 支持\ 换行 ,# 注释) shell:RUN &lt;命令&gt; exec:RUN [“可执行文件”, “参数1”, “参数2”] 构建镜像1docker build [选项] &lt;上下文路径/URL/-&gt; 镜像构建上下文目录是相对engine来说的,不是本地的路径,必须改./开头. 使用-f可以指定任意名称的文件为dockerfile文件.]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[负载均衡后端检测]]></title>
+    <url>%2F2019%2F11%2F13%2F%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%90%8E%E7%AB%AF%E6%A3%80%E6%B5%8B%2F</url>
+    <content type="text"><![CDATA[nginx后端检测默认没有踢除功能]]></content>
+      <categories>
+        <category>负载均衡</category>
+      </categories>
+      <tags>
+        <tag>lvs,nginx,haproxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux资源管理]]></title>
+    <url>%2F2019%2F11%2F13%2Flinux%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%2F</url>
+    <content type="text"><![CDATA[进程单进程-&gt;FD 1234#用户单进程的最大文件数，用户登录时生效echo &apos;* soft nofile 1048576&apos; &gt;&gt; /etc/security/limits.confecho &apos;* hard nofile 1048576&apos; &gt;&gt; /etc/security/limits.confulimit -n 1048576 #用户单进程的最大文件描述符数 当前会话生效]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[tcp/ip]]></title>
+    <url>%2F2019%2F11%2F13%2Ftcp-ip%2F</url>
+    <content type="text"><![CDATA[端口号TCP协议源端口与目标端口分别占用2个字节(16个bit),共可存储2^16=65536个端口.去掉1024个系统保留端口,可用64512个端口. 一个客户端共可发起64512个TCP连接 服务端没有数量限制,取决于内存,CPU资源限制.服务端的TCP连接数为: socket fd(clientip:65412)*N.]]></content>
+      <categories>
+        <category>tcpip</category>
+      </categories>
+      <tags>
+        <tag>tcpip</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据结构]]></title>
+    <url>%2F2019%2F11%2F10%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[Data Structures 数据结构heep(堆)堆(heap)又被为优先队列(priority queue),但并不是队列(按先后顺序).堆是按优先级dequeue(出队),enqueue(入队). “堆”是实现调度器的理想数据结构。(Linux中可以使用nice命令来影响进程的优先级) 堆通常是一个可以被看做一棵完全二叉树(complete binary tree)的数组对象(二叉堆(binary heap) 堆顶的优先级高,堆的主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)。 新加入的节点加入底部,与父节点比较优先级大小,比父节点小就交换.(percolate_up) 删除根节点后生成两个子树,重构堆(percolate_down).将lasted做为根连接子树 堆是非线性数据结构，相当于一维数组，有两个直接后继。 堆的定义如下： 12n个元素的序列&#123;k1,k2,ki,…,kn&#125;当且仅当满足下关系时，称之为堆。(ki &lt;= k2i,ki &lt;= k2i+1)或者(ki &gt;= k2i,ki &gt;= k2i+1), (i = 1,2,3,4...n/2) 在程序中，堆用于动态分配和释放程序所使用的对象。在以下情况中调用堆操作： 事先不知道程序所需对象的数量和大小。 对象太大，不适合使用堆栈分配器。 堆使用运行期间分配给代码和堆栈以外的部分内存。 1234计算公式parent(i) = floor((i - 1)/2)left(i) = 2i + 1right(i) = 2i + 2 这些公式允许我们不使用指针就可以找到任何一个节点的父节点或者子节点。事情比简单的去掉指针要复杂，但这就是交易：我们节约了空间，但是要进行更多计算。幸好这些计算很快并且只需要O(1)的时间。]]></content>
+      <categories>
+        <category>dataStructures</category>
+      </categories>
+      <tags>
+        <tag>dataStructures</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[react]]></title>
     <url>%2F2019%2F11%2F05%2Freact%2F</url>
-    <content type="text"><![CDATA[react 遍历123456res.data.map( (item, index)=&gt;&#123; item.key = index; return item; &#125;); antd table123const columnsconst dataSourceconst rowSelection CROS1Access to XMLHttpRequest at 'http://127.0.0.1:8000/api/imooc/order/' from origin 'http://127.0.0.1:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 1Origin: http://127.0.0.1:3000 12345678910111213141516171819202122pip install django djangorestframework django-cors-headersINSTALLED_APPS = [ ... 'corsheaders', ...]MIDDLEWARE = [... 'corsheaders.middleware.CorsMiddleware']CORS_ORIGIN_ALLOW_ALL=True或CORS_ORIGIN_WHITELIST = [ 'google.com', 'hostname.example.com', 'localhost:8000', '127.0.0.1:9000']]]></content>
+    <content type="text"><![CDATA[react 遍历123456res.data.map( (item, index)=&gt;&#123; item.key = index; return item; &#125;); antd table123const columnsconst dataSourceconst rowSelection CROS1Access to XMLHttpRequest at 'http://127.0.0.1:8000/api/imooc/order/' from origin 'http://127.0.0.1:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 1Origin: http://127.0.0.1:3000 12345678910111213141516171819202122pip install django djangorestframework django-cors-headersINSTALLED_APPS = [ ... 'corsheaders', ...]MIDDLEWARE = [... 'corsheaders.middleware.CorsMiddleware']CORS_ORIGIN_ALLOW_ALL=True或CORS_ORIGIN_WHITELIST = [ 'google.com', 'hostname.example.com', 'localhost:8000', '127.0.0.1:9000'] index.js:1375 Warning: Failed prop type: Invalid prop id of type array supplied to Select, expected string.expected to return a value in arrow function array-callback-returnA map() creates an array, so a return is expected for all code paths (if/elses). If you don’t want an array or to return data, use forEach instead.]]></content>
       <categories>
         <category>front-end</category>
       </categories>
@@ -815,21 +903,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[elasticsearch_request_time_collect]]></title>
-    <url>%2F2017%2F08%2F19%2Felasticsearch_request_time_collect%2F</url>
-    <content type="text"><![CDATA[elasticsearch_request_time_collecthttps://github.com/talenhao/elasticsearch_request_time_collect收集es中指定索引中的所有request_time及request字段,并处理成报表. elasticsearch_request_time_collect脚本使用说明激活python环境source /virtual_python3.6.1/bin/activate 用法：123456789/elasticsearch_request_time_collect.py [--命令选项] [参数]命令选项： --help, -H 帮助 --version, -V 输出版本号 --index-regex -i 索引,支持正则 eg:in.access.log --date, -d 收集的日期 eg:2017.08.16 --es-ip -h Elasticsearch IP地址 --es-port -p Elasticsearch 端口 默认参数为:12345# default argses_host = &quot;192.168.1.1&quot;es_port = &apos;9200&apos;search_date = todayindex_regex = &quot;*access.log&quot; eg:12345678910time python elasticsearch_request_time_collect.py -i *access.log -d 2017.08.16 -h 192.168.1.1...api: &apos;/adfafaf/sfdaf&apos;api: &apos;/client/timeline/hadfasfafafasf&apos;api: &apos;/client/adfasfsafasfasfasfaf&apos;real 0m32.262suser 0m25.998ssys 0m1.919s]]></content>
-      <tags>
-        <tag>elasticsearch</tag>
-        <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[rundeck日报发送脚本]]></title>
     <url>%2F2017%2F08%2F19%2FRundeckJobResult%2F</url>
     <content type="text"><![CDATA[RundeckJobResult rundeck 日报发送脚本使用指南 收集rundeck任务运行结果并做个报表,日报,发送邮件给指定联系人.* source ~/.virtualenvs/rundeck3.6/bin/activate usage12345678910111213用法：RdJobResult.py [--命令选项] [参数]命令选项： --help, -h 帮助。 --version, -V 输出版本号。 --mailaddr, -m 用户名@邮件域名,用户名@邮件域名,... 接收邮件的地址。eg: python3.6 rundeck_job_status.py -m talenhao@gmail.com,talenhao2@gmail.com,... log文件 /tmp/rundeck_job_status.py.log.${date},${hour.min} eg: /tmp/rundeck_job_status.py.log.2017-06-27,16.22 在rundeck上做成一个job每日23:59分执行 邮件内容 订阅 说明 常规订阅: 如果需要添加日报订阅者，直接rundeck_result.start任务，option上添加订阅者邮箱即可，使用”,”号分割。 临时订阅: 如果是临时订阅，在任务运行界面mailto参数上点击”New Value”，输入订阅者邮件地址。]]></content>
       <tags>
         <tag>rundeck</tag>
         <tag>ETL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[elasticsearch_request_time_collect]]></title>
+    <url>%2F2017%2F08%2F19%2Felasticsearch_request_time_collect%2F</url>
+    <content type="text"><![CDATA[elasticsearch_request_time_collecthttps://github.com/talenhao/elasticsearch_request_time_collect收集es中指定索引中的所有request_time及request字段,并处理成报表. elasticsearch_request_time_collect脚本使用说明激活python环境source /virtual_python3.6.1/bin/activate 用法：123456789/elasticsearch_request_time_collect.py [--命令选项] [参数]命令选项： --help, -H 帮助 --version, -V 输出版本号 --index-regex -i 索引,支持正则 eg:in.access.log --date, -d 收集的日期 eg:2017.08.16 --es-ip -h Elasticsearch IP地址 --es-port -p Elasticsearch 端口 默认参数为:12345# default argses_host = &quot;192.168.1.1&quot;es_port = &apos;9200&apos;search_date = todayindex_regex = &quot;*access.log&quot; eg:12345678910time python elasticsearch_request_time_collect.py -i *access.log -d 2017.08.16 -h 192.168.1.1...api: &apos;/adfafaf/sfdaf&apos;api: &apos;/client/timeline/hadfasfafafasf&apos;api: &apos;/client/adfasfsafasfasfasfaf&apos;real 0m32.262suser 0m25.998ssys 0m1.919s]]></content>
+      <tags>
+        <tag>elasticsearch</tag>
+        <tag>nginx</tag>
       </tags>
   </entry>
 </search>

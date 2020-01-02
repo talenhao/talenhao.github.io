@@ -323,6 +323,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/11/10/数据结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/10/数据结构/" itemprop="url">数据结构</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-10T10:06:56+08:00">
+                2019-11-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T10:06:56+08:00">
+                2019-11-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dataStructures/" itemprop="url" rel="index">
+                    <span itemprop="name">dataStructures</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Data-Structures-数据结构"><a href="#Data-Structures-数据结构" class="headerlink" title="Data Structures 数据结构"></a>Data Structures 数据结构</h1><h2 id="heep-堆"><a href="#heep-堆" class="headerlink" title="heep(堆)"></a>heep(堆)</h2><p>堆(heap)又被为优先队列(priority queue),但并不是队列(按先后顺序).堆是按优先级dequeue(出队),enqueue(入队).</p>
+<p>“堆”是实现调度器的理想数据结构。(Linux中可以使用nice命令来影响进程的优先级)</p>
+<p>堆通常是一个可以被看做一棵完全二叉树(complete binary tree)的数组对象(二叉堆(binary heap)</p>
+<p>堆顶的优先级高,堆的主要操作是插入和删除最小元素(元素值本身为优先级键值，小元素享有高优先级)。</p>
+<ol>
+<li><p>新加入的节点加入底部,与父节点比较优先级大小,比父节点小就交换.(percolate_up)</p>
+</li>
+<li><p>删除根节点后生成两个子树,重构堆(percolate_down).将lasted做为根连接子树</p>
+</li>
+</ol>
+<p>堆是非线性数据结构，相当于一维数组，有两个直接后继。</p>
+<p>堆的定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n个元素的序列&#123;k1,k2,ki,…,kn&#125;当且仅当满足下关系时，称之为堆。</span><br><span class="line">(ki &lt;= k2i,ki &lt;= k2i+1)或者(ki &gt;= k2i,ki &gt;= k2i+1), (i = 1,2,3,4...n/2)</span><br></pre></td></tr></table></figure>
+
+<p>在程序中，堆用于动态分配和释放程序所使用的对象。在以下情况中调用堆操作：</p>
+<ol>
+<li><p>事先不知道程序所需对象的数量和大小。</p>
+</li>
+<li><p>对象太大，不适合使用堆栈分配器。</p>
+</li>
+</ol>
+<p>堆使用运行期间分配给代码和堆栈以外的部分内存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">计算公式</span><br><span class="line">parent(i) = floor((i - 1)/2)</span><br><span class="line">left(i)   = 2i + 1</span><br><span class="line">right(i)  = 2i + 2</span><br></pre></td></tr></table></figure>
+
+<p>这些公式允许我们不使用指针就可以找到任何一个节点的父节点或者子节点。事情比简单的去掉指针要复杂，但这就是交易：我们节约了空间，但是要进行更多计算。幸好这些计算很快并且只需要<strong>O(1)</strong>的时间。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/11/05/react/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1837,163 +2015,6 @@ end</pre>
           
             <h1 id="pgp加密"><a href="#pgp加密" class="headerlink" title="pgp加密"></a>pgp加密</h1><p>GnuPG 是一个用来进行非对称加密(PGP)的免费软件，简称GPG</p>
 <p>PGP是一个基于RSA公匙加密体系的邮件加密软件</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/08/30/elasticsearch-dsl使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/30/elasticsearch-dsl使用/" itemprop="url">elasticsearch_dsl使用</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T15:59:40+08:00">
-                2019-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-30T15:59:40+08:00">
-                2019-08-30
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">POST /_search</span><br><span class="line">&#123;</span><br><span class="line">&quot;size&quot;: 0,</span><br><span class="line">&quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;by_grp&quot; : &#123;</span><br><span class="line">        &quot;terms&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;grpId&quot;,</span><br><span class="line">            &quot;size&quot;: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;aggs&quot;: &#123;</span><br><span class="line">            &quot;twitter_count&quot;: &#123;</span><br><span class="line">                &quot;range&quot;: &#123;</span><br><span class="line">                    &quot;field&quot;: &quot;twitter.followers&quot;,</span><br><span class="line">                    &quot;ranges&quot;: [</span><br><span class="line">                        &#123; &quot;to&quot; : 501&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 501, &quot;to&quot; : 1001&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 1001, &quot;to&quot; : 5001&#125;,</span><br><span class="line">                        &#123; &quot;from&quot; : 5001&#125;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;aggs&quot; : &#123;</span><br><span class="line">                    &quot;email_addy&quot;: &#123;</span><br><span class="line">                        &quot;terms&quot; : &#123;</span><br><span class="line">                            &quot;field&quot;: &quot;email.value&quot;,</span><br><span class="line">                            &quot;size&quot;: 0</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s.aggs.bucket(<span class="string">'by_grp'</span>, <span class="string">'terms'</span>, field=<span class="string">'grpId'</span>, size=<span class="number">0</span>) \</span><br><span class="line">.bucket(<span class="string">'twitter_count'</span>, <span class="string">'range'</span>, field=<span class="string">'twitter.followers'</span>,</span><br><span class="line">    ranges=[</span><br><span class="line">        &#123;<span class="string">'to'</span>: <span class="number">5001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">5001</span>, <span class="string">'to'</span>: <span class="number">10001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">10001</span>, <span class="string">'to'</span>: <span class="number">50001</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'from'</span>: <span class="number">50001</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">) \</span><br><span class="line">.bucket(<span class="string">'email_addy'</span>, <span class="string">'terms'</span>, field=<span class="string">'email.value'</span>, size=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
 
           
         

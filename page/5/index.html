@@ -325,6 +325,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/03/30/use imagemagick convert 命令批量resize图片/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/30/use imagemagick convert 命令批量resize图片/" itemprop="url">use imagemagick convert命令批量resize图片</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T17:30:59+08:00">
+                2019-03-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
+                2019-11-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for img in $(ls);do convert -resize 40%x40% -quality 80 $img convert_$img;done</span><br></pre></td></tr></table></figure>
+
+<p>图片质量还是可以的,对于3M左右的图片,压缩到40%,质量80差不多300多K的样子,只需要1/10的存储空间</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/28/zabbix-always-in-progress-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1785,214 +1941,6 @@ Renderers</code></pre><h2 id="配置salt-master"><a href="#配置salt-master" cl
           
             <p>由于engine管理平台是做SNAT映射出去的,所以</p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/01/ovirt-virtual-machine-management-guide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/01/ovirt-virtual-machine-management-guide/" itemprop="url">ovirt虚拟机管理手册</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T14:30:49+08:00">
-                2019-02-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
-                2019-11-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
-                    <span itemprop="name">Ovirt</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="chapter-7-模板templates"><a href="#chapter-7-模板templates" class="headerlink" title="chapter 7. 模板templates"></a>chapter 7. 模板templates</h2><p>模板是虚拟机的复本,在接下来操作中轻松重复创建相似的虚拟机.模板封装了软件,配置和硬件,还有模板基于的源虚拟机的所有安装软件.使用模板启动的虚拟机基于源虚拟机.</p>
-<p>当基于一个虚拟机创建一个模板,虚拟机的一个只读复本硬盘被创建.这个只读硬盘成为新模板和由此模板创建的虚拟机的基本磁盘,因此,如果ovirt中存在基于这个模板创建的虚拟机,这个硬盘不能被删除.</p>
-<p>基于模板创建的虚拟机使用跟源虚拟机相同的网卡类型和驱动,便被分配特别的不重复的MAC地址.</p>
-<h3 id="7-1-封装虚拟机并部署为模板"><a href="#7-1-封装虚拟机并部署为模板" class="headerlink" title="7.1 封装虚拟机并部署为模板"></a>7.1 封装虚拟机并部署为模板</h3><p>封装是基于虚拟机创建模板之前从虚拟机中移除所有特殊的系统细节的处理过程.封装是保证基于相同模板创建的多个虚拟机防止使用显明相同的细节的需要.同时也是确保其它特性的功能如预期的网卡定制的需要.</p>
-<h4 id="7-1-1-封装linux做为模板"><a href="#7-1-1-封装linux做为模板" class="headerlink" title="7.1.1 封装linux做为模板"></a>7.1.1 封装linux做为模板</h4><p>linux封装通过新创建模板窗口勾选Seal Template勾选框创建处理.<br><img src="/img/20190201/seal.png" alt></p>
-<h4 id="7-1-2-封装windows做为模板"><a href="#7-1-2-封装windows做为模板" class="headerlink" title="7.1.2 封装windows做为模板"></a>7.1.2 封装windows做为模板</h4><p>部署windows虚拟机创建的模板必需是无特殊性的.这保证机器特殊配置不会复制到模板.<br>使用sysprep用来封装windows模板.sysprep创建一个完整的没有附加的安装回答文件. /usr/share/ovirt-engine/conf/sysprep/目录下有多个windows操作系统的默认设置值文件. 这些文件是sysprep的模板.文件中的字段可以根据需求复制,粘贴,修改.这些定义将覆盖”修改虚拟机”-&gt;”初始运行”中设置.被修改的sysprep文件会多方面影响附加了sysprep文件的模板所创建的windows虚拟机.包含域成员,主机名,安全策略等.</p>
-<h5 id="7-1-2-1-封装windows虚拟机的先决条件"><a href="#7-1-2-1-封装windows虚拟机的先决条件" class="headerlink" title="7.1.2.1 封装windows虚拟机的先决条件"></a>7.1.2.1 封装windows虚拟机的先决条件</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p>
-<h5 id="7-1-2-2-封装windows-7-2008-2012为模板"><a href="#7-1-2-2-封装windows-7-2008-2012为模板" class="headerlink" title="7.1.2.2 封装windows 7,2008,2012为模板"></a>7.1.2.2 封装windows 7,2008,2012为模板</h5><p>略,详细查看<a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/virtual_machine_management_guide/chap-templates</a></p>
-<h3 id="7-2-创建模板"><a href="#7-2-创建模板" class="headerlink" title="7.2 创建模板"></a>7.2 创建模板</h3><p>从一个已经存在的虚拟机创建模板作为蓝本创建其它虚拟机.</p>
-<p>当创建模板,需要指定硬盘模式,raw或QCOW2:</p>
-<ul>
-<li>QCOW2 是瘦提供,即动态分配.</li>
-<li>RAW 硬盘在文件存储上是动态分配.</li>
-<li>RAW 硬盘在块存储上是预分配的.</li>
-</ul>
-<p>创建模拟步骤:</p>
-<ol>
-<li>Compute → Virtual Machines,选择源虚拟机</li>
-<li>确保虚拟机是关机的</li>
-<li>More Actions → Make Template.</li>
-<li>输入模板名称,说明,评语</li>
-<li>选择分配给的集群,默认同源虚拟机相同</li>
-<li>可选的,选择CPU配置集</li>
-<li>可选的,创建为另一个模板的子模板</li>
-<li>硬盘分配,别名,格式,存储域,硬盘配置集;默认与源虚拟机相同.</li>
-<li>选择允许所有用户访问模板,是否公开模板.</li>
-<li>选择是否复制源虚拟机的权限设置</li>
-<li>如果是linux主机勾选封装模板</li>
-<li>OK</li>
-</ol>
-<p>模板创建过程中显示虚拟机image lock.处理过程有可能花费几个小时,决定于硬件能力及源虚拟机硬盘大小.完成后模板添加到Tamplates选项中,至此你可以基于模板创建虚拟机了.</p>
-<p>创建模板会复制虚拟机,模板与源虚拟会同时存在.<br><img src="/img/20190201/maketemplate.png" alt></p>
-<h3 id="7-3-编辑模板"><a href="#7-3-编辑模板" class="headerlink" title="7.3 编辑模板"></a>7.3 编辑模板</h3><h3 id="7-4-删除模板"><a href="#7-4-删除模板" class="headerlink" title="7.4 删除模板"></a>7.4 删除模板</h3><h3 id="7-5-导出模板"><a href="#7-5-导出模板" class="headerlink" title="7.5 导出模板"></a>7.5 导出模板</h3><h3 id="7-6-导入模板"><a href="#7-6-导入模板" class="headerlink" title="7.6 导入模板"></a>7.6 导入模板</h3><h3 id="7-7-模板权限"><a href="#7-7-模板权限" class="headerlink" title="7.7 模板权限"></a>7.7 模板权限</h3><h3 id="7-8-使用cloud-init自动配置虚拟机"><a href="#7-8-使用cloud-init自动配置虚拟机" class="headerlink" title="7.8 使用cloud-init自动配置虚拟机"></a>7.8 使用cloud-init自动配置虚拟机</h3><h3 id="7-9-使用sysprep自动配置虚拟机"><a href="#7-9-使用sysprep自动配置虚拟机" class="headerlink" title="7.9 使用sysprep自动配置虚拟机"></a>7.9 使用sysprep自动配置虚拟机</h3><h3 id="7-10-基于模板创建虚拟机"><a href="#7-10-基于模板创建虚拟机" class="headerlink" title="7.10 基于模板创建虚拟机"></a>7.10 基于模板创建虚拟机</h3><p> 从模板创建一个预配置了操作系统,网络,应用和其它资源的虚拟机.<br> 如果基于模板创建了虚拟机,模板将不能被删除;如果要删除模板,可以选择clone方式.</p>
-<p> 模板创建虚拟机步骤:</p>
-<ol>
-<li><p>Compute → Virtual Machines. </p>
-</li>
-<li><p>创建</p>
-</li>
-<li><p>选择集群</p>
-</li>
-<li><p>选择模板</p>
-</li>
-<li><p>输入名称,说明,评论</p>
-</li>
-<li><p>资源分配标签</p>
-</li>
-<li><p>选择存储是thin(QCOW2)或clone(QCOW2/RAW)方式</p>
-</li>
-<li><p>选择存储域</p>
-</li>
-<li><p>OK.</p>
-<p><img src="/img/20190201/templatecreatevm.png" alt></p>
-</li>
-</ol>
-<h3 id="7-11-基于模板创建cloned虚拟机"><a href="#7-11-基于模板创建cloned虚拟机" class="headerlink" title="7.11 基于模板创建cloned虚拟机"></a>7.11 基于模板创建cloned虚拟机</h3>
           
         
       

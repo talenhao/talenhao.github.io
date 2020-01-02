@@ -5,7 +5,7 @@
     <url>%2F2020%2F01%2F01%2Fiptables%2F</url>
     <content type="text"><![CDATA[Iptablesiptables执行链路 iptables 规则]]></content>
       <categories>
-        <category>Linux</category>
+        <category>linux</category>
       </categories>
       <tags>
         <tag>iptables</tag>
@@ -517,10 +517,10 @@
     <url>%2F2019%2F02%2F07%2Fman-%E6%89%8B%E5%86%8C%E4%B8%AD%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF%2F</url>
     <content type="text"><![CDATA[一直印象里觉得man手册中的下划线是个链接,可以跳转到另一个文档.查看了man的help都没有提到这一块知识,后面才发现原来记忆的都是info命令功能;info命令是可以使用tab跳转到另一个文档的.man手册中的下划线单纯就是个下划线标识而已. 1haotianfei@tianfei-opensuse:~&gt; man man 1haotianfei@tianfei-opensuse:~&gt; info zypper]]></content>
       <categories>
-        <category>Linux</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>

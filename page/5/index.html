@@ -325,6 +325,323 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/04/12/运维常用术语/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/运维常用术语/" itemprop="url">运维常用术语</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T10:18:41+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
+                2019-11-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCO（总体拥有成本）</span><br><span class="line">黑石物理服务器2.0:  基于腾讯云最新虚拟化技术研发的一款拥有极致性能裸金属云服务器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">云盾Web应用防火墙（Web Application Firewall，简称 WAF）基于云安全大数据能力，用于防御SQL注入、XSS跨站脚本、常见Web服务器插件漏洞、木马上传、非授权核心资源访问等OWASP常见攻击，并过滤海量恶意CC攻击，避免您的网站资产数据泄露，保障网站的安全与可用性。</span><br><span class="line"></span><br><span class="line">如何使用WAF</span><br><span class="line">您购买Web应用防火墙后，把域名解析到Web应用防火墙提供的CNAME地址上，并配置源站服务器IP，即可启用Web应用防火墙。启用之后，您网站所有的公网流量都会先经过Web应用防火墙，恶意攻击流量在Web应用防火墙上被检测过滤，而正常流量返回给源站IP，从而确保源站IP安全、稳定、可用。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CC攻击</span><br><span class="line">攻击者借助代理服务器生成指向受害主机的合法请求，实现DDOS和伪装就叫：CC(ChallengeCollapsar,挑战黑洞)。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CC攻击是一种针对Http业务的攻击手段，该攻击模式不需要太大的攻击流量，它是对服务端业务 处理瓶颈的精确打击，攻击目标包括：大量数据运算、数据库访问、大内存文件等，攻击特征包括：a、只构造请求，不关心请求结果，即发送完请求后立即关闭会话；b、持续请求同一操作；c、故意请求小字节的数据包（如下载文件）；d、qps高；针对CC的攻击的防御需要结合具体业务的特征，针对具体的业务建立一系列防御模型，如：连接特征模型，客户端行为模型，业务访问特征模型等，接收请求端统计客户信息并根据模型特征进行一系列处理，包括：列入黑名单，限制访问速率，随机丢弃请求等。针对流行的 DDoS/CC 流量型攻击，DDoS 高防服务可以通过云端清洗集群、数据库监控牵引系统等技术进行有效的削弱。市面上的“高防服务器”、“高防服务”有很多，但资源是无底洞，选择高防服务可以从安全性、易用性、成本效益等方面来考量。其中安全性是核心，不能缓解攻击的，再便宜也是白扔钱。安全性的决定因素：服务器和带宽资源。主流云服务商的高峰服务都可以防护 SYN Flood、ACK Flood、ICMP Flood、UDP Flood、DNS Flood、HTTP Flood等常见的攻击类型，以及针对应用层的 CC 攻击，但最终能否防护成功还要看厂商可防护带宽的大小。比如网易云易盾 DDoS 高防服务，提供 1T 超大防护带宽，单 IP 防护能力最大可达数百 G，就是认为超大带宽才能从容应对超大流量攻击。流量分析能力。唯有基于海量数据分析，进而对合法用户进行模型化，才能对 DDoS 流量进行精确清洗。借助网易云易盾 DDoS 高防服务，用户可以通过配置高防 IP，将攻击流量引流到高防 IP，抵御超大流量 DDoS 攻击。弹性扩展能力。DDoS 流量巨大，防护系统支持弹性扩展，采用基础预付费+弹性后付费，既可以在避免带宽浪费的前提下进行有效防护，又可以节约成本。</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/04/01/use-sbin-netconfig-命令更新-etc-resolv-conf文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/01/use-sbin-netconfig-命令更新-etc-resolv-conf文件/" itemprop="url">use /sbin/netconfig 命令更新/etc/resolv.conf文件</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T09:57:05+08:00">
+                2019-04-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
+                2019-11-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/opensuse/" itemprop="url" rel="index">
+                    <span itemprop="name">opensuse</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>netconfig是用于设置网络环境的命令</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/01/use-sbin-netconfig-命令更新-etc-resolv-conf文件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/03/30/use imagemagick convert 命令批量resize图片/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1654,332 +1971,11 @@ Renderers</code></pre><h2 id="配置salt-master"><a href="#配置salt-master" cl
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/05/postgresql-11-install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/05/postgresql-11-install/" itemprop="url">postgresql 11 install</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-05T13:22:18+08:00">
-                2019-02-05
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
-                2019-11-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Databasees/" itemprop="url" rel="index">
-                    <span itemprop="name">Databasees</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://yum.postgresql.org/repopackages.php" target="_blank" rel="noopener">https://yum.postgresql.org/repopackages.php</a></p>
-<p>[root@postgresql ~]# yum install <a href="https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm" target="_blank" rel="noopener">https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm</a></p>
-<p>[root@postgresql ~]# yum install postgresql11-server postgresql11-contrib</p>
-<p>[root@postgresql ~]# /usr/pgsql-11/bin/postgresql-11-setup initdb<br>Initializing database … OK<br>[root@postgresql ~]# ll /usr/lib/systemd/system/  |grep postgre</p>
-<p>[root@postgresql ~]# systemctl enable postgresql-11 –now<br>Created symlink from /etc/systemd/system/multi-user.target.wants/postgresql-11.service to /usr/lib/systemd/system/postgresql-11.service.<br>[root@postgresql ~]# systemctl status postgresql-11<br>● postgresql-11.service - PostgreSQL 11 database server<br>   Loaded: loaded (/usr/lib/systemd/system/postgresql-11.service; enabled; vendor preset: disabled)<br>   Active: active (running) since Tue 2019-02-05 21:37:11 CST; 43s ago<br>     Docs: <a href="https://www.postgresql.org/docs/11/static/" target="_blank" rel="noopener">https://www.postgresql.org/docs/11/static/</a><br>  Process: 14569 ExecStartPre=/usr/pgsql-11/bin/postgresql-11-check-db-dir ${PGDATA} (code=exited, status=0/SUCCESS)<br> Main PID: 14575 (postmaster)<br>   CGroup: /system.slice/postgresql-11.service<br>           ├─14575 /usr/pgsql-11/bin/postmaster -D /var/lib/pgsql/11/data/<br>           ├─14577 postgres: logger<br>           ├─14579 postgres: checkpointer<br>           ├─14580 postgres: background writer<br>           ├─14581 postgres: walwriter<br>           ├─14582 postgres: autovacuum launcher<br>           ├─14583 postgres: stats collector<br>           └─14584 postgres: logical replication launcher   </p>
-<p>Feb 05 21:37:11 postgresql.wasu.iot systemd[1]: Starting PostgreSQL 11 database server…<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.150 CST [14575] LOG:  listening on IPv6 address “::1”, port 5432<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.150 CST [14575] LOG:  listening on IPv4 address “127.0.0.1”, port 5432<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.154 CST [14575] LOG:  listening on Unix socket “/var/run/postgresql/.s.PGSQL.5432”<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.161 CST [14575] LOG:  listening on Unix socket “/tmp/.s.PGSQL.5432”<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.174 CST [14575] LOG:  redirecting log output to logging collector process<br>Feb 05 21:37:11 postgresql.wasu.iot postmaster[14575]: 2019-02-05 21:37:11.174 CST [14575] HINT:  Future log output will appear in directory “log”.<br>Feb 05 21:37:11 postgresql.wasu.iot systemd[1]: Started PostgreSQL 11 database server.</p>
-<p>修改/var/lib/pgsql/11/data/postgresql.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = &apos;*&apos;</span><br></pre></td></tr></table></figure>
-
-<p>修改/var/lib/pgsql/11/data/pg_hba.conf,添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host    zabbix          zabbix          10.0.0.0/25          md5</span><br></pre></td></tr></table></figure>
-
-<p>[root@postgresql ~]# systemctl restart postgresql-11<br>[root@postgresql data]# firewall-cmd –add-service postgresql –permanent<br>[root@postgresql data]# firewall-cmd –add-service postgresql</p>
-<p>[root@postgresql data]# ss -lnpt<br>State       Recv-Q Send-Q                                                          Local Address:Port                                                                         Peer Address:Port<br>LISTEN      0      128                                                                         <em>:22                                                                                      *:</em>                   users:((“sshd”,pid=3737,fd=3))<br>LISTEN      0      128                                                                         <em>:5432                                                                                    *:</em>                   users:((“postmaster”,pid=15874,fd=3))<br>LISTEN      0      100                                                                 127.0.0.1:25                                                                                      <em>:</em>                   users:((“master”,pid=4105,fd=13))<br>LISTEN      0      128                                                                        :::22                                                                                     :::*                   users:((“sshd”,pid=3737,fd=4))<br>LISTEN      0      128                                                                        :::5432                                                                                   :::*                   users:((“postmaster”,pid=15874,fd=4))<br>LISTEN      0      100                                                                       ::1:25                                                                                     :::*                   users:((“master”,pid=4105,fd=14))</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/03/ovirt-spice-proxy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/03/ovirt-spice-proxy/" itemprop="url">ovirt spice 代理服务</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-03T16:20:10+08:00">
-                2019-02-03
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
-                2019-11-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
-                    <span itemprop="name">Ovirt</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>由于engine管理平台是做SNAT映射出去的,所以</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2025,7 +2021,7 @@ Renderers</code></pre><h2 id="配置salt-master"><a href="#配置salt-master" cl
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

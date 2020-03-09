@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://talenhao.github.io/"/>
-  <updated>2020-01-14T08:24:16.000Z</updated>
+  <updated>2020-03-09T07:54:39.000Z</updated>
   <id>https://talenhao.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>硬盘知识整理</title>
+    <link href="https://talenhao.github.io/2020/03/09/%E7%A1%AC%E7%9B%98%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"/>
+    <id>https://talenhao.github.io/2020/03/09/硬盘知识整理/</id>
+    <published>2020-03-09T07:54:39.000Z</published>
+    <updated>2020-03-09T07:54:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="../../../../images/disk.png" alt="img"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;../../../../images/disk.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://talenhao.github.io/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://talenhao.github.io/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Traefik 2.1 简单安装</title>
@@ -520,32 +546,6 @@ jsonp
     
     
       <category term="monitor,alert" scheme="https://talenhao.github.io/tags/monitor-alert/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>keepalived</title>
-    <link href="https://talenhao.github.io/2019/09/04/keepalived/"/>
-    <id>https://talenhao.github.io/2019/09/04/keepalived/</id>
-    <published>2019-09-04T03:01:41.000Z</published>
-    <updated>2019-09-04T03:01:41.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="keepalived"><a href="#keepalived" class="headerlink" title="keepalived"></a>keepalived</h1><pre class="mermaid">graph TBkeepalived_module-->corekeepalived_module-->checkkeepalived_module-->vrrp</pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;keepalived&quot;&gt;&lt;a href=&quot;#keepalived&quot; class=&quot;headerlink&quot; title=&quot;keepalived&quot;&gt;&lt;/a&gt;keepalived&lt;/h1&gt;&lt;pre class=&quot;mermaid&quot;&gt;graph TB
-keepalived_
-      
-    
-    </summary>
-    
-      <category term="lb" scheme="https://talenhao.github.io/categories/lb/"/>
-    
-    
-      <category term="lb,keepalived" scheme="https://talenhao.github.io/tags/lb-keepalived/"/>
     
   </entry>
   

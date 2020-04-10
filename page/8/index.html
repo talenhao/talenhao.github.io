@@ -323,6 +323,295 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/11/ovirt规划与需求/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/11/ovirt规划与需求/" itemprop="url">ovirt 规划与需求</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T00:00:00+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
+                2019-11-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ovirt/" itemprop="url" rel="index">
+                    <span itemprop="name">Ovirt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用哪种架构Architecture"><a href="#使用哪种架构Architecture" class="headerlink" title="使用哪种架构Architecture"></a>使用哪种架构Architecture</h1><h2 id="1-虚拟化架构"><a href="#1-虚拟化架构" class="headerlink" title="1.虚拟化架构"></a>1.虚拟化架构</h2><ul>
+<li>standalone管理端部署<ol>
+<li>管理端部署在一台物理机上(也可部署在特殊的虚拟机)</li>
+<li>管理机实现高可用要使用第三方实现<br><img src="/img/ovirt/RHV_STANDARD_ARCHITECTURE1.png" alt="standalone管理端部署"></li>
+</ol>
+</li>
+<li>Self-Hosted Engine部署<ol>
+<li>管理端使用cokpit部署或cli的方式部署在虚拟机中</li>
+<li>不需要扩展HA,实现自管理虚拟机engine高可用<br><img src="/img/ovirt/RHV_SHE_ARCHITECTURE1.png" alt="Self-hosted"></li>
+</ol>
+</li>
+</ul>
+<h2 id="2-需求"><a href="#2-需求" class="headerlink" title="2.需求"></a>2.需求</h2><h3 id="2-1-Manager需求"><a href="#2-1-Manager需求" class="headerlink" title="2.1.Manager需求"></a>2.1.Manager需求</h3><h4 id="硬件需求"><a href="#硬件需求" class="headerlink" title="硬件需求"></a>硬件需求</h4><p>资源|最小|推荐<br>cpu|2|多核<br>memory|4G|16G<br>Disk|25G|50G<br>net interface|1Gbps|1Gbps</p>
+<h4 id="浏览器需求"><a href="#浏览器需求" class="headerlink" title="浏览器需求"></a>浏览器需求</h4><ul>
+<li>推荐firefox,linux系统全功能支持</li>
+<li>IE,windows部分功能受限</li>
+</ul>
+<h4 id="客户端需求"><a href="#客户端需求" class="headerlink" title="客户端需求"></a>客户端需求</h4><p>类型|客户端<br>VM remote console|virt-viewer|SPICE protocol|QXL graphical driver<br>vnc|vnc viewer</p>
+<h4 id="操作系统需求"><a href="#操作系统需求" class="headerlink" title="操作系统需求"></a>操作系统需求</h4><p>RHEL 7或CENTOS 7或ovirt官方node</p>
+<h3 id="2-2-hosts需求"><a href="#2-2-hosts需求" class="headerlink" title="2.2.hosts需求"></a>2.2.hosts需求</h3><p><a href="https://access.redhat.com/ecosystem/#certifiedHardware" target="_blank" rel="noopener"></a></p>
+<p>类型|特性<br>CPU|Intel® 64 or AMD64 CPU extensions,AMD-V™ or Intel VT®,No eXecute flag (NX)<br>memory|2G-2T<br>disk|Minimum Total - 45 GB<br>net interface|1Gbps*n<br>vGPU|GPU</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">支持的CPU类型</span><br><span class="line">AMD</span><br><span class="line">   Opteron G1 (deprecated)</span><br><span class="line">   Opteron G2 (deprecated)</span><br><span class="line">   Opteron G3 (deprecated)</span><br><span class="line">   Opteron G4</span><br><span class="line">   Opteron G5</span><br><span class="line"></span><br><span class="line">Intel</span><br><span class="line">   Conroe (deprecated)</span><br><span class="line">   Penryn (deprecated)</span><br><span class="line">   Nehalem</span><br><span class="line">   Westmere</span><br><span class="line">   Sandybridge</span><br><span class="line">   Haswell</span><br><span class="line">   Haswell-noTSX</span><br><span class="line">   Broadwell</span><br><span class="line">   Broadwell-noTSX</span><br><span class="line">   Skylake (client)</span><br><span class="line">   Skylake (server)</span><br><span class="line">IBM POWER8</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># grep -E &apos;svm|vmx&apos; /proc/cpuinfo | grep nx</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-网络需求"><a href="#2-3-网络需求" class="headerlink" title="2.3. 网络需求"></a>2.3. 网络需求</h3><h4 id="DNS系统"><a href="#DNS系统" class="headerlink" title="DNS系统"></a>DNS系统</h4><p>DNS系统要在ovirt环境外独立安装,保障可用,否则对系统影响很大</p>
+<h4 id="逻辑网络"><a href="#逻辑网络" class="headerlink" title="逻辑网络"></a>逻辑网络</h4><ul>
+<li>逻辑网络可以使用物理设备网卡或虚拟设备bond网卡</li>
+<li>Bonding可以提升性能或可靠性,bond默认是4,Bonding modes 1, 2, 3, and 4 support both virtual machine and non-virtual machine network types. Modes 0, 5, and 6 only support non-virtual machine networks.</li>
+<li>一块网卡可以承载多个逻辑网络,可以使用VLAN tag隔离网络流量,这需要交换机支持.</li>
+<li>逻辑网络附加到HOST的数量受网卡数量及VLAN最大数量4096的限制</li>
+<li>单次操作可以附加到一台主机的网络最大50个.</li>
+<li>集群的网络数量受限主机,因为都是使用相同的网络.</li>
+<li>数据中心的网络数量受限于集群数量及每个集群的网络数量</li>
+<li>修改ovirtmgmt网络要非常小心,不当的操作有可能使用整个系统停止.</li>
+</ul>
+<h4 id="活动目录服务"><a href="#活动目录服务" class="headerlink" title="活动目录服务"></a>活动目录服务</h4><p>不要使用外部用户作为ovirt环境的管理用户.</p>
+<ul>
+<li>internal<ul>
+<li>默认创建admin用户初始化管理及排错.</li>
+<li>ovirt-aaa-jdbc-tool创建新的内部用户</li>
+</ul>
+</li>
+<li>openldap</li>
+<li>active directory</li>
+<li>Identity Management (IdM - based on IPA)</li>
+<li>Red Hat Directory Server 9 (RHDS 9 - based on 389DS)</li>
+<li>IBM Security (Tivoli) Directory Server</li>
+</ul>
+<h4 id="Firewall"><a href="#Firewall" class="headerlink" title="Firewall"></a>Firewall</h4><p>engine-setup自动配置防火墙<br>iptables装被覆盖,Firewalld不影响已经存在的规则</p>
+<h4 id="存储需求"><a href="#存储需求" class="headerlink" title="存储需求"></a>存储需求</h4><ul>
+<li>Ovirt目前支持最大400台hosts规模</li>
+<li>至少一个data存储域,推荐创建ISO域</li>
+<li>存储域可以是块设备(只支持egacy (512b block) ),或文件系统</li>
+<li>支持NFS,iSCSI,Fibre,gluster,POSIX-Compliant FS,Local Storage</li>
+</ul>
+<h4 id="基础设施需求"><a href="#基础设施需求" class="headerlink" title="基础设施需求"></a>基础设施需求</h4><p>在性能不是瓶颈的情况下,将组件与管理机安装在一起维护比较简单.</p>
+<blockquote>
+<p>standalone部署过程中会提示是否安装在管理机上.</p>
+</blockquote>
+<blockquote>
+<p>self-hosted engine下需要先进行安装后再部署engine.</p>
+</blockquote>
+<ul>
+<li>data warehouse</li>
+<li>manager database</li>
+<li>web socket proxy</li>
+</ul>
+<p>下面的三个系统只能独立于ovirt环境安装</p>
+<ul>
+<li>DNS系统</li>
+<li>storage存储</li>
+<li>identity Management</li>
+</ul>
+<h2 id="3-建议"><a href="#3-建议" class="headerlink" title="3.建议"></a>3.建议</h2><h4 id="常规建议"><a href="#常规建议" class="headerlink" title="常规建议"></a>常规建议</h4><ul>
+<li>定期备份环境</li>
+<li>避免将ovirt环境要信赖的服务部署在自身环境中</li>
+<li>查看系统entropy不要小于200,否则有可能造成系统cause</li>
+<li>可以使用PXE, Kickstart, Satellite, CloudForms, Ansible或混合使用以上工具自动化安装宿主机和虚拟机,但hosted-engine不支持<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/planning_and_prerequisites_guide/recommendations" target="_blank" rel="noopener">https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2/html/planning_and_prerequisites_guide/recommendations</a></li>
+</ul>
+</li>
+<li>部署NTP服务同步所有服务器及虚拟机时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ovirt00 ~]# cat /proc/sys/kernel/random/entropy_avail</span><br><span class="line">3496</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="安全建议"><a href="#安全建议" class="headerlink" title="安全建议"></a>安全建议</h4><ul>
+<li>不要禁用默认开启的安全特性(HTTPS, SELinux, and the firewall)</li>
+<li>创建隔离的admin账号</li>
+<li>限制访问主机,特别是root账号</li>
+<li>不要创建不信任的用户</li>
+<li>除了必须的包不要在系统上安装其它服务</li>
+</ul>
+<h4 id="主机建议"><a href="#主机建议" class="headerlink" title="主机建议"></a>主机建议</h4><ul>
+<li>相同集群中使用相同规格的host</li>
+<li>没有特殊需求不要混合部署RHEL,CENTOS,ovirt官方node系统</li>
+<li>部署fencing设备,排除故障机器</li>
+<li>交换机高可用</li>
+</ul>
+<h4 id="网络建议"><a href="#网络建议" class="headerlink" title="网络建议"></a>网络建议</h4><ul>
+<li>bonding网卡</li>
+<li>使用VLAN</li>
+<li>如果可用,提升MTU,例如9000,提高吞吐,降低CPU负载</li>
+<li>1G网络用于管理,10G,40G网络用于虚拟机或存储</li>
+<li>为存储使用单独的网卡,去掉vm network,VLAN直接使用物理网卡.</li>
+<li>如果部署了openstack,可以整合neutron添加Open vSwitch 能力.</li>
+</ul>
+<h5 id="配置网络的实施建议"><a href="#配置网络的实施建议" class="headerlink" title="配置网络的实施建议"></a>配置网络的实施建议</h5><ul>
+<li>手工配置主机网络然后添加到ovirt环境<ul>
+<li>推荐使用cockpit配置网络,也可以使用nmtui,nmcli</li>
+<li>使用administration portol 删除或添加主机,删除网络</li>
+<li>命名规范:<ul>
+<li>VLAN devices: VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD</li>
+<li>VLAN interfaces: physical_device.VLAN_ID (for example, eth0.23, eth1.128, enp3s0.50)</li>
+<li>Bond interfaces: bondnumber (for example, bond0, bond1)</li>
+<li>VLANs on bond interfaces: bondnumber.VLAN_ID (for example, bond0.50, bond1.128)</li>
+</ul>
+</li>
+<li>使用bonding</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Configure a VLAN on a physical NIC as in the following example (although nmcli is used, you can use any tool):</span><br><span class="line"></span><br><span class="line"># nmcli connection add type vlan con-name vlan50 ifname eth0.50 dev eth0 id 50</span><br><span class="line"># nmcli con mod vlan50 +ipv4.dns 8.8.8.8 +ipv4.addresses 123.123.0.1/24 +ivp4.gateway 123.123.0.254</span><br><span class="line"></span><br><span class="line">Configure a VLAN on a bond as in the following example (although nmcli is used, you can use any tool):</span><br><span class="line"></span><br><span class="line"># nmcli connection add type bond con-name bond0 ifname bond0 bond.options &quot;mode=active-backup,miimon=100&quot; ipv4.method disabled ipv6.method ignore</span><br><span class="line"># nmcli connection add type ethernet con-name eth0 ifname eth0 master bond0 slave-type bond</span><br><span class="line"># nmcli connection add type ethernet con-name eth1 ifname eth1 master bond0 slave-type bond</span><br><span class="line"># nmcli connection add type vlan con-name vlan50 ifname bond0.50 dev bond0 id 50</span><br><span class="line"># nmcli con mod vlan50 +ipv4.dns 8.8.8.8 +ipv4.addresses 123.123.0.1/24 +ivp4.gateway 123.123.0.254</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不要禁用firewalld</li>
+</ul>
+<h4 id="self-engine建议"><a href="#self-engine建议" class="headerlink" title="self-engine建议"></a>self-engine建议</h4><ul>
+<li>为hosted-engine创建单独的data center,有助于安全,备份,性能,可用.</li>
+<li>专为hosted-engine创建的engine巻不要用于其它虚拟机</li>
+<li>分离management,storage,migration网络</li>
+<li>建议每个集群中不超过7个host,带来更好的弹性</li>
+<li>CPU使用相同的架构</li>
+<li>有足够的内存空间启动或迁移engine</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/12/10/ovirt架构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1779,151 +2068,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2018/01/18/fix_opensuse_tumbleweed_cat_not_suspend/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/18/fix_opensuse_tumbleweed_cat_not_suspend/" itemprop="url">修复opensuse不能进入睡眠模式(suspend)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T00:00:00+08:00">
-                2018-01-18
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
-                2019-11-08
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#环境</p>
-<ul>
-<li>os: OpenSUSE Tumbleweed</li>
-<li>pc: Apple macbook 13’ pro 2015</li>
-</ul>
-<p>#故障描述<br>电源管理设置成合上屏进入睡眠模式,但发现笔记本从包里拿出来时很烫</p>
-<p>#修复<br>查看当前唤醒的设备</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tianfei@openSuSeLinux:~&gt; cat /proc/acpi/wakeup </span><br><span class="line">Device  S-state   Status   Sysfs node</span><br><span class="line">PEG0      S3    *disabled</span><br><span class="line">EC        S3    *disabled  platform:PNP0C09:00</span><br><span class="line">HDEF      S3    *disabled  pci:0000:00:1b.0</span><br><span class="line">RP01      S3    *disabled  pci:0000:00:1c.0</span><br><span class="line">RP02      S3    *disabled  pci:0000:00:1c.1</span><br><span class="line">RP03      S4    *disabled  pci:0000:00:1c.2</span><br><span class="line">ARPT      S4    *enabled   pci:0000:03:00.0</span><br><span class="line">RP05      S3    *disabled  pci:0000:00:1c.4</span><br><span class="line">RP06      S3    *disabled  pci:0000:00:1c.5</span><br><span class="line">SPIT      S3    *disabled  spi:spi-APP000D:00</span><br><span class="line">XHC1      S3    *enabled   pci:0000:00:14.0</span><br><span class="line">ADP1      S3    *disabled  platform:ACPI0003:00</span><br><span class="line">LID0      S3    *enabled   platform:PNP0C0D:00</span><br></pre></td></tr></table></figure>
-
-<p>其中enable的是可执行唤醒的设备,S3 state是suspend的状态.<br>保留使用电源键及开屏唤醒</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line"># disabling wakeup on USB --- use just PWRB</span><br><span class="line">#</span><br><span class="line">for device in XHC EHC1 EHC2; do</span><br><span class="line">    grep $device /proc/acpi/wakeup | grep enabled &gt; /dev/null &amp;&amp; &#123;</span><br><span class="line">        echo Disabling wakeup on $device </span><br><span class="line">        echo $device &gt; /proc/acpi/wakeup</span><br><span class="line">    &#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>将脚本内容放置在/etc/init.d/boot.local中就可以了.</p>
-<p>参考:<br><a href="https://askubuntu.com/questions/552345/can-not-suspend-my-laptop-asus" target="_blank" rel="noopener">https://askubuntu.com/questions/552345/can-not-suspend-my-laptop-asus</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1974,7 +2118,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1996,7 +2140,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

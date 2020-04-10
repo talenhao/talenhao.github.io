@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://talenhao.github.io/"/>
-  <updated>2020-03-09T07:54:39.000Z</updated>
+  <updated>2020-04-10T07:35:34.000Z</updated>
   <id>https://talenhao.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kafka</title>
+    <link href="https://talenhao.github.io/2020/04/10/kafka/"/>
+    <id>https://talenhao.github.io/2020/04/10/kafka/</id>
+    <published>2020-04-10T07:35:34.000Z</published>
+    <updated>2020-04-10T07:35:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="../../../../images/kafka.png" alt="img"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;../../../../images/kafka.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="mq" scheme="https://talenhao.github.io/categories/mq/"/>
+    
+    
+      <category term="kafka" scheme="https://talenhao.github.io/tags/kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>硬盘知识整理</title>
@@ -514,38 +540,6 @@ jsonp
     
     
       <category term="safe" scheme="https://talenhao.github.io/tags/safe/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>监控系统预测和异常判断</title>
-    <link href="https://talenhao.github.io/2019/09/06/%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%A2%84%E6%B5%8B%E5%92%8C%E5%BC%82%E5%B8%B8%E5%88%A4%E6%96%AD/"/>
-    <id>https://talenhao.github.io/2019/09/06/监控系统预测和异常判断/</id>
-    <published>2019-09-06T07:08:23.000Z</published>
-    <updated>2019-09-06T07:08:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="监控系统预测和异常判断"><a href="#监控系统预测和异常判断" class="headerlink" title="监控系统预测和异常判断"></a>监控系统预测和异常判断</h1><p>基于算法的 IT 运维平台(Algorithmic IT operations platforms)</p><ol><li>机器学习</li><li>数学统计<ol><li>方差分析可以用来判断几组观察到的数据或者处理的结果是否存在显著差异。</li><li>在方差分析中，我们把要考察其均值是否存在显著差异的指标变量称为响应变量，对响应变量取值有影响的其他变量称为因素。例如，信用卡消费水平和治疗效果为响应变量，地区和药品则为因素。在方差分析中，因素的取值应为离散型的，其不同的取值称为水平。例如，每一个具体地区或者每一种药品都对应着一个水平。根据因素的个数，方差分析可以分为单因素方差分析和多因素方差分析</li><li><strong>正态分布像一只倒扣的钟。两头低，中间高，左右对称。大部分数据集中在平均值，小部分在两端。</strong></li></ol></li></ol><h2 id="异常判断"><a href="#异常判断" class="headerlink" title="异常判断"></a>异常判断</h2><p>指数平滑法是一种特殊的加权平均法，加权的特点是对离预测值较近的历史数据给予较大的权数，对离预测期较远的历史数据给予较小的权数，权数由近到远按指数规律递减，所以，这种预测方法被称为指数平滑法。它可分为一次指数平滑法、二次指数平滑法及更高次指数平滑法。</p><a id="more"></a><h3 id="异常算法"><a href="#异常算法" class="headerlink" title="异常算法"></a>异常算法</h3><p>skyline 一共提供了 7 个异常检测算法，如果有 5 个以上认为是异常，那么 skyline就认为这个序列异常了.</p><p>异常检测算法实际写在了 <code>src/analyzer/algorithms.py</code></p><ol><li>first_hour_average、</li><li>simple_stddev_from_moving_average、</li><li>stddev_from_moving_average、</li><li>mean_subtraction_cumulation、</li><li>least_squares</li><li>histogram_bins、</li><li>grubbs、</li><li>median_absolute_deviation、</li><li>Kolmogorov-Smirnov_test</li></ol><h3 id="first-hour-average"><a href="#first-hour-average" class="headerlink" title="first_hour_average"></a>first_hour_average</h3><p>这是最简单的。先求本周期内最前面的第一个小时的平均值和标准差，然后和最新的三个值的平均值(tail_avg()，这是后面多数算法都通用的做法)做比较。如果 tail_avg 和 第一小时平均值的差距大于 3 倍的标准差，那么认定为异常。</p><h3 id="simple-stddev-from-moving-average"><a href="#simple-stddev-from-moving-average" class="headerlink" title="simple_stddev_from_moving_average"></a>simple_stddev_from_moving_average</h3><p>把上面算法的范围扩大化，求的是整个周期内全部数据的平均值和标准差。</p><h3 id="stddev-from-moving-average"><a href="#stddev-from-moving-average" class="headerlink" title="stddev_from_moving_average"></a>stddev_from_moving_average</h3><p>在上面算法的基础上，采用指数加权移动平均值。对周期内采点数量较少的情况更好一些。</p><h3 id="mean-subtraction-cumulation"><a href="#mean-subtraction-cumulation" class="headerlink" title="mean_subtraction_cumulation"></a>mean_subtraction_cumulation</h3><p>做法是这样的：</p><ol><li>排除最后一个值；</li><li>求剩余序列的平均值；</li><li>全序列减去上面这个平均值；</li><li>求剩余序列的标准差；</li><li>判断全序列最后一个值是否大于 3 倍的标准差</li></ol><p>在代码中本来还计算了一次序列的指数加权移动平均值，但是算完了却没用，感觉怪怪的。</p><h3 id="least-squares"><a href="#least-squares" class="headerlink" title="least_squares"></a>least_squares</h3><p>采用最小二乘法拟近时间序列，然后用实际值减去拟近值得到新序列。然后判断新序列的最后三个值的平均值是否大于 3 倍的新序列标准差。</p><p>所谓最小二乘法，简单说就是对一个 [x, y] 序列，会有一对常数 [m, c]，让 Y = mx + c 等式中的 Y 和 y 在全序列上最接近。</p><h3 id="histogram-bins"><a href="#histogram-bins" class="headerlink" title="histogram_bins"></a>histogram_bins</h3><p>将整个周期序列的数据按照直方图统计法归入 15 个直方中，然后看最后三个值的平均值属于这 15 个直方的具体哪个。如果这个直方中包含的数据小于 20 个，判断为异常。</p><p>从算法中可以知道，如果周期内数据量不够，很容易被判断为异常的。</p><h3 id="grubbs"><a href="#grubbs" class="headerlink" title="grubbs"></a>grubbs</h3><p>将整个周期序列的数据按照格拉布斯法求异常值。</p><p>标准的格拉布斯法是这样的：</p><ol><li>从小到大排序；</li><li>求序列的平均值和标准差；</li><li>计算最小值和最大值与平均值的差距，更大的那个为可疑值；</li><li>可疑值减去平均值，再除以标准差，如果大于格拉布斯临界值，那么就是异常值；</li><li>排除异常值，对剩余序列循环做 1-5 步骤。</li></ol><p>这里只用判断时间序列的最后是否异常，所以直接将最后三个值的平均值作为可疑值判断是否异常即可。</p><p><strong>2013 年 07 月 23 日更新</strong></p><p>新增了一个异常算法，现在有 8 个了，要通过 6 个才算真异常。</p><p>新增的是”绝对中值偏差法”</p><h3 id="median-absolute-deviation"><a href="#median-absolute-deviation" class="headerlink" title="median_absolute_deviation"></a>median_absolute_deviation</h3><p>具体实现是：序列的最后一个值，比该序列的绝对中值大 6 倍以上，即判断为异常。</p><p>注意这里是中值，不是平均值。</p><p><strong>2013 年 08 月 14 日更新</strong></p><p>新增一个异常算法，现在有 9 个了。</p><p>新增的是”柯尔莫诺夫-斯米尔诺夫检验法”</p><h3 id="Kolmogorov-Smirnov-test"><a href="#Kolmogorov-Smirnov-test" class="headerlink" title="Kolmogorov-Smirnov_test"></a>Kolmogorov-Smirnov_test</h3><p>具体实现是：计算序列内最近十分钟的数值的ks测试分布，然后计算序列中最近一个小时前到十分钟前这 50 分钟的数值的ks测试分布；如果两个分布相差较大，即判断为异常。</p><h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><h3 id="预测算法"><a href="#预测算法" class="headerlink" title="预测算法"></a>预测算法</h3><p>时序存储</p><p> rrdtool 和 graphite</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;监控系统预测和异常判断&quot;&gt;&lt;a href=&quot;#监控系统预测和异常判断&quot; class=&quot;headerlink&quot; title=&quot;监控系统预测和异常判断&quot;&gt;&lt;/a&gt;监控系统预测和异常判断&lt;/h1&gt;&lt;p&gt;基于算法的 IT 运维平台(Algorithmic IT operations platforms)&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;机器学习&lt;/li&gt;
-&lt;li&gt;数学统计&lt;ol&gt;
-&lt;li&gt;方差分析可以用来判断几组观察到的数据或者处理的结果是否存在显著差异。&lt;/li&gt;
-&lt;li&gt;在方差分析中，我们把要考察其均值是否存在显著差异的指标变量称为响应变量，对响应变量取值有影响的其他变量称为因素。例如，信用卡消费水平和治疗效果为响应变量，地区和药品则为因素。在方差分析中，因素的取值应为离散型的，其不同的取值称为水平。例如，每一个具体地区或者每一种药品都对应着一个水平。根据因素的个数，方差分析可以分为单因素方差分析和多因素方差分析&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;正态分布像一只倒扣的钟。两头低，中间高，左右对称。大部分数据集中在平均值，小部分在两端。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;异常判断&quot;&gt;&lt;a href=&quot;#异常判断&quot; class=&quot;headerlink&quot; title=&quot;异常判断&quot;&gt;&lt;/a&gt;异常判断&lt;/h2&gt;&lt;p&gt;指数平滑法是一种特殊的加权平均法，加权的特点是对离预测值较近的历史数据给予较大的权数，对离预测期较远的历史数据给予较小的权数，权数由近到远按指数规律递减，所以，这种预测方法被称为指数平滑法。它可分为一次指数平滑法、二次指数平滑法及更高次指数平滑法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="monitor" scheme="https://talenhao.github.io/categories/monitor/"/>
-    
-    
-      <category term="monitor,alert" scheme="https://talenhao.github.io/tags/monitor-alert/"/>
     
   </entry>
   

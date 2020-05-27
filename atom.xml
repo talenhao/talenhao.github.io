@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://talenhao.github.io/"/>
-  <updated>2020-04-10T07:35:34.000Z</updated>
+  <updated>2020-05-27T02:37:04.000Z</updated>
   <id>https://talenhao.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>流畅的Python读书笔记</title>
+    <link href="https://talenhao.github.io/2020/05/27/%E6%B5%81%E7%95%85%E7%9A%84Python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/</id>
+    <published>2020-05-27T02:37:04.000Z</published>
+    <updated>2020-05-27T02:37:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第-14-章-可迭代的对象、迭代器和生成器"><a href="#第-14-章-可迭代的对象、迭代器和生成器" class="headerlink" title="第 14 章 可迭代的对象、迭代器和生成器"></a>第 14 章 可迭代的对象、迭代器和生成器</h2><h3 id="14-2-可迭代的对象与迭代器的对比"><a href="#14-2-可迭代的对象与迭代器的对比" class="headerlink" title="14.2 可迭代的对象与迭代器的对比"></a>14.2 可迭代的对象与迭代器的对比</h3><p>使用 iter 内置函数可以获取迭代器的对象。</p><p>如果对象实现了能返回迭代器的<strong>iter</strong> 方法,那么对象就是可迭代的。</p><p>序列都可以迭代;实现了 <strong>getitem</strong> 方法,而且其参数是从零开始的索引,这种对象也可以迭代。</p><h4 id="14-3-Sentence类第2版-典型的迭代器"><a href="#14-3-Sentence类第2版-典型的迭代器" class="headerlink" title="14.3 Sentence类第2版:典型的迭代器"></a>14.3 Sentence类第2版:典型的迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;</span><br><span class="line">如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">标准的迭代器接口有两个方法。</span><br><span class="line">__next__</span><br><span class="line">返回下一个可用的元素,如果没有元素了,抛出 StopIteration 异常。</span><br><span class="line">__iter__</span><br><span class="line">返回 self,以便在应该使用可迭代对象的地方使用迭代器,例如在 for 循环中。</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="迭代器无法还原"><a href="#迭代器无法还原" class="headerlink" title="迭代器无法还原"></a>迭代器无法还原</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为迭代器只需 __next__ 和 __iter__ 两个方法,所以除了调用 next() 方法,以及捕获 StopIteration 异常之外,没有办法检查是否还有遗留的元素。此外,也没有办法“还原”迭代器。</span><br><span class="line">如果想再次迭代,那就要调用iter(...),传入之前构建迭代器的可迭代对象。传入迭代器本身没用,因为前面说过Iterator.__iter__方法的实现方式是返回实例本身,所以传入迭代器无法还原已经耗尽的迭代器。</span><br></pre></td></tr></table></figure><h4 id="可迭代对象与迭代器"><a href="#可迭代对象与迭代器" class="headerlink" title="可迭代对象与迭代器"></a>可迭代对象与迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可迭代的对象一定不能是自身的迭代器。也就是说,可迭代的对象必须实现__iter__ 方法,但不能实现 __next__ 方法。</span><br><span class="line">另一方面,迭代器应该一直可以迭代。迭代器的 __iter__ 方法应该返回自身。</span><br></pre></td></tr></table></figure><h4 id="14-4-Sentence类第3版-生成器函数"><a href="#14-4-Sentence类第3版-生成器函数" class="headerlink" title="14.4 Sentence类第3版:生成器函数"></a>14.4 Sentence类第3版:生成器函数</h4><ul><li>更符合python风格的可迭代对像创建</li><li>使用生成器函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">生成器函数的工作原理</span><br><span class="line"></span><br><span class="line">只要 Python 函数的定义体中有 yield 关键字,该函数就是生成器函数。调用生成器函数时,会返回一个生成器对象。也就是说,生成器函数是生成器工厂。</span><br></pre></td></tr></table></figure></li></ul><p><em>函数返回值;调用生成器函数返回生成器;生成器产出或生成值。</em></p><h4 id="14-5-Sentence类第4版-惰性实现"><a href="#14-5-Sentence类第4版-惰性实现" class="headerlink" title="14.5 Sentence类第4版:惰性实现"></a>14.5 Sentence类第4版:惰性实现</h4><p>re.finditer 函数是 re.findall 函数的惰性版本,返回的不是列表,而是一个生成<br>器,按需生成 re.MatchObject 实例。如果有很多匹配,re.finditer 函数能节省大量<br>内存。</p><h4 id="14-6-Sentence类第5版-生成器表达式"><a href="#14-6-Sentence类第5版-生成器表达式" class="headerlink" title="14.6 Sentence类第5版:生成器表达式"></a>14.6 Sentence类第5版:生成器表达式</h4><p>生成器表达式可以理解为列表推导的惰性版本:不会迫切地构建列表,而是返回一个生成器,按需惰性生成元素。</p><p>也就是说,如果列表推导是制造列表的工厂,那么生成器表达式就是制造生成器的工厂。</p><p><em>() 替换 []</em></p><h4 id="14-7-何时使用生成器表达式"><a href="#14-7-何时使用生成器表达式" class="headerlink" title="14.7 何时使用生成器表达式"></a>14.7 何时使用生成器表达式</h4><p>如果生成器表达式要分成多行写,我倾向于定义生成器函数,以便提高可读性。此外,生成器函数有名称,因此可以重用。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;第-14-章-可迭代的对象、迭代器和生成器&quot;&gt;&lt;a href=&quot;#第-14-章-可迭代的对象、迭代器和生成器&quot; class=&quot;headerlink&quot; title=&quot;第 14 章 可迭代的对象、迭代器和生成器&quot;&gt;&lt;/a&gt;第 14 章 可迭代的对象、迭代器和生成器&lt;/h2&gt;&lt;h3 id=&quot;14-2-可迭代的对象与迭代器的对比&quot;&gt;&lt;a href=&quot;#14-2-可迭代的对象与迭代器的对比&quot; class=&quot;headerlink&quot; title=&quot;14.2 可迭代的对象与迭代器的对比&quot;&gt;&lt;/a&gt;14.2 可迭代的对象与迭代器的对比&lt;/h3&gt;&lt;p&gt;使用 iter 内置函数可以获取迭代器的对象。&lt;/p&gt;
+&lt;p&gt;如果对象实现了能返回迭代器的&lt;strong&gt;iter&lt;/strong&gt; 方法,那么对象就是可迭代的。&lt;/p&gt;
+&lt;p&gt;序列都可以迭代;实现了 &lt;strong&gt;getitem&lt;/strong&gt; 方法,而且其参数是从零开始的索引,这种对象也可以迭代。&lt;/p&gt;
+&lt;h4 id=&quot;14-3-Sentence类第2版-典型的迭代器&quot;&gt;&lt;a href=&quot;#14-3-Sentence类第2版-典型的迭代器&quot; class=&quot;headerlink&quot; title=&quot;14.3 Sentence类第2版:典型的迭代器&quot;&gt;&lt;/a&gt;14.3 Sentence类第2版:典型的迭代器&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;标准的迭代器接口有两个方法。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__next__&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;返回下一个可用的元素,如果没有元素了,抛出 StopIteration 异常。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__iter__&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;返回 self,以便在应该使用可迭代对象的地方使用迭代器,例如在 for 循环中。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="https://talenhao.github.io/categories/python/"/>
+    
+    
+      <category term="python" scheme="https://talenhao.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>kafka</title>
@@ -517,29 +544,6 @@ jsonp
     
     
       <category term="english" scheme="https://talenhao.github.io/tags/english/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浏览器攻击</title>
-    <link href="https://talenhao.github.io/2019/09/11/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%BB%E5%87%BB/"/>
-    <id>https://talenhao.github.io/2019/09/11/浏览器攻击/</id>
-    <published>2019-09-11T01:51:49.000Z</published>
-    <updated>2019-09-11T01:51:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="浏览器跨域"><a href="#浏览器跨域" class="headerlink" title="浏览器跨域"></a>浏览器跨域</h2><p>JavaScript出于<em>安全</em>方面的考虑做的<em>同源</em>策略的<em>限制</em>，不允许<em>跨域</em>访问其他资源。跨域请求成功后，浏览器会拦截服务器端返回的结果</p><p>同源:<code>域名、协议、端口均相同。举例来说，`http://www.example.com/dir/page.html`这个网址，协议是`http://`，域名是`www.example.com`，端口是`80`（默认端口可以省略）</code></p><a id="more"></a><h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><p>攻击者指挥用户攻击目标网站</p><pre class="mermaid">graph LRuser-->|1,username&password|target(目标网站)target-->|2,OK&set cookie|useruser-.->|3,目标cookie存在,访问攻击者站点|tacker[攻击者站点]tacker-.->|4,让用户请求目标网站执行特定操作|useruser-.->|5,利用自己的权限做攻击操作|target</pre><pre class="mermaid">sequenceDiagramparticipant attacker as 攻击者站点participant user as 用户participant target as 目标站点user->>+target:1,request,username&passwordtarget-->>user:2,response,set-cookieuser->>+attacker:3,request,请求攻击者站点attacker-->>-user:4,response,指挥用户访问目标站点user->>-target:5,request,利用自己的权限发起攻击操作</pre><h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><p>伪装用户自己发起攻击</p><pre class="mermaid">sequenceDiagramparticipant attacker as 攻击者站点participant user as 用户participant target as 目标站点attacker-->>user:1,request,发送含有攻击代码的目标站点链接user->>+target:2,request,携带攻击代码,请求目标站点target-->>user:3,response,目标站点执行后返回用户数据user->>attacker:4,request,在用户不知情时将cookie,session发送给攻击者attacker->>-target:5,request,伪装用户访问目标站点</pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;浏览器跨域&quot;&gt;&lt;a href=&quot;#浏览器跨域&quot; class=&quot;headerlink&quot; title=&quot;浏览器跨域&quot;&gt;&lt;/a&gt;浏览器跨域&lt;/h2&gt;&lt;p&gt;JavaScript出于&lt;em&gt;安全&lt;/em&gt;方面的考虑做的&lt;em&gt;同源&lt;/em&gt;策略的&lt;em&gt;限制&lt;/em&gt;，不允许&lt;em&gt;跨域&lt;/em&gt;访问其他资源。跨域请求成功后，浏览器会拦截服务器端返回的结果&lt;/p&gt;
-&lt;p&gt;同源:&lt;code&gt;域名、协议、端口均相同。举例来说，`http://www.example.com/dir/page.html`这个网址，协议是`http://`，域名是`www.example.com`，端口是`80`（默认端口可以省略）&lt;/code&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="safe" scheme="https://talenhao.github.io/categories/safe/"/>
-    
-    
-      <category term="safe" scheme="https://talenhao.github.io/tags/safe/"/>
     
   </entry>
   

@@ -325,6 +325,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/11/use-salt-though-ssh-agentless/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="天飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天飞 学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/11/use-salt-though-ssh-agentless/" itemprop="url">salt ssh,agentless模式</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T09:56:20+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
+                2019-11-08
+              </time>
+            
+          </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/salt/" itemprop="url" rel="index">
+                    <span itemprop="name">salt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="salt-ssh"><a href="#salt-ssh" class="headerlink" title="salt ssh"></a>salt ssh</h1><p>执行salt commands及states通过ssh,不需要安装salt-minion.</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>salt ssh方式使用非常简单,通过配置/etc/salt/roster文件定义系统需要连接的主机,salt-ssh命令使用方式跟salt相同.</p>
+<ul>
+<li>salt ssh在2014.7.0版本产品化</li>
+<li>远端需要有至少python2.6(也可以使用-r选项发送原子的ssh命令)</li>
+<li>大多数系统中都是使用salt-ssh命令执行</li>
+<li>salt ssh并不是用来替代标准的salt通信系统,它提供了不需要zeromq和远程agent的一个选择.由于所有通信都是通过ssh会在速度上慢于salt+zeromq</li>
+<li>目前fileserver选项必须会封装,确保关联的文件会使用salt-ssh交付.state模块是例外,在master端编译,进程会找到所有salt://路径指向然后复制打tar包,fileserver封装还在开发中.</li>
+</ul>
+<h2 id="salt-ssh-roster"><a href="#salt-ssh-roster" class="headerlink" title="salt ssh roster"></a>salt ssh roster</h2><p>salt roster系统轻松定义远程minions.<a href="https://docs.saltstack.com/en/latest/topics/ssh/roster.html#ssh-roster" target="_blank" rel="noopener">https://docs.saltstack.com/en/latest/topics/ssh/roster.html#ssh-roster</a></p>
+<p>默认roster文件是在/etc/salt/roster:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">web1:</span><br><span class="line">  host: 192.168.42.1 # The IP addr or DNS hostname</span><br><span class="line">  user: fred         # Remote executions will be executed as user fred</span><br><span class="line">  passwd: foobarbaz  # The password to use for login, if omitted, keys are used</span><br><span class="line">  sudo: True         # Whether to sudo to root, not enabled by default</span><br><span class="line">web2:</span><br><span class="line">  host: 192.168.42.2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note</span><br><span class="line"></span><br><span class="line">sudo works only if NOPASSWD is set for user in /etc/sudoers: fred ALL=(ALL) NOPASSWD: ALL</span><br></pre></td></tr></table></figure>
+
+<h2 id="salt-ssh部署ssh-key"><a href="#salt-ssh部署ssh-key" class="headerlink" title="salt-ssh部署ssh key"></a>salt-ssh部署ssh key</h2><p>默认salt-ssh将为ssh生成密钥对,默认路径是/etc/salt/pki/master/ssh/salt-ssh.rsa.密钥对将在第一次运行salt-ssh命令时生成.</p>
+<p>之后使用ssh-copy-id命令部署公钥到minions.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub user@server.demo.com</span><br></pre></td></tr></table></figure>
+
+<p>可以创建一个简单的脚本:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">if [ -z $1 ]; then</span><br><span class="line">   echo $0 user@host.com</span><br><span class="line">   exit 0</span><br><span class="line">fi</span><br><span class="line">ssh-copy-id -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub $1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./salt-ssh-copy-id.sh user@server1.host.com</span><br><span class="line">./salt-ssh-copy-id.sh user@server2.host.com</span><br></pre></td></tr></table></figure>
+
+<p>当公钥部署完成后,salt-ssh就可以控制这些minions了.</p>
+<h2 id="调用salt-ssh"><a href="#调用salt-ssh" class="headerlink" title="调用salt-ssh"></a>调用salt-ssh</h2><p>RHEL/centos 5 python2.6</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh centos-5-minion -r &apos;yum -y install epel-release ; yum -y install python26&apos;</span><br></pre></td></tr></table></figure>
+
+<p>python3.x<br>在2017.7.0版本之前,salt是不支持python3.x,最好使用-r参数.<br>salt-ssh的使用方法跟salt基本相同,有着相似的语法<br>默认salt-ssh使用在远程minions上使用salt执行模块,使用-r会使用raw shell命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh &apos;*&apos; test.ping</span><br></pre></td></tr></table></figure>
+
+<h2 id="salt-ssh-使用state"><a href="#salt-ssh-使用state" class="headerlink" title="salt ssh 使用state"></a>salt ssh 使用state</h2><p>salt ssh 使用state系统与salt一样抽象了相同的接口.</p>
+<h2 id="salt-ssh-使用target"><a href="#salt-ssh-使用target" class="headerlink" title="salt ssh 使用target"></a>salt ssh 使用target</h2><p>只支持glog与regex targets</p>
+<h2 id="配置salt-ssh"><a href="#配置salt-ssh" class="headerlink" title="配置salt ssh"></a>配置salt ssh</h2><p>还是在/etc/salt/master中.<br>Minion 配置选项可以在master配置中的ssh_minion_opts中配置,也可以在roster中的minion_opts中配置.</p>
+<h2 id="salt-ssh使用非root用户"><a href="#salt-ssh使用非root用户" class="headerlink" title="salt-ssh使用非root用户"></a>salt-ssh使用非root用户</h2><p>默认salt读取/etc/salt配置.如果你使用普通用户必须修改pki_dir和cachedir路径,否则会报权限错误.<br>推荐为普通用户创建单独的配置文件并使用-c加载.</p>
+<h2 id="使用saltfile定义命令行参数"><a href="#使用saltfile定义命令行参数" class="headerlink" title="使用saltfile定义命令行参数"></a>使用saltfile定义命令行参数</h2><p>使用saltfile定义命令行参数,可以在一台服务器上管理多个不同的salt项目.<br>可以cd到saltfile的目录执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">salt-ssh:</span><br><span class="line">  config_dir: path/to/config/dir</span><br><span class="line">  ssh_max_procs: 30</span><br><span class="line">  ssh_wipe: True</span><br></pre></td></tr></table></figure>
+
+<p>salt-ssh –config-dir=path/to/config/dir –max-procs=30 –wipe * test.ping<br>使用saltfile可简化成<br>salt-ssh * test.ping.</p>
+<h2 id="saltssh-debug"><a href="#saltssh-debug" class="headerlink" title="saltssh debug"></a>saltssh debug</h2><p>salt-ssh 加 -ltrace 参数或定义SALT_ARGV变量.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/02/07/man-手册中的下划线/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -377,6 +580,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2020-01-02T11:06:49+08:00" content="2020-01-02">
+      2020-01-02
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -537,6 +750,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -699,6 +922,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -867,6 +1100,16 @@
             
           </span>
 
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
+
           
             <span class="post-category" >
             
@@ -1020,6 +1263,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -1229,6 +1482,16 @@
             
           </span>
 
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
+
           
             <span class="post-category" >
             
@@ -1392,6 +1655,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -1562,6 +1835,16 @@
               </time>
             
           </span>
+
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
 
           
             <span class="post-category" >
@@ -1765,6 +2048,16 @@
             
           </span>
 
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2019-11-08T10:36:20+08:00" content="2019-11-08">
+      2019-11-08
+    </time>
+  </span>
+
+
+
           
 
           
@@ -1800,163 +2093,6 @@
 
 <p>效果如下<br><img src="/img/2019-01-27/close.png" alt></p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://talenhao.github.io/2019/01/26/yum常用操作汇总/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="天飞">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天飞 学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/yum常用操作汇总/" itemprop="url">yum常用操作汇总</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T19:10:48+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-08T10:36:20+08:00">
-                2019-11-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redhat/" itemprop="url" rel="index">
-                    <span itemprop="name">Redhat</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="使用DVD或本地源"><a href="#使用DVD或本地源" class="headerlink" title="使用DVD或本地源"></a>使用DVD或本地源</h2><p>修改/etc/yum.repo.d/CentOS-Media.repo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baseurl=file///root/cdrom # 镜像目录</span><br></pre></td></tr></table></figure>
-
-<p>然后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum --disablerepo=\* --enablerepo=c7-media install bind</span><br></pre></td></tr></table></figure>
           
         
       
@@ -2041,7 +2177,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">94</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

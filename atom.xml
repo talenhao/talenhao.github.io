@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://talenhao.github.io/"/>
-  <updated>2020-05-27T02:37:04.000Z</updated>
+  <updated>2020-06-03T13:17:21.000Z</updated>
   <id>https://talenhao.github.io/</id>
   
   <author>
@@ -17,17 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>流畅的Python读书笔记</title>
+    <title>pyenv下载官方python版本速度慢解决方法</title>
+    <link href="https://talenhao.github.io/2020/06/03/pyenv%E4%B8%8B%E8%BD%BD%E5%AE%98%E6%96%B9python%E7%89%88%E6%9C%AC%E9%80%9F%E5%BA%A6%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://talenhao.github.io/2020/06/03/pyenv下载官方python版本速度慢解决方法/</id>
+    <published>2020-06-03T13:17:21.000Z</published>
+    <updated>2020-06-03T13:17:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="pyenv下载官方python版本速度慢解决方法"><a href="#pyenv下载官方python版本速度慢解决方法" class="headerlink" title="pyenv下载官方python版本速度慢解决方法"></a>pyenv下载官方python版本速度慢解决方法</h1><p>使用默认的pyenv install <em>python 版本号</em> 的方式安装，国内下载速度太慢，有时还会中断。</p><p>可以先使用国内的python镜像网站下载好对应的python tar.xz包，放置于$HOME/.pyenv/cache/目录下，然后再使用安装命令安装的曲线方案。</p><p>命令行一键安装如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Wed Jun 03 talen@tp ~]$ version="2.7.16"; echo $version; wget "https://mirrors.huaweicloud.com/python/$version/Python-$version.tar.xz" -P ~/.pyenv/cache/;pyenv install $version</span><br><span class="line">2.7.16</span><br><span class="line">--2020-06-03 21:15:36--  https://mirrors.huaweicloud.com/python/2.7.16/Python-2.7.16.tar.xz</span><br><span class="line">Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'</span><br><span class="line">Resolving mirrors.huaweicloud.com (mirrors.huaweicloud.com)... 117.78.24.36, 117.78.24.32, 117.78.24.34</span><br><span class="line">Connecting to mirrors.huaweicloud.com (mirrors.huaweicloud.com)|117.78.24.36|:443... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: 12752104 (12M) [application/octet-stream]</span><br><span class="line">Saving to: ‘/home/talen/.pyenv/cache/Python-2.7.16.tar.xz’</span><br><span class="line"></span><br><span class="line">Python-2.7.16.tar.xz               100%[=============================================================&gt;]  12.16M  8.91MB/s    in 1.4s</span><br><span class="line"></span><br><span class="line">2020-06-03 21:15:37 (8.91 MB/s) - ‘/home/talen/.pyenv/cache/Python-2.7.16.tar.xz’ saved [12752104/12752104]</span><br><span class="line"></span><br><span class="line">Installing Python-2.7.16...</span><br><span class="line">Installed Python-2.7.16 to /home/talen/.pyenv/versions/2.7.16</span><br></pre></td></tr></table></figure><p>然后就可以愉快的工作了</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[Wed Jun 03 talen@tp ~]$ pyenv shell 2.7.16</span><br><span class="line">[Wed Jun 03 talen@tp ~]$ pyenv virtualenvwrapper_lazy </span><br><span class="line">Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">Collecting virtualenvwrapper</span><br><span class="line">Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz (334kB)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[Wed Jun 03 talen@tp ~]$ pyenv version</span><br><span class="line">2.7.16 (set by PYENV_VERSION environment variable)</span><br><span class="line">[Wed Jun 03 talen@tp ~]$ workon</span><br><span class="line">anaconda</span><br><span class="line">beibei</span><br><span class="line">beibei_capacity</span><br><span class="line">beibei_es_log</span><br><span class="line">celery</span><br><span class="line">diagrams-on-python</span><br><span class="line">django_celery_ansible</span><br><span class="line">djangoreactproject</span><br><span class="line">django-rest</span><br><span class="line">dns_healthcheck</span><br><span class="line">dnsmonitor</span><br><span class="line">fly_ops</span><br><span class="line">graph</span><br><span class="line">jumpserver</span><br><span class="line">leetcode</span><br><span class="line">log4p</span><br><span class="line">mxshop</span><br><span class="line">sklearn_study</span><br><span class="line">spider</span><br><span class="line">study</span><br><span class="line">study-xfz</span><br><span class="line">test_relocatable</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;pyenv下载官方python版本速度慢解决方法&quot;&gt;&lt;a href=&quot;#pyenv下载官方python版本速度慢解决方法&quot; class=&quot;headerlink&quot; title=&quot;pyenv下载官方python版本速度慢解决方法&quot;&gt;&lt;/a&gt;pyenv下载官方pytho
+      
+    
+    </summary>
+    
+      <category term="python" scheme="https://talenhao.github.io/categories/python/"/>
+    
+    
+      <category term="python" scheme="https://talenhao.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器</title>
     <link href="https://talenhao.github.io/2020/05/27/%E6%B5%81%E7%95%85%E7%9A%84Python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/</id>
     <published>2020-05-27T02:37:04.000Z</published>
     <updated>2020-05-27T02:37:04.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="第-14-章-可迭代的对象、迭代器和生成器"><a href="#第-14-章-可迭代的对象、迭代器和生成器" class="headerlink" title="第 14 章 可迭代的对象、迭代器和生成器"></a>第 14 章 可迭代的对象、迭代器和生成器</h2><h3 id="14-2-可迭代的对象与迭代器的对比"><a href="#14-2-可迭代的对象与迭代器的对比" class="headerlink" title="14.2 可迭代的对象与迭代器的对比"></a>14.2 可迭代的对象与迭代器的对比</h3><p>使用 iter 内置函数可以获取迭代器的对象。</p><p>如果对象实现了能返回迭代器的<strong>iter</strong> 方法,那么对象就是可迭代的。</p><p>序列都可以迭代;实现了 <strong>getitem</strong> 方法,而且其参数是从零开始的索引,这种对象也可以迭代。</p><h4 id="14-3-Sentence类第2版-典型的迭代器"><a href="#14-3-Sentence类第2版-典型的迭代器" class="headerlink" title="14.3 Sentence类第2版:典型的迭代器"></a>14.3 Sentence类第2版:典型的迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;</span><br><span class="line">如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">标准的迭代器接口有两个方法。</span><br><span class="line">__next__</span><br><span class="line">返回下一个可用的元素,如果没有元素了,抛出 StopIteration 异常。</span><br><span class="line">__iter__</span><br><span class="line">返回 self,以便在应该使用可迭代对象的地方使用迭代器,例如在 for 循环中。</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="迭代器无法还原"><a href="#迭代器无法还原" class="headerlink" title="迭代器无法还原"></a>迭代器无法还原</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为迭代器只需 __next__ 和 __iter__ 两个方法,所以除了调用 next() 方法,以及捕获 StopIteration 异常之外,没有办法检查是否还有遗留的元素。此外,也没有办法“还原”迭代器。</span><br><span class="line">如果想再次迭代,那就要调用iter(...),传入之前构建迭代器的可迭代对象。传入迭代器本身没用,因为前面说过Iterator.__iter__方法的实现方式是返回实例本身,所以传入迭代器无法还原已经耗尽的迭代器。</span><br></pre></td></tr></table></figure><h4 id="可迭代对象与迭代器"><a href="#可迭代对象与迭代器" class="headerlink" title="可迭代对象与迭代器"></a>可迭代对象与迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可迭代的对象一定不能是自身的迭代器。也就是说,可迭代的对象必须实现__iter__ 方法,但不能实现 __next__ 方法。</span><br><span class="line">另一方面,迭代器应该一直可以迭代。迭代器的 __iter__ 方法应该返回自身。</span><br></pre></td></tr></table></figure><h4 id="14-4-Sentence类第3版-生成器函数"><a href="#14-4-Sentence类第3版-生成器函数" class="headerlink" title="14.4 Sentence类第3版:生成器函数"></a>14.4 Sentence类第3版:生成器函数</h4><ul><li>更符合python风格的可迭代对像创建</li><li>使用生成器函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">生成器函数的工作原理</span><br><span class="line"></span><br><span class="line">只要 Python 函数的定义体中有 yield 关键字,该函数就是生成器函数。调用生成器函数时,会返回一个生成器对象。也就是说,生成器函数是生成器工厂。</span><br></pre></td></tr></table></figure></li></ul><p><em>函数返回值;调用生成器函数返回生成器;生成器产出或生成值。</em></p><h4 id="14-5-Sentence类第4版-惰性实现"><a href="#14-5-Sentence类第4版-惰性实现" class="headerlink" title="14.5 Sentence类第4版:惰性实现"></a>14.5 Sentence类第4版:惰性实现</h4><p>re.finditer 函数是 re.findall 函数的惰性版本,返回的不是列表,而是一个生成<br>器,按需生成 re.MatchObject 实例。如果有很多匹配,re.finditer 函数能节省大量<br>内存。</p><h4 id="14-6-Sentence类第5版-生成器表达式"><a href="#14-6-Sentence类第5版-生成器表达式" class="headerlink" title="14.6 Sentence类第5版:生成器表达式"></a>14.6 Sentence类第5版:生成器表达式</h4><p>生成器表达式可以理解为列表推导的惰性版本:不会迫切地构建列表,而是返回一个生成器,按需惰性生成元素。</p><p>也就是说,如果列表推导是制造列表的工厂,那么生成器表达式就是制造生成器的工厂。</p><p><em>() 替换 []</em></p><h4 id="14-7-何时使用生成器表达式"><a href="#14-7-何时使用生成器表达式" class="headerlink" title="14.7 何时使用生成器表达式"></a>14.7 何时使用生成器表达式</h4><p>如果生成器表达式要分成多行写,我倾向于定义生成器函数,以便提高可读性。此外,生成器函数有名称,因此可以重用。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="第-14-章-可迭代的对象、迭代器和生成器"><a href="#第-14-章-可迭代的对象、迭代器和生成器" class="headerlink" title="第 14 章 可迭代的对象、迭代器和生成器"></a>第 14 章 可迭代的对象、迭代器和生成器</h1><h3 id="14-2-可迭代的对象与迭代器的对比"><a href="#14-2-可迭代的对象与迭代器的对比" class="headerlink" title="14.2 可迭代的对象与迭代器的对比"></a>14.2 可迭代的对象与迭代器的对比</h3><p>使用 iter 内置函数可以获取迭代器的对象。</p><p>如果对象实现了能返回迭代器的<strong>iter</strong> 方法,那么对象就是可迭代的。</p><p>序列都可以迭代;实现了 <strong>getitem</strong> 方法,而且其参数是从零开始的索引,这种对象也可以迭代。</p><h4 id="14-3-Sentence类第2版-典型的迭代器"><a href="#14-3-Sentence类第2版-典型的迭代器" class="headerlink" title="14.3 Sentence类第2版:典型的迭代器"></a>14.3 Sentence类第2版:典型的迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;</span><br><span class="line">如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">标准的迭代器接口有两个方法。</span><br><span class="line">__next__</span><br><span class="line">返回下一个可用的元素,如果没有元素了,抛出 StopIteration 异常。</span><br><span class="line">__iter__</span><br><span class="line">返回 self,以便在应该使用可迭代对象的地方使用迭代器,例如在 for 循环中。</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="迭代器无法还原"><a href="#迭代器无法还原" class="headerlink" title="迭代器无法还原"></a>迭代器无法还原</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为迭代器只需 __next__ 和 __iter__ 两个方法,所以除了调用 next() 方法,以及捕获 StopIteration 异常之外,没有办法检查是否还有遗留的元素。此外,也没有办法“还原”迭代器。</span><br><span class="line">如果想再次迭代,那就要调用iter(...),传入之前构建迭代器的可迭代对象。传入迭代器本身没用,因为前面说过Iterator.__iter__方法的实现方式是返回实例本身,所以传入迭代器无法还原已经耗尽的迭代器。</span><br></pre></td></tr></table></figure><h4 id="可迭代对象与迭代器"><a href="#可迭代对象与迭代器" class="headerlink" title="可迭代对象与迭代器"></a>可迭代对象与迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可迭代的对象一定不能是自身的迭代器。也就是说,可迭代的对象必须实现__iter__ 方法,但不能实现 __next__ 方法。</span><br><span class="line">另一方面,迭代器应该一直可以迭代。迭代器的 __iter__ 方法应该返回自身。</span><br></pre></td></tr></table></figure><h4 id="14-4-Sentence类第3版-生成器函数"><a href="#14-4-Sentence类第3版-生成器函数" class="headerlink" title="14.4 Sentence类第3版:生成器函数"></a>14.4 Sentence类第3版:生成器函数</h4><ul><li>更符合python风格的可迭代对像创建</li><li>使用生成器函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">生成器函数的工作原理</span><br><span class="line"></span><br><span class="line">只要 Python 函数的定义体中有 yield 关键字,该函数就是生成器函数。调用生成器函数时,会返回一个生成器对象。也就是说,生成器函数是生成器工厂。</span><br></pre></td></tr></table></figure></li></ul><p><em>函数返回值;调用生成器函数返回生成器;生成器产出或生成值。</em></p><h4 id="14-5-Sentence类第4版-惰性实现"><a href="#14-5-Sentence类第4版-惰性实现" class="headerlink" title="14.5 Sentence类第4版:惰性实现"></a>14.5 Sentence类第4版:惰性实现</h4><p>re.finditer 函数是 re.findall 函数的惰性版本,返回的不是列表,而是一个生成<br>器,按需生成 re.MatchObject 实例。如果有很多匹配,re.finditer 函数能节省大量<br>内存。</p><h4 id="14-6-Sentence类第5版-生成器表达式"><a href="#14-6-Sentence类第5版-生成器表达式" class="headerlink" title="14.6 Sentence类第5版:生成器表达式"></a>14.6 Sentence类第5版:生成器表达式</h4><p>生成器表达式可以理解为列表推导的惰性版本:不会迫切地构建列表,而是返回一个生成器,按需惰性生成元素。</p><p>也就是说,如果列表推导是制造列表的工厂,那么生成器表达式就是制造生成器的工厂。</p><p><em>() 替换 []</em></p><h4 id="14-7-何时使用生成器表达式"><a href="#14-7-何时使用生成器表达式" class="headerlink" title="14.7 何时使用生成器表达式"></a>14.7 何时使用生成器表达式</h4><p>如果生成器表达式要分成多行写,我倾向于定义生成器函数,以便提高可读性。此外,生成器函数有名称,因此可以重用。</p>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;第-14-章-可迭代的对象、迭代器和生成器&quot;&gt;&lt;a href=&quot;#第-14-章-可迭代的对象、迭代器和生成器&quot; class=&quot;headerlink&quot; title=&quot;第 14 章 可迭代的对象、迭代器和生成器&quot;&gt;&lt;/a&gt;第 14 章 可迭代的对象、迭代器和生成器&lt;/h2&gt;&lt;h3 id=&quot;14-2-可迭代的对象与迭代器的对比&quot;&gt;&lt;a href=&quot;#14-2-可迭代的对象与迭代器的对比&quot; class=&quot;headerlink&quot; title=&quot;14.2 可迭代的对象与迭代器的对比&quot;&gt;&lt;/a&gt;14.2 可迭代的对象与迭代器的对比&lt;/h3&gt;&lt;p&gt;使用 iter 内置函数可以获取迭代器的对象。&lt;/p&gt;
+      &lt;h1 id=&quot;第-14-章-可迭代的对象、迭代器和生成器&quot;&gt;&lt;a href=&quot;#第-14-章-可迭代的对象、迭代器和生成器&quot; class=&quot;headerlink&quot; title=&quot;第 14 章 可迭代的对象、迭代器和生成器&quot;&gt;&lt;/a&gt;第 14 章 可迭代的对象、迭代器和生成器&lt;/h1&gt;&lt;h3 id=&quot;14-2-可迭代的对象与迭代器的对比&quot;&gt;&lt;a href=&quot;#14-2-可迭代的对象与迭代器的对比&quot; class=&quot;headerlink&quot; title=&quot;14.2 可迭代的对象与迭代器的对比&quot;&gt;&lt;/a&gt;14.2 可迭代的对象与迭代器的对比&lt;/h3&gt;&lt;p&gt;使用 iter 内置函数可以获取迭代器的对象。&lt;/p&gt;
 &lt;p&gt;如果对象实现了能返回迭代器的&lt;strong&gt;iter&lt;/strong&gt; 方法,那么对象就是可迭代的。&lt;/p&gt;
 &lt;p&gt;序列都可以迭代;实现了 &lt;strong&gt;getitem&lt;/strong&gt; 方法,而且其参数是从零开始的索引,这种对象也可以迭代。&lt;/p&gt;
 &lt;h4 id=&quot;14-3-Sentence类第2版-典型的迭代器&quot;&gt;&lt;a href=&quot;#14-3-Sentence类第2版-典型的迭代器&quot; class=&quot;headerlink&quot; title=&quot;14.3 Sentence类第2版:典型的迭代器&quot;&gt;&lt;/a&gt;14.3 Sentence类第2版:典型的迭代器&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -39,7 +64,7 @@
       <category term="python" scheme="https://talenhao.github.io/categories/python/"/>
     
     
-      <category term="python" scheme="https://talenhao.github.io/tags/python/"/>
+      <category term="流畅的Python" scheme="https://talenhao.github.io/tags/%E6%B5%81%E7%95%85%E7%9A%84Python/"/>
     
   </entry>
   
@@ -516,34 +541,6 @@ jsonp
       <category term="front-end" scheme="https://talenhao.github.io/tags/front-end/"/>
     
       <category term="javascript" scheme="https://talenhao.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>英语历史</title>
-    <link href="https://talenhao.github.io/2019/09/19/%E8%8B%B1%E8%AF%AD%E5%8E%86%E5%8F%B2/"/>
-    <id>https://talenhao.github.io/2019/09/19/英语历史/</id>
-    <published>2019-09-19T09:11:18.000Z</published>
-    <updated>2019-09-19T09:11:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="英语历史"><a href="#英语历史" class="headerlink" title="英语历史"></a>英语历史</h1><pre class="mermaid">graph TB腓尼基字母-->希腊字母希腊字母-->拉丁字母拉丁字母-->英文字母</pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;英语历史&quot;&gt;&lt;a href=&quot;#英语历史&quot; class=&quot;headerlink&quot; title=&quot;英语历史&quot;&gt;&lt;/a&gt;英语历史&lt;/h1&gt;&lt;pre class=&quot;mermaid&quot;&gt;graph TB
-腓尼基字母--&gt;希腊字母
-希腊字母--&gt;拉丁字母
-拉丁字母--&gt;英文字
-      
-    
-    </summary>
-    
-      <category term="english" scheme="https://talenhao.github.io/categories/english/"/>
-    
-    
-      <category term="english" scheme="https://talenhao.github.io/tags/english/"/>
     
   </entry>
   

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[流畅的Python读书笔记]]></title>
+    <title><![CDATA[pyenv下载官方python版本速度慢解决方法]]></title>
+    <url>%2F2020%2F06%2F03%2Fpyenv%E4%B8%8B%E8%BD%BD%E5%AE%98%E6%96%B9python%E7%89%88%E6%9C%AC%E9%80%9F%E5%BA%A6%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[pyenv下载官方python版本速度慢解决方法使用默认的pyenv install python 版本号 的方式安装，国内下载速度太慢，有时还会中断。 可以先使用国内的python镜像网站下载好对应的python tar.xz包，放置于$HOME/.pyenv/cache/目录下，然后再使用安装命令安装的曲线方案。 命令行一键安装如下： 12345678910111213141516[Wed Jun 03 talen@tp ~]$ version="2.7.16"; echo $version; wget "https://mirrors.huaweicloud.com/python/$version/Python-$version.tar.xz" -P ~/.pyenv/cache/;pyenv install $version2.7.16--2020-06-03 21:15:36-- https://mirrors.huaweicloud.com/python/2.7.16/Python-2.7.16.tar.xzLoaded CA certificate '/etc/ssl/certs/ca-certificates.crt'Resolving mirrors.huaweicloud.com (mirrors.huaweicloud.com)... 117.78.24.36, 117.78.24.32, 117.78.24.34Connecting to mirrors.huaweicloud.com (mirrors.huaweicloud.com)|117.78.24.36|:443... connected.HTTP request sent, awaiting response... 200 OKLength: 12752104 (12M) [application/octet-stream]Saving to: ‘/home/talen/.pyenv/cache/Python-2.7.16.tar.xz’Python-2.7.16.tar.xz 100%[=============================================================&gt;] 12.16M 8.91MB/s in 1.4s2020-06-03 21:15:37 (8.91 MB/s) - ‘/home/talen/.pyenv/cache/Python-2.7.16.tar.xz’ saved [12752104/12752104]Installing Python-2.7.16...Installed Python-2.7.16 to /home/talen/.pyenv/versions/2.7.16 然后就可以愉快的工作了 123456789101112131415161718192021222324252627282930313233[Wed Jun 03 talen@tp ~]$ pyenv shell 2.7.16[Wed Jun 03 talen@tp ~]$ pyenv virtualenvwrapper_lazy Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simpleCollecting virtualenvwrapperDownloading https://pypi.tuna.tsinghua.edu.cn/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz (334kB)...[Wed Jun 03 talen@tp ~]$ pyenv version2.7.16 (set by PYENV_VERSION environment variable)[Wed Jun 03 talen@tp ~]$ workonanacondabeibeibeibei_capacitybeibei_es_logcelerydiagrams-on-pythondjango_celery_ansibledjangoreactprojectdjango-restdns_healthcheckdnsmonitorfly_opsgraphjumpserverleetcodelog4pmxshopsklearn_studyspiderstudystudy-xfztest_relocatable]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器]]></title>
     <url>%2F2020%2F05%2F27%2F%E6%B5%81%E7%95%85%E7%9A%84Python%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%2F</url>
     <content type="text"><![CDATA[第 14 章 可迭代的对象、迭代器和生成器14.2 可迭代的对象与迭代器的对比使用 iter 内置函数可以获取迭代器的对象。 如果对象实现了能返回迭代器的iter 方法,那么对象就是可迭代的。 序列都可以迭代;实现了 getitem 方法,而且其参数是从零开始的索引,这种对象也可以迭代。 14.3 Sentence类第2版:典型的迭代器12迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。 12345标准的迭代器接口有两个方法。__next__返回下一个可用的元素,如果没有元素了,抛出 StopIteration 异常。__iter__返回 self,以便在应该使用可迭代对象的地方使用迭代器,例如在 for 循环中。 迭代器无法还原12因为迭代器只需 __next__ 和 __iter__ 两个方法,所以除了调用 next() 方法,以及捕获 StopIteration 异常之外,没有办法检查是否还有遗留的元素。此外,也没有办法“还原”迭代器。如果想再次迭代,那就要调用iter(...),传入之前构建迭代器的可迭代对象。传入迭代器本身没用,因为前面说过Iterator.__iter__方法的实现方式是返回实例本身,所以传入迭代器无法还原已经耗尽的迭代器。 可迭代对象与迭代器12可迭代的对象一定不能是自身的迭代器。也就是说,可迭代的对象必须实现__iter__ 方法,但不能实现 __next__ 方法。另一方面,迭代器应该一直可以迭代。迭代器的 __iter__ 方法应该返回自身。 14.4 Sentence类第3版:生成器函数 更符合python风格的可迭代对像创建 使用生成器函数123生成器函数的工作原理只要 Python 函数的定义体中有 yield 关键字,该函数就是生成器函数。调用生成器函数时,会返回一个生成器对象。也就是说,生成器函数是生成器工厂。 函数返回值;调用生成器函数返回生成器;生成器产出或生成值。 14.5 Sentence类第4版:惰性实现re.finditer 函数是 re.findall 函数的惰性版本,返回的不是列表,而是一个生成器,按需生成 re.MatchObject 实例。如果有很多匹配,re.finditer 函数能节省大量内存。 14.6 Sentence类第5版:生成器表达式生成器表达式可以理解为列表推导的惰性版本:不会迫切地构建列表,而是返回一个生成器,按需惰性生成元素。 也就是说,如果列表推导是制造列表的工厂,那么生成器表达式就是制造生成器的工厂。 () 替换 [] 14.7 何时使用生成器表达式如果生成器表达式要分成多行写,我倾向于定义生成器函数,以便提高可读性。此外,生成器函数有名称,因此可以重用。]]></content>
       <categories>
         <category>python</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>流畅的Python</tag>
       </tags>
   </entry>
   <entry>

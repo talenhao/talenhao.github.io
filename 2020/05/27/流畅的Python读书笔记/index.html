@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="python,">
+  <meta name="keywords" content="流畅的Python,">
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="第 14 章 可迭代的对象、迭代器和生成器14.2 可迭代的对象与迭代器的对比使用 iter 内置函数可以获取迭代器的对象。 如果对象实现了能返回迭代器的iter 方法,那么对象就是可迭代的。 序列都可以迭代;实现了 getitem 方法,而且其参数是从零开始的索引,这种对象也可以迭代。 14.3 Sentence类第2版:典型的迭代器12迭代器是这样的对象:实现了无参数的 __next__ 方法">
-<meta name="keywords" content="python">
+<meta name="keywords" content="流畅的Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="流畅的Python读书笔记">
+<meta property="og:title" content="流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器">
 <meta property="og:url" content="https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/index.html">
 <meta property="og:site_name" content="天飞 学习笔记">
 <meta property="og:description" content="第 14 章 可迭代的对象、迭代器和生成器14.2 可迭代的对象与迭代器的对比使用 iter 内置函数可以获取迭代器的对象。 如果对象实现了能返回迭代器的iter 方法,那么对象就是可迭代的。 序列都可以迭代;实现了 getitem 方法,而且其参数是从零开始的索引,这种对象也可以迭代。 14.3 Sentence类第2版:典型的迭代器12迭代器是这样的对象:实现了无参数的 __next__ 方法">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2020-05-27T02:37:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="流畅的Python读书笔记">
+<meta name="twitter:title" content="流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器">
 <meta name="twitter:description" content="第 14 章 可迭代的对象、迭代器和生成器14.2 可迭代的对象与迭代器的对比使用 iter 内置函数可以获取迭代器的对象。 如果对象实现了能返回迭代器的iter 方法,那么对象就是可迭代的。 序列都可以迭代;实现了 getitem 方法,而且其参数是从零开始的索引,这种对象也可以迭代。 14.3 Sentence类第2版:典型的迭代器12迭代器是这样的对象:实现了无参数的 __next__ 方法">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>流畅的Python读书笔记 | 天飞 学习笔记</title>
+  <title>流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器 | 天飞 学习笔记</title>
   
 
 
@@ -341,7 +341,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">流畅的Python读书笔记</h2>
+          <h2 class="post-title" itemprop="name headline">流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器</h2>
         
 
         <div class="post-meta">
@@ -433,7 +433,7 @@
       
 
       
-        <h2 id="第-14-章-可迭代的对象、迭代器和生成器"><a href="#第-14-章-可迭代的对象、迭代器和生成器" class="headerlink" title="第 14 章 可迭代的对象、迭代器和生成器"></a>第 14 章 可迭代的对象、迭代器和生成器</h2><h3 id="14-2-可迭代的对象与迭代器的对比"><a href="#14-2-可迭代的对象与迭代器的对比" class="headerlink" title="14.2 可迭代的对象与迭代器的对比"></a>14.2 可迭代的对象与迭代器的对比</h3><p>使用 iter 内置函数可以获取迭代器的对象。</p>
+        <h1 id="第-14-章-可迭代的对象、迭代器和生成器"><a href="#第-14-章-可迭代的对象、迭代器和生成器" class="headerlink" title="第 14 章 可迭代的对象、迭代器和生成器"></a>第 14 章 可迭代的对象、迭代器和生成器</h1><h3 id="14-2-可迭代的对象与迭代器的对比"><a href="#14-2-可迭代的对象与迭代器的对比" class="headerlink" title="14.2 可迭代的对象与迭代器的对比"></a>14.2 可迭代的对象与迭代器的对比</h3><p>使用 iter 内置函数可以获取迭代器的对象。</p>
 <p>如果对象实现了能返回迭代器的<strong>iter</strong> 方法,那么对象就是可迭代的。</p>
 <p>序列都可以迭代;实现了 <strong>getitem</strong> 方法,而且其参数是从零开始的索引,这种对象也可以迭代。</p>
 <h4 id="14-3-Sentence类第2版-典型的迭代器"><a href="#14-3-Sentence类第2版-典型的迭代器" class="headerlink" title="14.3 Sentence类第2版:典型的迭代器"></a>14.3 Sentence类第2版:典型的迭代器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">迭代器是这样的对象:实现了无参数的 __next__ 方法,返回序列中的下一个元素;</span><br><span class="line">如果没有元素了,那么抛出 StopIteration 异常。Python 中的迭代器还实现了__iter__ 方法,因此迭代器也可以迭代。</span><br></pre></td></tr></table></figure>
@@ -506,7 +506,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/" title="流畅的Python读书笔记">https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/</a>
+    <a href="https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/" title="流畅的Python读书笔记-第 14 章 可迭代的对象、迭代器和生成器">https://talenhao.github.io/2020/05/27/流畅的Python读书笔记/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -521,7 +521,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/流畅的Python/" rel="tag"># 流畅的Python</a>
           
         </div>
       
@@ -543,6 +543,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/03/pyenv下载官方python版本速度慢解决方法/" rel="prev" title="pyenv下载官方python版本速度慢解决方法">
+                pyenv下载官方python版本速度慢解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -662,7 +666,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -684,7 +688,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -754,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第-14-章-可迭代的对象、迭代器和生成器"><span class="nav-number">1.</span> <span class="nav-text">第 14 章 可迭代的对象、迭代器和生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-2-可迭代的对象与迭代器的对比"><span class="nav-number">1.1.</span> <span class="nav-text">14.2 可迭代的对象与迭代器的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-3-Sentence类第2版-典型的迭代器"><span class="nav-number">1.1.1.</span> <span class="nav-text">14.3 Sentence类第2版:典型的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代器无法还原"><span class="nav-number">1.1.2.</span> <span class="nav-text">迭代器无法还原</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可迭代对象与迭代器"><span class="nav-number">1.1.3.</span> <span class="nav-text">可迭代对象与迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-4-Sentence类第3版-生成器函数"><span class="nav-number">1.1.4.</span> <span class="nav-text">14.4 Sentence类第3版:生成器函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-5-Sentence类第4版-惰性实现"><span class="nav-number">1.1.5.</span> <span class="nav-text">14.5 Sentence类第4版:惰性实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-6-Sentence类第5版-生成器表达式"><span class="nav-number">1.1.6.</span> <span class="nav-text">14.6 Sentence类第5版:生成器表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-何时使用生成器表达式"><span class="nav-number">1.1.7.</span> <span class="nav-text">14.7 何时使用生成器表达式</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第-14-章-可迭代的对象、迭代器和生成器"><span class="nav-number">1.</span> <span class="nav-text">第 14 章 可迭代的对象、迭代器和生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-2-可迭代的对象与迭代器的对比"><span class="nav-number">1.0.1.</span> <span class="nav-text">14.2 可迭代的对象与迭代器的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-3-Sentence类第2版-典型的迭代器"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">14.3 Sentence类第2版:典型的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代器无法还原"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">迭代器无法还原</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可迭代对象与迭代器"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">可迭代对象与迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-4-Sentence类第3版-生成器函数"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">14.4 Sentence类第3版:生成器函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-5-Sentence类第4版-惰性实现"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">14.5 Sentence类第4版:惰性实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-6-Sentence类第5版-生成器表达式"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">14.6 Sentence类第5版:生成器表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-何时使用生成器表达式"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">14.7 何时使用生成器表达式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

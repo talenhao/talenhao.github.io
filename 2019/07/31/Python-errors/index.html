@@ -82,14 +82,14 @@
 <meta name="description" content="python Errors 原因Q112345672019-07-31 17:23:44,663 - jms_perm.py - INFO - perm_key: ([&amp;apos;名字(zhi.ming)&amp;apos;], [&amp;apos;v-hostname.hx(10.10.100.100)&amp;apos;])Traceback (most recent call last):  File &amp;quot">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python errors">
+<meta property="og:title" content="Python errors QA">
 <meta property="og:url" content="https://talenhao.github.io/2019/07/31/Python-errors/index.html">
 <meta property="og:site_name" content="天飞 学习笔记">
 <meta property="og:description" content="python Errors 原因Q112345672019-07-31 17:23:44,663 - jms_perm.py - INFO - perm_key: ([&amp;apos;名字(zhi.ming)&amp;apos;], [&amp;apos;v-hostname.hx(10.10.100.100)&amp;apos;])Traceback (most recent call last):  File &amp;quot">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-31T09:32:01.000Z">
+<meta property="og:updated_time" content="2020-06-04T15:29:44.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python errors">
+<meta name="twitter:title" content="Python errors QA">
 <meta name="twitter:description" content="python Errors 原因Q112345672019-07-31 17:23:44,663 - jms_perm.py - INFO - perm_key: ([&amp;apos;名字(zhi.ming)&amp;apos;], [&amp;apos;v-hostname.hx(10.10.100.100)&amp;apos;])Traceback (most recent call last):  File &amp;quot">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Python errors | 天飞 学习笔记</title>
+  <title>Python errors QA | 天飞 学习笔记</title>
   
 
 
@@ -341,7 +341,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Python errors</h2>
+          <h2 class="post-title" itemprop="name headline">Python errors QA</h2>
         
 
         <div class="post-meta">
@@ -369,12 +369,19 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T17:32:01+08:00">
-                2019-07-31
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-04T23:29:44+08:00">
+                2020-06-04
               </time>
             
           </span>
 
+
+  <span class="post-updated">
+    &nbsp; | &nbsp; 更新于
+    <time itemprop="dateUpdated" datetime="2020-06-04T23:29:44+08:00" content="2020-06-04">
+      2020-06-04
+    </time>
+  </span>
 
 
 
@@ -441,7 +448,10 @@
 <p>问题中key中包含list或dict类型,所以报错.</p>
 <p>可哈希的元素有：int, float, str, tuple<br> 不可哈希的元素有：list, set, dict</p>
 <p>简单说在元素生命周期中,元素值会发布变动的为unhashable</p>
-
+<hr>
+<h2 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h2><p>报错 ModuleNotFoundError: No module named ‘_ctypes’</p>
+<h2 id="A2"><a href="#A2" class="headerlink" title="A2"></a>A2</h2><p>其实是缺少了一个新需要的开发包libffi-devel，安装后即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install libffi-devel -y （包在base）</span><br><span class="line">yum install zlib-devel gcc libffi-devel</span><br><span class="line">yum install bzip2-devel readline-devel openssl-devel</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -490,7 +500,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://talenhao.github.io/2019/07/31/Python-errors/" title="Python errors">https://talenhao.github.io/2019/07/31/Python-errors/</a>
+    <a href="https://talenhao.github.io/2019/07/31/Python-errors/" title="Python errors QA">https://talenhao.github.io/2019/07/31/Python-errors/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -742,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-Errors-原因"><span class="nav-number">1.</span> <span class="nav-text">python Errors 原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1"><span class="nav-number">1.1.</span> <span class="nav-text">Q1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A1"><span class="nav-number">1.2.</span> <span class="nav-text">A1</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-Errors-原因"><span class="nav-number">1.</span> <span class="nav-text">python Errors 原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1"><span class="nav-number">1.1.</span> <span class="nav-text">Q1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A1"><span class="nav-number">1.2.</span> <span class="nav-text">A1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q2"><span class="nav-number">1.3.</span> <span class="nav-text">Q2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A2"><span class="nav-number">1.4.</span> <span class="nav-text">A2</span></a></li></ol></li></ol></div>
             
 
           </div>
